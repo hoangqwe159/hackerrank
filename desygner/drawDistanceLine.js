@@ -20,6 +20,7 @@ const closestPoints = (selectedCoord, hoverCoord) => {
   // 2 rectangles are not rotated
   if (!isRotated (selectedCoord) && !isRotated (hoverCoord)) {
     const offset = isOffset (selectedCoord, hoverCoord);
+    console.log(offset);
 
     // Get inscribed coordinates
     selectedCoord = inscribedCoord;
@@ -82,14 +83,15 @@ const closestPoints = (selectedCoord, hoverCoord) => {
         }
       }
 
-      const {xCoord, yCoord} = getCoordXY (selectedCoord);
+      const {xCoord, yCoord} = getCoordXY (hoverCoord);
       const maxX = Math.max (...xCoord);
       const maxY = Math.max (...yCoord);
       const minX = Math.min (...xCoord);
       const minY = Math.min (...yCoord);
 
-      if (selectedPoint[0] < maxX && selectedPoint[0] > minX)
+      if (selectedPoint[0] < maxX && selectedPoint[0] > minX) {
         hoverPoint[0] = selectedPoint[0];
+      }
 
       if (selectedPoint[1] < maxY && selectedPoint[1] > minY)
         hoverPoint[1] = selectedPoint[1];
@@ -195,10 +197,16 @@ const isOffset = (selectedCoord, hoverCoord) => {
   const isOffsetX =
     hoverCoord.x1 > selectedCoord.x2 || hoverCoord.x2 < selectedCoord.x1;
   const isOffsetY =
-    hoverCoord.y3 < selectedCoord.y2 || hoverCoord.y1 > selectedCoord.y3;
-
+    hoverCoord.y1 > selectedCoord.y3 || hoverCoord.y3 < selectedCoord.y1;
   return isOffsetX && isOffsetY;
 };
+
+const getArrLines = (selectedCoord, hoverCoord, selectedPoints, hoverPoint) => {
+  const arrLines = [];
+  for (let i = 0; i < selectedPoints.length; i++) {
+    const selectedPoint = selectedPoints[i];
+  }
+}
 
 const selectedCoord = {
   x1: 1,
@@ -256,11 +264,97 @@ const recNotRotated2 = {
   y4: 5,
 };
 
+const shape1 = {
+  x1: 4,
+  y1: 4,
+  x2: 10,
+  y2: 4,
+  x3: 4,
+  y3: 8,
+  x4: 10,
+  y4: 8,
+}
+const shape2 = {
+  x1: 1,
+  y1: 2,
+  x2: 3,
+  y2: 2,
+  x3: 1,
+  y3: 3,
+  x4: 3,
+  y4: 3,
+}
+const shape3 = {
+  x1: 3.5,
+  y1: 1,
+  x2: 5,
+  y2: 1,
+  x3: 3.5,
+  y3: 2,
+  x4: 5,
+  y4: 2,
+}
+const shape4 = {
+  x1: 6,
+  y1: 2,
+  x2: 9,
+  y2: 2,
+  x3: 6,
+  y3: 3,
+  x4: 9,
+  y4: 3,
+}
+const shape5 = {
+  x1: 11,
+  y1: 1,
+  x2: 12,
+  y2: 1,
+  x3: 11,
+  y3: 3,
+  x4: 12,
+  y4: 3,
+}
+const shape6 = {
+  x1: 11,
+  y1: 5,
+  x2: 12,
+  y2: 5,
+  x3: 11,
+  y3: 9,
+  x4: 12,
+  y4: 9,
+}
+const shape7 = {
+  x1: 6,
+  y1: 9,
+  x2: 9,
+  y2: 9,
+  x3: 6,
+  y3: 10,
+  x4: 9,
+  y4: 10,
+}
+const shape8 = {
+  x1: 2,
+  y1: 8,
+  x2: 4,
+  y2: 8,
+  x3: 2,
+  y3: 10,
+  x4: 4,
+  y4: 10,
+}
+
 // console.log(isRotated(selectedCoord));
 // console.log(isRotated(hoverCoord));
 // console.log(closestPoints(selectedCoord, hoverCoord));
 // console.log(closestPoints(hoverCoord, selectedCoord));
-// console.log(isOverlap(selectedCoord, hoverCoord));
 
-console.log (closestPoints (recNotRotated1, recNotRotated2));
-console.log (isOffset (recNotRotated1, recNotRotated2));
+// console.log (closestPoints (recNotRotated1, recNotRotated2));
+// console.log (isOffset (recNotRotated1, recNotRotated2));
+
+// console.log (closestPoints (shape1, shape2));
+console.log (closestPoints (shape1, shape8));
+
+console.log(isOverlap(shape1, shape8));
+
