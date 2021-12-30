@@ -20,7 +20,7 @@ const closestPoints = (selectedCoord, hoverCoord) => {
   // 2 rectangles are not rotated
   if (!isRotated (selectedCoord) && !isRotated (hoverCoord)) {
     const offset = isOffset (selectedCoord, hoverCoord);
-    console.log(offset);
+    console.log (offset);
 
     // Get inscribed coordinates
     selectedCoord = inscribedCoord;
@@ -62,8 +62,8 @@ const closestPoints = (selectedCoord, hoverCoord) => {
       }
 
       return {
-        selectedPoints: [firstSelectedPoint, secondSelectedPoint],
-        hoverPoints: [hoverPoint],
+        startPoints: [firstSelectedPoint, secondSelectedPoint],
+        endPoint: [hoverPoint],
       };
     } else {
       let selectedPoint, hoverPoint;
@@ -97,8 +97,8 @@ const closestPoints = (selectedCoord, hoverCoord) => {
         hoverPoint[1] = selectedPoint[1];
 
       return {
-        selectedPoints: [selectedPoint],
-        hoverPoints: [hoverPoint],
+        startPoints: [selectedPoint],
+        endPoint: [hoverPoint],
       };
     }
   } else {
@@ -118,8 +118,8 @@ const closestPoints = (selectedCoord, hoverCoord) => {
       }
     }
     return {
-      selectedPoints: [selectedPoint],
-      hoverPoints: [hoverPoint],
+      startPoints: [selectedPoint],
+      endPoint: [hoverPoint],
     };
   }
 };
@@ -201,13 +201,63 @@ const isOffset = (selectedCoord, hoverCoord) => {
   return isOffsetX && isOffsetY;
 };
 
-const getArrLines = (selectedCoord, hoverCoord, selectedPoints, hoverPoint) => {
+const getArrLines = (selectedCoord, startPoints, endPoint) => {
   const arrLines = [];
+  for (let i = 0; i < startPoints.length; i++) {
+    const startPoint = startPoints[i];
+    if (startPoint[0] !== endPoint[0] && startPoint[1] !== endPoint[1]) {
+      const connectedPoint1 = [startPoint[0], endPoint[1]];
+      const connectedPoint2 = [startPoint[1], endPoint[0]];
+      let connectedPoint;
+
+      if (validConnectedPoint (connectedPoint1, selectedCoord, startPoint)) {
+        connectedPoint = connectedPoint1;
+      } else {
+        connectedPoint = connectedPoint2;
+      }
+      arrLines.push ([
+        {
+          x1: startPoint[0],
+          y1: startPoint[1],
+          x2: connectedPoint[0],
+          y2: connectedPoint[1],
+        },
+        {
+          x1: connectedPoint[0],
+          y1: connectedPoint[1],
+          x2: endPoint[0],
+          y2: endPoint[1],
+        },
+      ]);
+    } else {
+      arrLines.push ({
+        x1: startPoint[0],
+        y1: startPoint[1],
+        x2: endPoint[0],
+        y2: endPoint[1],
+      });
+    }
+  }
+  return arrLines;
+};
+
+const validConnectedPoint = (connectedPoint, selectedCoord, startPoint) => {
+  const selectedPoints = coordToPoint (selectedCoord);
   for (let i = 0; i < selectedPoints.length; i++) {
     const selectedPoint = selectedPoints[i];
-    const connectedPoint1 = 
+    if (isCollinear (startPoint, selectedPoint, connectedPoint)) return false;
   }
-}
+  return true;
+};
+
+const isCollinear = (point1, point2, point3) => {
+  let area =
+    point1[0] * (point2[1] - point3[1]) +
+    point2[0] * (point3[1] - point1[1]) +
+    point3[0] * (point1[1] - point2[1]);
+
+  return area === 0;
+};
 
 const selectedCoord = {
   x1: 1,
@@ -274,7 +324,7 @@ const shape1 = {
   y3: 8,
   x4: 10,
   y4: 8,
-}
+};
 const shape2 = {
   x1: 1,
   y1: 2,
@@ -284,7 +334,7 @@ const shape2 = {
   y3: 3,
   x4: 3,
   y4: 3,
-}
+};
 const shape3 = {
   x1: 3.5,
   y1: 1,
@@ -294,7 +344,7 @@ const shape3 = {
   y3: 2,
   x4: 5,
   y4: 2,
-}
+};
 const shape4 = {
   x1: 6,
   y1: 2,
@@ -304,7 +354,7 @@ const shape4 = {
   y3: 3,
   x4: 9,
   y4: 3,
-}
+};
 const shape5 = {
   x1: 11,
   y1: 1,
@@ -314,7 +364,7 @@ const shape5 = {
   y3: 3,
   x4: 12,
   y4: 3,
-}
+};
 const shape6 = {
   x1: 11,
   y1: 5,
@@ -324,7 +374,7 @@ const shape6 = {
   y3: 9,
   x4: 12,
   y4: 9,
-}
+};
 const shape7 = {
   x1: 6,
   y1: 9,
@@ -334,7 +384,7 @@ const shape7 = {
   y3: 10,
   x4: 9,
   y4: 10,
-}
+};
 const shape8 = {
   x1: 2,
   y1: 8,
@@ -344,7 +394,7 @@ const shape8 = {
   y3: 10,
   x4: 4,
   y4: 10,
-}
+};
 
 // console.log(isRotated(selectedCoord));
 // console.log(isRotated(hoverCoord));
@@ -356,6 +406,8 @@ const shape8 = {
 
 // console.log (closestPoints (shape1, shape2));
 console.log (closestPoints (shape1, shape8));
+const points = closestPoints (shape1, shape8);
+const startPoints = points.startPoints;
+const endPoint = points.endPoint;
 
-console.log(isOverlap(shape1, shape8));
-
+console.log (getArrLines ());
