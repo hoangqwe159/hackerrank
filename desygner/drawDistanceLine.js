@@ -63,7 +63,7 @@ const closestPoints = (selectedCoord, hoverCoord) => {
 
       return {
         startPoints: [firstSelectedPoint, secondSelectedPoint],
-        endPoint: [hoverPoint],
+        endPoint: hoverPoint,
       };
     } else {
       let selectedPoint, hoverPoint;
@@ -98,7 +98,7 @@ const closestPoints = (selectedCoord, hoverCoord) => {
 
       return {
         startPoints: [selectedPoint],
-        endPoint: [hoverPoint],
+        endPoint: hoverPoint,
       };
     }
   } else {
@@ -119,7 +119,7 @@ const closestPoints = (selectedCoord, hoverCoord) => {
     }
     return {
       startPoints: [selectedPoint],
-      endPoint: [hoverPoint],
+      endPoint: hoverPoint,
     };
   }
 };
@@ -207,7 +207,7 @@ const getArrLines = (selectedCoord, startPoints, endPoint) => {
     const startPoint = startPoints[i];
     if (startPoint[0] !== endPoint[0] && startPoint[1] !== endPoint[1]) {
       const connectedPoint1 = [startPoint[0], endPoint[1]];
-      const connectedPoint2 = [startPoint[1], endPoint[0]];
+      const connectedPoint2 = [endPoint[0], startPoint[1]];
       let connectedPoint;
 
       if (validConnectedPoint (connectedPoint1, selectedCoord, startPoint)) {
@@ -215,7 +215,8 @@ const getArrLines = (selectedCoord, startPoints, endPoint) => {
       } else {
         connectedPoint = connectedPoint2;
       }
-      arrLines.push ([
+      console.log(endPoint, startPoint, connectedPoint);
+      arrLines.push (
         {
           x1: startPoint[0],
           y1: startPoint[1],
@@ -228,7 +229,7 @@ const getArrLines = (selectedCoord, startPoints, endPoint) => {
           x2: endPoint[0],
           y2: endPoint[1],
         },
-      ]);
+      );
     } else {
       arrLines.push ({
         x1: startPoint[0],
@@ -406,8 +407,20 @@ const shape8 = {
 
 // console.log (closestPoints (shape1, shape2));
 console.log (closestPoints (shape1, shape8));
+console.log(isOverlap(shape1, shape3));
 const points = closestPoints (shape1, shape8);
 const startPoints = points.startPoints;
 const endPoint = points.endPoint;
 
-console.log (getArrLines ());
+console.log (getArrLines (shape1, startPoints, endPoint));
+
+const main = (selectedCoord , hoverCoord) => {
+  if (isOverlap(selectedCoord, hoverCoord)) return;
+  const points = closestPoints (selectedCoord, hoverCoord);
+  const startPoints = points.startPoints;
+  const endPoint = points.endPoint;
+
+  console.log (getArrLines (shape1, startPoints, endPoint));
+}
+
+console.log(main(shape1, shape8));
