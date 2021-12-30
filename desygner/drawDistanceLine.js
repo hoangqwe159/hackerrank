@@ -205,6 +205,7 @@ const getArrLines = (selectedCoord, hoverCoord, selectedPoints, hoverPoint) => {
   const arrLines = [];
   for (let i = 0; i < selectedPoints.length; i++) {
     const selectedPoint = selectedPoints[i];
+    const connectedPoint1 = 
   }
 }
 
