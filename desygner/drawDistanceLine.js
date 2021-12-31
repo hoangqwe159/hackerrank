@@ -140,8 +140,8 @@ const coordToPoint = coord => {
   const points = [
     [coord.x1, coord.y1],
     [coord.x2, coord.y2],
-    [coord.x3, coord.y3],
     [coord.x4, coord.y4],
+    [coord.x3, coord.y3],
   ];
   return points;
 };
@@ -157,12 +157,14 @@ const isOverlap = (selectedCoord, hoverCoord) => {
   const hoverPoints = coordToPoint (hoverCoord);
   const recs = [selectedPoints, hoverPoints];
 
-  recs.forEach (rec => {
+  for (let index = 0; index < recs.length; index++) {
+    const rec = recs[index];
     for (let i = 0; i < rec.length; i++) {
       let j = (i + 1) % rec.length;
       let p1 = rec[i];
       let p2 = rec[j];
       let normal = {x: p2[1] - p1[1], y: p1[0] - p2[0]};
+      console.log(rec.length);
 
       let minA = null;
       let maxA = null;
@@ -183,10 +185,12 @@ const isOverlap = (selectedCoord, hoverCoord) => {
         if (minB == null || projected < minB) minB = projected;
         if (maxB == null || projected > maxB) maxB = projected;
       });
-
-      if (maxA < minB || maxB < minA) return false;
+      console.log((maxA < minB || maxB < minA));
+      if (maxA < minB || maxB < minA) {
+        return false;
+      }
     }
-  });
+  };
   return true;
 };
 
@@ -407,7 +411,7 @@ const shape8 = {
 
 // console.log (closestPoints (shape1, shape2));
 console.log (closestPoints (shape1, shape8));
-console.log(isOverlap(shape1, shape3));
+console.log(isOverlap(shape1, shape8));
 const points = closestPoints (shape1, shape8);
 const startPoints = points.startPoints;
 const endPoint = points.endPoint;
@@ -424,3 +428,4 @@ const main = (selectedCoord , hoverCoord) => {
 }
 
 console.log(main(shape1, shape8));
+
