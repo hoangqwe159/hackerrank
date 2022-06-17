@@ -3,6 +3,11 @@
     jsdom: {html: `<div id="test">Hello</div>`}
 })
 
+const textarea = {
+  font_size: 10,
+  font_weight: 'normal'
+};
+
 const styles = [
   {start: 6, end: 11, attribute: 'font-weight', value: 'bold'},
   {start: 14, end: 16, attribute: 'font-weight', value: 'bold'},
@@ -22,13 +27,31 @@ const styles = [
   {start: 96, end: 98, attribute: 'font-size', value: 20},
 ];
 
-const fontSize = styles.filter(style => style.attribute === 'font-size');
-const fontWeight = styles.filter(style => style.attribute === 'font-weight');
-const fontFamily = styles.filter(style => style.attribute === 'font-family');
+// const fontSize = styles.filter(style => style.attribute === 'font-size');
+// const fontWeight = styles.filter(style => style.attribute === 'font-weight');
+// const fontFamily = styles.filter(style => style.attribute === 'font-family');
 
 
 
-console.log(fontWeight);
+// activeStyle = getActiveStyle(0, 2)
+// activeStyle = getActiveStyle(0, 5)
+// activeStyle = getActiveStyle(0, 6)
+// activeStyle = getActiveStyle(0, 7)
+// activeStyle = getActiveStyle(0, 12)
+// activeStyle = getActiveStyle(0, 40)
+// activeStyle = getActiveStyle(0, 50)
+// activeStyle = getActiveStyle(0, 60)
+// activeStyle = getActiveStyle(0, 80)
+
+
+// activeStyle = getActiveStyle(0, 10)
+
+
+// console.log(searchIndex);
+// console.log(styles.length);
+
+
+// console.log(activeStyle);
 
 const paragraph =
   'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
@@ -50,6 +73,48 @@ hiddenElement.style.cssText = `
     visibility: hidden;
 `;
 document.body.append (hiddenElement);
+
+for (let wordIndex = 0; wordIndex < paragraph.length; wordIndex++) {
+  const activeStyle = getActiveStyle(0, wordIndex);
+  const tspan = document.createElement ('span');
+  tspan.style.fontSize = `${activeStyle.fontSize}px`;
+  tspan.style.fontWeight = activeStyle.fontWeight;
+  tspan.textContent = paragraph[wordIndex];
+  hiddenElement.appendChild (tspan);
+  console.log(tspan.getBoundingClientRect().width);
+  if (hiddenElement.getBoundingClientRect().width > maxWidth) {
+    console.log(paragraph.slice(0, i));
+    break;
+  }
+}
+
+console.log(hiddenElement.textContent);
+
+
+function getActiveStyle (startIndex, c) {
+  const currentIndex = startIndex + c;
+  const activeStyle = {
+    fontSize: textarea.font_size,
+    fontWeight: textarea.font_weight
+  };
+
+  if (!styles.length || currentIndex > styles[styles.length - 1].end) {
+    return activeStyle;
+  }
+
+  for (let i = 0; i < styles.length; i++) {
+    const style = styles[i];
+    if (currentIndex < styles[i].start) return activeStyle;
+
+    if (currentIndex >= style.start && currentIndex < style.end) {
+      if (style.attribute === 'font-size') activeStyle.fontSize = style.value;
+      if (style.attribute === 'font-weight') activeStyle.fontWeight = style.value;
+    }
+  }
+
+  return activeStyle
+}
+
 
 function getLineBBox (textarea, startIndex, txt, quickMode) {
   if (!txt || txt.length === 0) return null;
