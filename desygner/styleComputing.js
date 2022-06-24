@@ -1,37 +1,36 @@
 ({
-    plugins: ['jsdom-quokka-plugin'],
-    jsdom: {html: `<div id="test">Hello</div>`}
-})
+  plugins: ['jsdom-quokka-plugin'],
+  jsdom: {html: `<div id="test">Hello</div>`},
+});
 
 const textarea = {
   font_size: 10,
-  font_weight: 'normal'
+  font_family: "'DTL Argo T'",
+  font_weight: '300',
 };
 
-const styles = [
-  {start: 6, end: 11, attribute: 'font-weight', value: 'bold'},
-  {start: 14, end: 16, attribute: 'font-weight', value: 'bold'},
-  {start: 23, end: 24, attribute: 'font-size', value: 12},
-  {start: 23, end: 24, attribute: 'font-weight', value: 'bold'},
-  {start: 23, end: 24, attribute: 'font-style', value: 'normal'},
-  {start: 26, end: 34, attribute: 'font-size', value: 12},
-  {start: 36, end: 38, attribute: 'font-family', value: 'Anton'},
-  {start: 36, end: 38, attribute: 'font-weight', value: '400'},
-  {start: 43, end: 45, attribute: 'font-weight', value: 'bold'},
-  {start: 57, end: 59, attribute: 'font-weight', value: 'bold'},
-  {start: 62, end: 80, attribute: 'font-weight', value: 'bold'},
-  {start: 82, end: 85, attribute: 'font-family', value: 'Anton'},
-  {start: 82, end: 85, attribute: 'font-weight', value: '400'},
-  {start: 82, end: 85, attribute: 'font-style', value: 'normal'},
-  {start: 87, end: 95, attribute: 'font-size', value: 10},
-  {start: 96, end: 98, attribute: 'font-size', value: 20},
-];
+// const styles = [
+//   {start: 6, end: 11, attribute: 'font-weight', value: 'bold'},
+//   {start: 14, end: 16, attribute: 'font-weight', value: 'bold'},
+//   {start: 23, end: 24, attribute: 'font-size', value: 12},
+//   {start: 23, end: 24, attribute: 'font-weight', value: 'bold'},
+//   {start: 23, end: 24, attribute: 'font-style', value: 'normal'},
+//   {start: 26, end: 34, attribute: 'font-size', value: 12},
+//   {start: 36, end: 38, attribute: 'font-family', value: 'Anton'},
+//   {start: 36, end: 38, attribute: 'font-weight', value: '400'},
+//   {start: 43, end: 45, attribute: 'font-weight', value: 'bold'},
+//   {start: 57, end: 59, attribute: 'font-weight', value: 'bold'},
+//   {start: 62, end: 80, attribute: 'font-weight', value: 'bold'},
+//   {start: 82, end: 85, attribute: 'font-family', value: 'Anton'},
+//   {start: 82, end: 85, attribute: 'font-weight', value: '400'},
+//   {start: 82, end: 85, attribute: 'font-style', value: 'normal'},
+//   {start: 87, end: 95, attribute: 'font-size', value: 10},
+//   {start: 96, end: 98, attribute: 'font-size', value: 20},
+// ];
 
 // const fontSize = styles.filter(style => style.attribute === 'font-size');
 // const fontWeight = styles.filter(style => style.attribute === 'font-weight');
 // const fontFamily = styles.filter(style => style.attribute === 'font-family');
-
-
 
 // activeStyle = getActiveStyle(0, 2)
 // activeStyle = getActiveStyle(0, 5)
@@ -43,25 +42,284 @@ const styles = [
 // activeStyle = getActiveStyle(0, 60)
 // activeStyle = getActiveStyle(0, 80)
 
-
 // activeStyle = getActiveStyle(0, 10)
-
 
 // console.log(searchIndex);
 // console.log(styles.length);
 
-
 // console.log(activeStyle);
 
-const paragraph =
-  'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
-const maxWidth = 587.5474243164062;
+const textContent = 'Section 1:  Product Safety Sign And Label System \nIf and when required, appropriate safety labels have been included in the rectangular margin blocks throughout this manual. Safety labels are vertically orientated rectangles as shown in the representative examples (below), consisting of three panels encircled by a narrow border. The panels contain four messages which communicate:\n•The level of hazard seriousness.\n•The nature of the hazard.\n•The consequences of human or product interaction with the hazard.\n•The instructions, if necessary, on how to avoid the hazard.\nThe top panel contains a pictorial, which communicates the nature of the hazard and the possible consequence of human, or product interaction with the hazard. In some instances of human hazards the pictorial may, instead, depict what preventative measures to take, such as wearing protective equipment.\nThe bottom panel may contain an instruction message on how to avoid the hazard. In case of human hazard, the message may also contain a more precise definition of the hazard, and the consequences of human interaction with the hazard, than can be communicated solely by the pictorial.\n1. DANGER – Immediate hazards which WILL result in personal injury or death.\n2. WARNING – Hazards or unsafe practices which COULD result in personal injury or death.\n3. CAUTION – Hazards or unsafe practices which COULD result in minor personal injury.\n4. ATTENTION – Hazards or unsafe practices, which COULD result in product or property damage.\n!DANGER\nDo not remove bolts if pressure in line, as this will result in severe personal injury or death.\n!WARNING\nKnow all valve exhaust/leakage points to avoid possible severe personal injury or death.\n! CAUTION\nWear necessary protective equipment to prevent possible injury.\n! ATTENTION\nDo not drop or strike valve.';
 
-const expected = [
-  'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ',
-  'At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, ',
-  'consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+const paragraphs = textContent.split ('\n');
+
+const styles = [
+  {
+    start: 0,
+    end: 36,
+    attribute: 'font-size',
+    value: 24,
+  },
+  {
+    start: 0,
+    end: 36,
+    attribute: 'fill',
+    value: '#0d4c8b',
+  },
+  {
+    start: 36,
+    end: 42,
+    attribute: 'font-size',
+    value: 24,
+  },
+  {
+    start: 36,
+    end: 42,
+    attribute: 'fill',
+    value: '#0d4c8b',
+  },
+  {
+    start: 42,
+    end: 49,
+    attribute: 'font-size',
+    value: 24,
+  },
+  {
+    start: 42,
+    end: 49,
+    attribute: 'fill',
+    value: '#0d4c8b',
+  },
+  {
+    start: 1493,
+    end: 1494,
+    attribute: 'font-family',
+    value: 'Helvetica',
+  },
+  {
+    start: 1493,
+    end: 1494,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1493,
+    end: 1494,
+    attribute: 'font-weight',
+    value: 'bold',
+  },
+  {
+    start: 1493,
+    end: 1494,
+    attribute: 'fill',
+    value: '#ffffff',
+  },
+  {
+    start: 1494,
+    end: 1500,
+    attribute: 'font-family',
+    value: 'Helvetica',
+  },
+  {
+    start: 1494,
+    end: 1500,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1494,
+    end: 1500,
+    attribute: 'font-weight',
+    value: 'bold',
+  },
+  {
+    start: 1494,
+    end: 1500,
+    attribute: 'fill',
+    value: '#ffffff',
+  },
+  {
+    start: 1596,
+    end: 1597,
+    attribute: 'font-family',
+    value: 'Helvetica',
+  },
+  {
+    start: 1596,
+    end: 1597,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1596,
+    end: 1597,
+    attribute: 'font-weight',
+    value: 'bold',
+  },
+  {
+    start: 1597,
+    end: 1604,
+    attribute: 'font-family',
+    value: 'Helvetica',
+  },
+  {
+    start: 1597,
+    end: 1604,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1597,
+    end: 1604,
+    attribute: 'font-weight',
+    value: 'bold',
+  },
+  {
+    start: 1604,
+    end: 1692,
+    attribute: 'font-weight',
+    value: 'normal',
+  },
+  {
+    start: 1692,
+    end: 1693,
+    attribute: 'font-family',
+    value: 'MCM-Icons',
+  },
+  {
+    start: 1692,
+    end: 1693,
+    attribute: 'font-size',
+    value: 17,
+  },
+  {
+    start: 1692,
+    end: 1693,
+    attribute: 'font-weight',
+    value: 'normal',
+  },
+  {
+    start: 1693,
+    end: 1694,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1693,
+    end: 1694,
+    attribute: 'font-weight',
+    value: 'bold',
+  },
+  {
+    start: 1694,
+    end: 1701,
+    attribute: 'font-family',
+    value: 'Helvetica',
+  },
+  {
+    start: 1694,
+    end: 1701,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1694,
+    end: 1701,
+    attribute: 'font-weight',
+    value: 'bold',
+  },
+  {
+    start: 1764,
+    end: 1765,
+    attribute: 'font-family',
+    value: 'MCM-Icons',
+  },
+  {
+    start: 1764,
+    end: 1765,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1764,
+    end: 1765,
+    attribute: 'font-weight',
+    value: 'normal',
+  },
+  {
+    start: 1764,
+    end: 1765,
+    attribute: 'fill',
+    value: '#ffffff',
+  },
+  {
+    start: 1765,
+    end: 1766,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1765,
+    end: 1766,
+    attribute: 'font-weight',
+    value: 'bold',
+  },
+  {
+    start: 1765,
+    end: 1766,
+    attribute: 'fill',
+    value: '#ffffff',
+  },
+  {
+    start: 1766,
+    end: 1775,
+    attribute: 'font-family',
+    value: 'Helvetica',
+  },
+  {
+    start: 1766,
+    end: 1775,
+    attribute: 'font-size',
+    value: 14,
+  },
+  {
+    start: 1766,
+    end: 1775,
+    attribute: 'font-weight',
+    value: 'bold',
+  },
+  {
+    start: 1766,
+    end: 1775,
+    attribute: 'fill',
+    value: '#ffffff',
+  },
 ];
+
+const fakeCharsIndices = [
+  49,
+  382,
+  416,
+  443,
+  510,
+  571,
+  874,
+  1158,
+  1235,
+  1324,
+  1410,
+  1504,
+  1512,
+  1609,
+  1618,
+  1707,
+  1717,
+  1781,
+  1793,
+  1822,
+];
+
+const maxWidth = 410.7;
 
 const hiddenElement = document.createElement ('p');
 hiddenElement.id = 'text-metrics';
@@ -74,28 +332,82 @@ hiddenElement.style.cssText = `
 `;
 document.body.append (hiddenElement);
 
+const result = [];
+let globalIndex = 0;
+for (
+  let paragraphIndex = 0;
+  paragraphIndex < paragraphs.length;
+  paragraphIndex++
+) {
+  const paragraph = paragraphs[paragraphIndex];
+  const words = paragraph.split ('\u00A0');
+
+  let currentLength = 0;
+  for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
+    let word = words[wordIndex];
+
+    if (wordIndex < words.length - 1) {
+      word += '\u00A0';
+    }
+    for (let charIndex = 0; charIndex < word.length; charIndex++) {
+      const char = word[charIndex];
+      const tspan = document.createElement ('span');
+      tspan.style.fontSize = `${activeStyle.fontSize}px`;
+      tspan.style.fontWeight = activeStyle.fontWeight;
+      tspan.textContent = char;
+      
+    }
+
+
+    result.push (word);
+  }
+}
+
+
+function fakeCharIndexToReal (index) {
+  if (!fakeCharsIndices || !fakeCharsIndices.length) return index;
+
+  let realIndex = index;
+  for (let i = 0; i < fakeCharsIndices.length; i++) {
+    if (fakeCharsIndices[i] >= index) break;
+    realIndex--;
+  }
+
+  return realIndex;
+}
+
+function realCharIndexToFake (index) {
+  if (!fakeCharsIndices || !fakeCharsIndices.length) return index;
+
+  let fakeIndex = index;
+  for (let i = 0; i < fakeCharsIndices.length; i++) {
+    if (fakeCharsIndices[i] < fakeIndex) fakeIndex++;
+    else break;
+  }
+
+  return fakeIndex;
+}
+
 for (let wordIndex = 0; wordIndex < paragraph.length; wordIndex++) {
-  const activeStyle = getActiveStyle(0, wordIndex);
+  const activeStyle = getActiveStyle (0, wordIndex);
   const tspan = document.createElement ('span');
   tspan.style.fontSize = `${activeStyle.fontSize}px`;
   tspan.style.fontWeight = activeStyle.fontWeight;
   tspan.textContent = paragraph[wordIndex];
   hiddenElement.appendChild (tspan);
-  console.log(tspan.getBoundingClientRect().width);
-  if (hiddenElement.getBoundingClientRect().width > maxWidth) {
-    console.log(paragraph.slice(0, i));
+  console.log (tspan.getBoundingClientRect ().width);
+  if (hiddenElement.getBoundingClientRect ().width > maxWidth) {
+    console.log (paragraph.slice (0, i));
     break;
   }
 }
-
-console.log(hiddenElement.textContent);
 
 
 function getActiveStyle (startIndex, c) {
   const currentIndex = startIndex + c;
   const activeStyle = {
     fontSize: textarea.font_size,
-    fontWeight: textarea.font_weight
+    fontWeight: textarea.font_weight,
   };
 
   if (!styles.length || currentIndex > styles[styles.length - 1].end) {
@@ -108,13 +420,13 @@ function getActiveStyle (startIndex, c) {
 
     if (currentIndex >= style.start && currentIndex < style.end) {
       if (style.attribute === 'font-size') activeStyle.fontSize = style.value;
-      if (style.attribute === 'font-weight') activeStyle.fontWeight = style.value;
+      if (style.attribute === 'font-weight')
+        activeStyle.fontWeight = style.value;
     }
   }
 
-  return activeStyle
+  return activeStyle;
 }
-
 
 function getLineBBox (textarea, startIndex, txt, quickMode) {
   if (!txt || txt.length === 0) return null;
