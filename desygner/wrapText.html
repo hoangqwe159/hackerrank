@@ -2,124 +2,19 @@
 <html>
   <head> </head>
   <body>
-    <p></p>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      class="dw-1200 dh-675 du-px"
+      height="675"
+      width="1200"
+      id="svgcontent"
+      overflow="visible"
+      x="202.36907730673317"
+      y="198.65960099750623"
+    >
+    <text y="100">alo</text>
+  </svg>
   </body>
-  <script type="text/javascript">
-    const textarea = {
-      font_size: 12,
-      font_weight: "normal",
-      font_family: "Lato",
-    };
-
-    const styles = [
-      { start: 6, end: 11, attribute: "font-weight", value: "bold" },
-      { start: 14, end: 16, attribute: "font-weight", value: "bold" },
-      { start: 23, end: 24, attribute: "font-size", value: 12 },
-      { start: 23, end: 24, attribute: "font-weight", value: "bold" },
-      { start: 23, end: 24, attribute: "font-style", value: "normal" },
-      { start: 26, end: 34, attribute: "font-size", value: 12 },
-      { start: 36, end: 38, attribute: "font-family", value: "Anton" },
-      { start: 36, end: 38, attribute: "font-weight", value: "400" },
-      { start: 43, end: 45, attribute: "font-weight", value: "bold" },
-      { start: 57, end: 59, attribute: "font-weight", value: "bold" },
-      { start: 62, end: 80, attribute: "font-weight", value: "bold" },
-      { start: 82, end: 85, attribute: "font-family", value: "Anton" },
-      { start: 82, end: 85, attribute: "font-weight", value: "400" },
-      { start: 82, end: 85, attribute: "font-style", value: "normal" },
-      { start: 87, end: 95, attribute: "font-size", value: 10 },
-      { start: 96, end: 98, attribute: "font-size", value: 20 },
-    ];
-
-    // const fontSize = styles.filter(style => style.attribute === 'font-size');
-    // const fontWeight = styles.filter(style => style.attribute === 'font-weight');
-    // const fontFamily = styles.filter(style => style.attribute === 'font-family');
-
-    // activeStyle = getActiveStyle(0, 2)
-    // activeStyle = getActiveStyle(0, 5)
-    // activeStyle = getActiveStyle(0, 6)
-    // activeStyle = getActiveStyle(0, 7)
-    // activeStyle = getActiveStyle(0, 12)
-    // activeStyle = getActiveStyle(0, 40)
-    // activeStyle = getActiveStyle(0, 50)
-    // activeStyle = getActiveStyle(0, 60)
-    // activeStyle = getActiveStyle(0, 80)
-
-    // activeStyle = getActiveStyle(0, 10)
-
-    // console.log(searchIndex);
-    // console.log(styles.length);
-
-    // console.log(activeStyle);
-
-    const paragraph =
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.";
-    const maxWidth = 100;
-
-    const expected = [
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. ",
-      "At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, ",
-      "consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua",
-    ];
-
-    const hiddenElement = document.createElement("p");
-    hiddenElement.id = "text-metrics";
-    hiddenElement.style.cssText = `
-        position: fixed;
-        white-space: nowrap;
-        font-stretch: 100%;
-        text-align: center;
-    `;
-
-    const body = document.querySelector("body");
-    body.append(hiddenElement);
-
-    const slicedParagraph = [];
-
-    for (let wordIndex = 0; wordIndex < paragraph.length; wordIndex++) {
-      const activeStyle = getActiveStyle(0, wordIndex);
-      const tspan = document.createElement("span");
-      tspan.style.fontSize = `${activeStyle.fontSize}px`;
-      tspan.style.fontWeight = activeStyle.fontWeight;
-      tspan.style.fontFamily = activeStyle.fontFamily;
-
-      tspan.textContent = paragraph[wordIndex];
-      hiddenElement.appendChild(tspan);
-      if (hiddenElement.getBoundingClientRect().width > maxWidth) {
-        const lastChild = hiddenElement.lastChild;
-        hiddenElement.removeChild(lastChild);
-        slicedParagraph.push(hiddenElement.textContent);
-        hiddenElement.innerHTML = null;
-        hiddenElement.appendChild(lastChild);
-      }
-    }
-
-    function getActiveStyle(startIndex, c) {
-      const currentIndex = startIndex + c;
-      const activeStyle = {
-        fontSize: textarea.font_size,
-        fontWeight: textarea.font_weight,
-        fontFamily: textarea.font_family,
-      };
-
-      if (!styles.length || currentIndex > styles[styles.length - 1].end) {
-        return activeStyle;
-      }
-
-      for (let i = 0; i < styles.length; i++) {
-        const style = styles[i];
-        if (currentIndex < styles[i].start) return activeStyle;
-
-        if (currentIndex >= style.start && currentIndex < style.end) {
-          if (style.attribute === "font-size")
-            activeStyle.fontSize = style.value;
-          if (style.attribute === "font-weight")
-            activeStyle.fontWeight = style.value;
-          if (style.attribute === "font-family")
-            activeStyle.fontFamily = style.value;
-        }
-      }
-
-      return activeStyle;
-    }
-  </script>
+  <script type="text/javascript" src="test.js"></script>
 </html>

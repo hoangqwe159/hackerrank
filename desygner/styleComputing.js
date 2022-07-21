@@ -1,12 +1,20 @@
 ({
   plugins: ['jsdom-quokka-plugin'],
-  jsdom: {html: `<div id="test">Hello</div>`},
+  jsdom: {
+    userAgent: 'quokka.js',
+    html: `<div id="testDiv">Hello</div>`,
+    config: {
+      pretendToBeVisual: true,
+      runScripts: 'dangerously',
+      url: 'http://localhost/3001',
+    },
+  },
 });
 
 const textarea = {
-  font_size: 10,
-  font_family: "'DTL Argo T'",
-  font_weight: '300',
+  font_size: 18,
+  font_family: 'Lato',
+  font_weight: '400',
 };
 
 // const styles = [
@@ -49,11 +57,16 @@ const textarea = {
 
 // console.log(activeStyle);
 
-const textContent = 'Section 1:  Product Safety Sign And Label System \nIf and when required, appropriate safety labels have been included in the rectangular margin blocks throughout this manual. Safety labels are vertically orientated rectangles as shown in the representative examples (below), consisting of three panels encircled by a narrow border. The panels contain four messages which communicate:\n•The level of hazard seriousness.\n•The nature of the hazard.\n•The consequences of human or product interaction with the hazard.\n•The instructions, if necessary, on how to avoid the hazard.\nThe top panel contains a pictorial, which communicates the nature of the hazard and the possible consequence of human, or product interaction with the hazard. In some instances of human hazards the pictorial may, instead, depict what preventative measures to take, such as wearing protective equipment.\nThe bottom panel may contain an instruction message on how to avoid the hazard. In case of human hazard, the message may also contain a more precise definition of the hazard, and the consequences of human interaction with the hazard, than can be communicated solely by the pictorial.\n1. DANGER – Immediate hazards which WILL result in personal injury or death.\n2. WARNING – Hazards or unsafe practices which COULD result in personal injury or death.\n3. CAUTION – Hazards or unsafe practices which COULD result in minor personal injury.\n4. ATTENTION – Hazards or unsafe practices, which COULD result in product or property damage.\n!DANGER\nDo not remove bolts if pressure in line, as this will result in severe personal injury or death.\n!WARNING\nKnow all valve exhaust/leakage points to avoid possible severe personal injury or death.\n! CAUTION\nWear necessary protective equipment to prevent possible injury.\n! ATTENTION\nDo not drop or strike valve.';
+let textContent =
+  'Section 1:  Product Safety Sign And Label System \nIf and when required, appropriate safety labels have been included in the rectangular margin blocks throughout this manual. Safety labels are vertically orientated rectangles as shown in the representative examples (below), consisting of three panels encircled by a narrow border. The panels contain four messages which communicate:\n.The level of hazard seriousness.\n.The nature of the hazard.\n.The consequences of human or product interaction with the hazard.\n.The instructions, if necessary, on how to avoid the hazard.\nThe top panel contains a pictorial, which communicates the nature of the hazard and the possible consequence of human, or product interaction with the hazard. In some instances of human hazards the pictorial may, instead, depict what preventative measures to take, such as wearing protective equipment.\nThe bottom panel may contain an instruction message on how to avoid the hazard. In case of human hazard, the message may also contain a more precise definition of the hazard, and the consequences of human interaction with the hazard, than can be communicated solely by the pictorial.\n1. DANGER - Immediate hazards which WILL result in personal injury or death.\n2. WARNING - Hazards or unsafe practices which COULD result in personal injury or death.\n3. CAUTION - Hazards or unsafe practices which COULD result in minor personal injury.\n4. ATTENTION - Hazards or unsafe practices, which COULD result in product or property damage.\n!DANGER\nDo not remove bolts if pressure in line, as this will result in severe personal injury or death.\n!WARNING\nKnow all valve exhaust/leakage points to avoid possible severe personal injury or death.\n! CAUTION\nWear necessary protective equipment to prevent possible injury.\n! ATTENTION\nDo not drop or strike valve.';
+
+textContent =
+  'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.';
+textContent = textContent.replaceAll (String.fromCharCode (194), '');
 
 const paragraphs = textContent.split ('\n');
 
-const styles = [
+let styles = [
   {
     start: 0,
     end: 36,
@@ -296,6 +309,8 @@ const styles = [
   },
 ];
 
+styles = [];
+
 const fakeCharsIndices = [
   49,
   382,
@@ -319,50 +334,93 @@ const fakeCharsIndices = [
   1822,
 ];
 
-const maxWidth = 410.7;
+const hiddenElement = document.querySelector ('#text-metrics');
 
-const hiddenElement = document.createElement ('p');
-hiddenElement.id = 'text-metrics';
-hiddenElement.style.cssText = `
-    position: fixed;
-    white-space: nowrap;
-    font-stretch: 100%;
-    text-align: center;
-    visibility: hidden;
-`;
-document.body.append (hiddenElement);
+// document.body.append (hiddenElement);
+// document.querySelector('#testDiv').textContent = textContent;
+// console.log(document.body.innerHTML);
+
+// console.log(document.querySelector('#testDiv').getBoundingClientRect());
+
+// Default normal 10px
+const charData = {};
 
 const result = [];
 let globalIndex = 0;
-for (
-  let paragraphIndex = 0;
-  paragraphIndex < paragraphs.length;
-  paragraphIndex++
-) {
-  const paragraph = paragraphs[paragraphIndex];
+let lineIndex = 0;
+
+for (let paraIndex = 0; paraIndex < paragraphs.length; paraIndex++) {
+  const paragraph = paragraphs[paraIndex];
   const words = paragraph.split ('\u00A0');
+  const maxWidth = 306;
 
-  let currentLength = 0;
+  let currentWidth = 0;
+
   for (let wordIndex = 0; wordIndex < words.length; wordIndex++) {
-    let word = words[wordIndex];
+    let shouldAddWord = true;
+    let wordWidth = 0;
+    const isLastWord = checkLastWord (wordIndex, words.length);
+    const word = addSpaceToWord (words[wordIndex], isLastWord);
 
-    if (wordIndex < words.length - 1) {
-      word += '\u00A0';
-    }
     for (let charIndex = 0; charIndex < word.length; charIndex++) {
       const char = word[charIndex];
-      const tspan = document.createElement ('span');
-      tspan.style.fontSize = `${activeStyle.fontSize}px`;
-      tspan.style.fontWeight = activeStyle.fontWeight;
-      tspan.textContent = char;
-      
+      const fakeIndex = realCharIndexToFake (globalIndex + charIndex);
+      const activeStyle = getActiveStyle (fakeIndex);
+      const fontFamily = textarea.font_family;
+      mapCharWidth (char, fontFamily);
+
+      const defaultWidth = charData[fontFamily][char];
+      const charWidth = convertCharWidth (defaultWidth, activeStyle);
+      wordWidth += charWidth;
+      if (charIndex === word.length - 1) {
+        currentWidth += wordWidth;
+
+        if (currentWidth > maxWidth) {
+          shouldAddWord = false;
+          lineIndex += 1;
+          if (!result[lineIndex]) result[lineIndex] = [];
+          result[lineIndex].push (word);
+          globalIndex += word.length;
+          currentWidth = wordWidth;
+          break;
+        }
+      }
     }
 
+    if (shouldAddWord) {
+      if (!result[lineIndex]) result[lineIndex] = [];
+      result[lineIndex].push (word);
+      globalIndex += word.length;
+    }
+  }
+  lineIndex += 1;
+}
 
-    result.push (word);
+console.log (result);
+
+function mapCharWidth (char, fontFamily) {
+  if (!charData[fontFamily]) {
+    charData[fontFamily] = {};
+  }
+
+  if (!charData[fontFamily][char]) {
+    hiddenElement.setAttribute ('font-size', '10px');
+    hiddenElement.setAttribute ('font-weight', '400');
+    hiddenElement.setAttribute ('font-family', fontFamily);
+    hiddenElement.textContent = char;
+
+    charData[fontFamily][char] = hiddenElement.getBBox ().width;
+    hiddenElement.innerHTML = null;
   }
 }
 
+function addSpaceToWord (word, isLastWord) {
+  return isLastWord ? word : word + '\u00A0';
+}
+
+function checkLastWord (wordIndex, wordsLength) {
+  return wordIndex >= wordsLength - 1;
+}
 
 function fakeCharIndexToReal (index) {
   if (!fakeCharsIndices || !fakeCharsIndices.length) return index;
@@ -388,23 +446,7 @@ function realCharIndexToFake (index) {
   return fakeIndex;
 }
 
-for (let wordIndex = 0; wordIndex < paragraph.length; wordIndex++) {
-  const activeStyle = getActiveStyle (0, wordIndex);
-  const tspan = document.createElement ('span');
-  tspan.style.fontSize = `${activeStyle.fontSize}px`;
-  tspan.style.fontWeight = activeStyle.fontWeight;
-  tspan.textContent = paragraph[wordIndex];
-  hiddenElement.appendChild (tspan);
-  console.log (tspan.getBoundingClientRect ().width);
-  if (hiddenElement.getBoundingClientRect ().width > maxWidth) {
-    console.log (paragraph.slice (0, i));
-    break;
-  }
-}
-
-
-function getActiveStyle (startIndex, c) {
-  const currentIndex = startIndex + c;
+function getActiveStyle (currentIndex) {
   const activeStyle = {
     fontSize: textarea.font_size,
     fontWeight: textarea.font_weight,
@@ -426,6 +468,40 @@ function getActiveStyle (startIndex, c) {
   }
 
   return activeStyle;
+}
+
+function getFontWeight (fontWeight) {
+  return !!parseInt (fontWeight)
+    ? parseInt (fontWeight)
+    : getNumericFontWeight (fontWeight);
+}
+
+function getNumericalFontWeight (fontWeight) {
+  // CSS syntax
+  // font-weight: normal|bold|bolder|lighter|number|initial|inherit;
+  const defaultFontWeight = {
+    normal: 400,
+    bold: 700,
+  };
+
+  return defaultFontWeight[fontWeight] || defaultFontWeight.normal;
+}
+
+function convertCharWidth (defaultWidth, activeStyle) {
+  const activeFontSize = parseFloat (activeStyle.fontSize);
+  const activeFontWeight = getNumericalFontWeight (activeStyle.fontWeight);
+
+  const fontWeightFactor = activeFontWeight > 400 ? 1.06 : 1;
+  const fontSizeFactor = activeFontSize / 10;
+
+  return defaultWidth * fontSizeFactor * fontWeightFactor;
+}
+
+function flatten (arr) {
+  return arr.reduce (
+    (acc, cur) => acc.concat (Array.isArray (cur) ? flatten (cur) : cur),
+    []
+  );
 }
 
 function getLineBBox (textarea, startIndex, txt, quickMode) {
