@@ -8,7 +8,7 @@ const pages = {
     {
       id: 'svg_2',
       parent: '101-svg_1',
-      child: '102-svg_2',
+      child: '102-svg_1',
     },
     {
       id: 'svg_3',
@@ -216,36 +216,44 @@ function switchToPage(pageId) {
   
 }
 
-function calculateTextChain() {
-  const multiplePagesChain = [];
-  // console.log(fetchedPages);
-  for (let pageId in fetchedPages) {
-    const currentPage = fetchedPages[pageId];
-    const textOverflows = currentPage.filter((text) => !text.child || !text.child.includes(pageId));
-    const singlePageChain = [];
-    for (let i = 0; i < textOverflows.length; i++) {
-      singlePageChain[i] = [];
-      let currentText = textOverflows[i];
-  
-  
-      while (currentText) {
-        const textId = currentText.id;
-        singlePageChain[i].unshift(`${pageId}-${textId}`);
-  
-        const parent = currentText.parent;
-        currentText = isCurrentPage(parent, pageId)
-          ? currentPage.find(text => text.id === getTextId(parent))
-          : null;
-      }
+function calculateTextChain(currentPageId) {
+  let currentPage = getPageContentById(currentPageId);
+  const textOverflows = currentPage.filter((text) => !text.child || !text.child.includes(currentPageId));
+  const singlePageChain = [];
+  for (let i = 0; i < textOverflows.length; i++) {
+    singlePageChain[i] = [];
+    let currentText = textOverflows[i];
+    while (currentText) {
+      const textId = currentText.id;
+      singlePageChain[i].unshift(`${currentPageId}-${textId}`);
+
+      const parent = currentText.parent;
+      currentText = isCurrentPage(parent, currentPageId)
+        ? currentPage.find(text => text.id === getTextId(parent))
+        : null;
     }
 
-    multiplePagesChain.push(singlePageChain);
+    currentText = textOverflows[i];
+    let currentId = currentPageId;
+    while (currentText) {
+      const child = currentText.child;
+      if (!child) {
+        currentText = null;
+      } else {
+        currentId = getPageId(child);
+        currentPage = getPageContentById(currentId);
+        currentText = currentPage.find(text => text.id === getTextId(child));
+        singlePageChain[i].push(`${currentId}-${getTextId(child)}`);
+      }
+    }
   }
-  console.log(multiplePagesChain);
+
+  console.log(singlePageChain);
 }
 
 function getPageContentById(pageId) {
   countFetch += 1;
+  console.log(pageId);
   return pages[pageId];
 }
 
@@ -266,8 +274,8 @@ function isCurrentPage (idString, currentPageId) {
   return idString.includes(currentPageId);
 }
 
-const currentPageId = '103';
+const currentPageId = '107';
 fetchedPages[currentPageId] = pages[currentPageId];
-switchToPage(currentPageId);
-// console.log(fetchedPages);
-calculateTextChain();
+// switchToPage(currentPageId);
+calculateTextChain(currentPageId);
+console.log(countFetch);
