@@ -77,3 +77,25 @@ console.log(continuousCompoundInterest(investPerYear, profitPerYear, durationYea
 
 // saving
 console.log(investPerYear * durationYear);
+
+
+
+var uniqueOccurrences = function(arr) {
+  const hash = {};
+  for (const number of arr) {
+    hash[number] = hash[number] ? hash[number] + 1 : 1;
+  }
+
+  const hashOccurrence = {};
+
+  for (const number of Object.values(hash)) {
+    hashOccurrence[number] = hashOccurrence[number] ? hashOccurrence[number] + 1 : 1;
+    if (hashOccurrence[number] > 1) return false;
+  }
+
+  return true;
+};
+
+const array1 = [1, 0]
+
+console.log(uniqueOccurrences(array1))
