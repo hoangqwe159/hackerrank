@@ -205,51 +205,27 @@
 // let result3 = numGoodPairs(nums3);
 // console.log(`Result 3: ${result3} (Expected: 0)`);
 
-// 1 0
-// 11 1
-// 111 3
-// 1111 6
-// 11111 10
-// 111111 15
 
-// 1 0
-// 2 1
-// 3 3
-// 4 6
-// 5 10
-// 6 15
+// Input: nums = [-1,0,1,2,-1,-4]
+// Output: [[-1,-1,2],[-1,0,1]]
+// Explanation: 
+// nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+// nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+// nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+// The distinct triplets are [-1,0,1] and [-1,-1,2].
+// Notice that the order of the output and the order of the triplets does not matter.
 
-// /*
-//   helper(3) = helper(3 -1) + 3-1
-// */
-
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
-var threeSum = function(nums) {
-  nums = nums.sort();
-
-  let result = [];
-  for (let i = 0; i <= nums.length - 1; i++) {
-      /*
-      result = twoSum(nums, 0 - nums[i])
-
-      // trong result, neu co nums[i] -<=> loai truonog hop do
-      */
-      console.log('two', twoSum(nums, 0 - nums[i]).push(nums[i]));
-      result.push(twoSum(nums, 0 - nums[i]).push(nums[i]) );
-  }
-  console.log(result)
-  return result;
-};
-
+let hashTwo = {}
 var twoSum = function (nums, target) {
   let pointer1 = 0;
   let pointer2 = nums.length - 1;
-  while (pointer1 <= pointer2) {
+  let result = [];
+  while (pointer1 < pointer2) {
       if (nums[pointer1] + nums[pointer2] === target) {
-          return [nums[pointer1], nums[pointer2]];
+        if (!hashTwo[(0 - nums[pointer1] - nums[pointer2]).toString()]) {
+            hashTwo[(0 - target).toString()] = 1;
+            result.push([nums[pointer1], nums[pointer2]]);
+        }
       }
 
       if (nums[pointer1] + nums[pointer2]  < target) {
@@ -259,6 +235,37 @@ var twoSum = function (nums, target) {
       }
   }
 
-  return [-1, -1];
+  return result;
 }
+var threeSum = function(nums) {
+  nums = nums.sort();
+
+  let result3 = [];
+  let hash = {};
+  for (let i = 0; i <= nums.length - 1; i++) {
+    if (hash[nums[i.toString()]]) continue;
+
+    console.log(nums[i]);
+    hash[nums[i].toString()] = 1;
+
+    let twoSumResults = twoSum(nums.slice(0, i).concat(nums.slice(i + 1, nums.length)), 0 - nums[i]);
+    console.log(twoSumResults);
+
+    for (const r of twoSumResults) {
+        if (r.length < 2) continue;
+        r.push(nums[i]);
+        result3.push(r);
+    }
+
+
+  }
+  return result3;
+};
+
+
+
+
+
+
+console.log(threeSum([-1,0,1,2,-1,-4]));
 
