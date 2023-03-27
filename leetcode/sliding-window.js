@@ -204,41 +204,212 @@ function check_valid (items, k) {
 console.log(length_of_longest_substring('aabccbb', 2));
 console.log(length_of_longest_substring('abbcb', 1));
 console.log(length_of_longest_substring('abccde', 1));
-function length_of_longest_substring(str, k) {
-  let windowStart = 0,
-      maxLength = 0,
-      maxRepeatLetterCount = 0,
-      frequencyMap = {};
 
-  // Try to extend the range [windowStart, windowEnd]
-  for (let windowEnd = 0; windowEnd < str.length; windowEnd++) {
-      const rightChar = str[windowEnd];
-      if (!(rightChar in frequencyMap)) {
-          frequencyMap[rightChar] = 0;
-      }
-      frequencyMap[rightChar] += 1;
 
-      // we don't need to place the maxRepeatLetterCount under the below 'if', see the 
-      // explanation in the 'Solution' section above.
-      maxRepeatLetterCount = Math.max(maxRepeatLetterCount, frequencyMap[rightChar]);
+// Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+// Output: 6
+// Explanation: [1,1,1,0,0,1,1,1,1,1,1]
+// Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+function longestOnes(nums, k) {
+    let left = 0;
+    let windowItems = {};
+    let result = 0;
 
-      // current window size is from windowStart to windowEnd, overall we have a letter 
-      // which is repeating 'maxRepeatLetterCount' times, this means we can have a window
-      //  which has one letter repeating 'maxRepeatLetterCount' times and the remaining 
-      // letters we should replace. If the remaining letters are more than 'k', it is the
-      // time to shrink the window as we are not allowed to replace more than 'k' letters
-      if ((windowEnd - windowStart + 1 - maxRepeatLetterCount) > k) {
-          leftChar = str[windowStart];
-          frequencyMap[leftChar] -= 1;
-          windowStart += 1;
+    for (let right = 0; right < nums.length; right++) {
+      if (!windowItems[nums[right]]) {
+        windowItems[nums[right]] = 0;
       }
 
-      maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+      windowItems[nums[right]] += 1;
+
+      if (check_valid_one(windowItems, k)) {
+        let sum = 0;
+        for (const key in windowItems) {
+          sum += windowItems[key];
+        }
+
+        result = Math.max(result, sum);
+      }
+
+      while (!check_valid_one(windowItems, k)) {
+        windowItems[nums[left]] -= 1;
+        if (windowItems[nums[left] === 0]) {
+          delete windowItems[nums[left]];
+        }
+        left += 1;
+      }
+    }
+
+    return result;
+};
+
+function check_valid_one (items, k) {
+  if (!items[0]) return true;
+
+  return items[0] <= k;
+}
+
+/**
+ * @param {string} s1
+ * @param {string} s2
+ * @return {boolean}
+ */
+var checkInclusion = function(pattern, string) {
+  let left = 0;
+  let windowItems = {};
+
+  let patternItems = {};
+
+  for (let i = 0; i < pattern.length; i++) {
+      if (!patternItems[pattern[i]]) {
+          patternItems[pattern[i]] = 0;
+      }
+
+      patternItems[pattern[i]] += 1;
   }
-  return maxLength;
+
+  for (let right = 0; right < string.length; right++) {
+      if (!windowItems[string[right]]) {
+          windowItems[string[right]] = 0;
+      }
+
+      windowItems[string[right]] += 1;
+
+      if (valid_items(windowItems, patternItems)) {
+          if (match_items(windowItems, patternItems)) return true;
+      }
+
+      while (!valid_items(windowItems, patternItems)) {
+          windowItems[string[left]] -= 1;
+          if (windowItems[string[left]] === 0) {
+              delete windowItems[string[left]];
+          }
+          left += 1;
+      }
+  }
+  return false;
+};
+
+
+function valid_items (windowItems, patternItems) {
+  if (Object.keys(windowItems).length === 0) return true;
+
+
+  for (const key in windowItems) {
+      if (!patternItems[key]) return false;
+      if (patternItems[key] < windowItems[key]) return false;
+  }
+
+  return true;
+}
+
+function match_items(windowItems, patternItems) {
+  console.log(windowItems);
+  if (Object.keys(windowItems).length !== Object.keys(patternItems).length) {
+      return false;
+  }
+
+  for (const key in windowItems) {
+      if (patternItems[key] !== windowItems[key]) return false;
+  }
+
+  return true;
+}
+
+// console.log(checkInclusion('ab', 'eidbaooo'));
+// console.log(`Permutation exist: ${checkInclusion('oidbcaf', 'abc')}`);
+// console.log(`Permutation exist: ${checkInclusion('odicf', 'dc')}`);
+// console.log(`Permutation exist: ${checkInclusion('bcdxabcdy', 'bcdyabcdx')}`);
+// console.log(`Permutation exist: ${checkInclusion('aaacb', 'abc')}`);
+
+var findAnagrams = function(string, pattern) {
+    let left = 0;
+    let windowItems = {};
+    let patternItems = {};
+    let valueCount = 0;
+    let result = [];
+
+    for (let i = 0; i < pattern.length; i++) {
+      if (!patternItems[pattern[i]]) {
+          patternItems[pattern[i]] = 0;
+      }
+      patternItems[pattern[i]] += 1;
+    }
+    
+    for (let right = 0; right < string.length; right++) {
+      if (!windowItems[string[right]]) {
+        windowItems[string[right]] = 0;
+      }
+
+      windowItems[string[right]] += 1;
+      valueCount += 1;
+      if (valueCount <= pattern.length) {
+        if (match_items(windowItems, patternItems)) {
+          result.push(left);
+        }
+      }
+
+      while (valueCount > pattern.length) {
+        windowItems[string[left]] -= 1;
+        if (!windowItems[string[left]]) {
+          delete windowItems[string[left]];
+        }
+        valueCount -= 1;
+        left += 1;
+        if (match_items(windowItems, patternItems)) {
+          result.push(left);
+        }
+      }
+
+    }
+
+    return result;
+};
+
+// console.log(findAnagrams('ppqp', 'pq'));
+// console.log(findAnagrams('abbcabc', 'abc'));
+
+function find_substring(string, pattern) {
+  let left = 0;
+  let windowItems = {};
+  let patternItems = {};
+
+  for (let i = 0; i < pattern.length; i++) {
+    if (!patternItems[pattern[i]]) {
+        patternItems[pattern[i]] = 0;
+    }
+    patternItems[pattern[i]] += 1;
+  }
+
+  for (let right = 0; right < string.length; right++) {
+    if (!windowItems[string[right]]) {
+      windowItems[string[right]] = 0;
+    }
+
+    windowItems[string[right]] += 1;
+
+    if (check(windowItems, patternItems)) {
+
+    }
+
+    while (!check(windowItems, patternItems)) {
+      windowItems[string[left]] -= 1;
+      if (windowItems[string[left]] === 0) {
+        delete windowItems[string[left]];
+      }
+
+      left += 1;
+    }
+
+  }
+
+
+
+  return string; 
 }
 
 
-console.log(length_of_longest_substring('aabccbb', 2));
-console.log(length_of_longest_substring('abbcb', 1));
-console.log(length_of_longest_substring('abccde', 1));
+// console.log(find_substring('aabdec', 'abc'));
+// console.log(find_substring('aabdec', 'abac'));
+// console.log(find_substring('abdbca', 'abc'));
+// console.log(find_substring('adcad', 'abc'));
