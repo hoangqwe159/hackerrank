@@ -38,32 +38,6 @@ const squareDigit = function (number) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Node {
-  constructor(value, next = null) {
-    this.value = value;
-    this.next = next;
-  }
-}
-
 function hasCycle(head) {
   let slow = head;
   let fast = head;
@@ -81,19 +55,104 @@ function hasCycle(head) {
   }
   return !!fast?.value;
 }
+// class Node {
+//   constructor(value, next = null) {
+//     this.value = value;
+//     this.next = next;
+//   }
+// }
 
+// const head = new Node(1);
+// head.next = new Node(2);
+// head.next.next = new Node(3);
+// head.next.next.next = new Node(4);
+// head.next.next.next.next = new Node(5);
+// head.next.next.next.next.next = new Node(6);
+// console.log(`LinkedList has cycle: ${hasCycle(head)}`);
+
+// head.next.next.next.next.next.next = head.next.next;
+// console.log(`LinkedList has cycle: ${hasCycle(head)}`);
+
+// head.next.next.next.next.next.next = head.next.next.next;
+// console.log(`LinkedList has cycle: ${hasCycle(head)}`);
+
+
+class Node {
+  constructor(val, next = null) {
+    this.val = val;
+    this.next = next;
+  }
+}
 
 const head = new Node(1);
 head.next = new Node(2);
 head.next.next = new Node(3);
 head.next.next.next = new Node(4);
-head.next.next.next.next = new Node(5);
-head.next.next.next.next.next = new Node(6);
-console.log(`LinkedList has cycle: ${hasCycle(head)}`);
+head.next.next.next.next = new Node(4);
+head.next.next.next.next.next = new Node(3);
+head.next.next.next.next.next.next = new Node(2);
+head.next.next.next.next.next.next.next = new Node(1);
 
-head.next.next.next.next.next.next = head.next.next;
-console.log(`LinkedList has cycle: ${hasCycle(head)}`);
 
-head.next.next.next.next.next.next = head.next.next.next;
-console.log(`LinkedList has cycle: ${hasCycle(head)}`);
 
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+const isPalindrome = function (head) {
+  let start = head;
+
+  const middle = travelToMiddle(head);
+
+  let end = reverseList(middle);
+
+  while (start?.next || end?.next) {
+    if (start?.val !== end?.val) return false;
+
+    start = start?.next;
+    end = end?.next;
+  }
+
+  return true;
+    
+};
+
+const travelToMiddle = function (head) {
+  let slow = head;
+  let fast = head;
+
+  while (fast?.next && fast?.next?.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  return slow;
+}
+
+const reverseList = function (head) {
+  if (head === null) return;
+
+  let currentNode = head;
+  let prevNode = null;
+  let nextNode = null;
+
+  // traverse list and adjust links
+  while (currentNode) {
+      nextNode = currentNode.next;
+      currentNode.next = prevNode;
+      prevNode = currentNode;
+      currentNode = nextNode;
+      nextNode = null;
+  }
+  head = prevNode; // reset head
+  return head;
+};
+
+console.log(isPalindrome(head));
