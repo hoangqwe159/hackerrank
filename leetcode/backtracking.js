@@ -54,49 +54,23 @@ function combination (n, k) {
   }
 }
 
-/**
- * @param {character[][]} board
- * @param {string} word
- * @return {boolean}
- */
-var exist = function(board, word) {
-    let result = [];
-    backtracking([], col, rol);
+// /**
+//  * @param {character[][]} board
+//  * @param {string} word
+//  * @return {boolean}
+//  */
+// var exist = function(board, word) {
+//     let result = [];
+//     backtracking([], col, rol);
 
-    return result;
+//     return result;
 
-    function backtracking(combination, col, rol) {
-      if (combination.join())
-    }
-};
-
-// console.log(exist([["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCCED"))
-
-function shortestPath (grid, quota) {
-  if (quota > grid.length - 1 + grid[0].length - 1) {
-    return grid.length + grid[0].length - 2;
-  }
-
-  let state = [0, 0, quota];
-  let queue = [0, state];
-  let visited = new Set(state);
-
-  while (queue.length > 0) {
-    let currentState = queue.shift();
-
-    if (currentState[0] === grid.length - 1 && currentState[1] === grid[0].length - 1) {
-
-    }
-
-    bfs(grid, quota, currentState[0], currentState[1], visited);
+//     function backtracking(combination, col, rol) {
+//       if (combination.join())
+//     }
+// };
 
 
-  }
-
-  function bfs(grid, quota, i, j, visited) {
-
-  }
-};
 // Input: grid = [[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]], k = 1
 // Output: 6
 // Explanation: 
@@ -107,56 +81,56 @@ function shortestPath (grid, quota) {
  * @param {number} k
  * @return {number}
  */
-function shortestPath (grid, numOfElimination) {
-  let result = -1;
-  backtracking(grid, numOfElimination, [], 0, 0, 0);
+// function shortestPath1 (grid, numOfElimination) {
+//   let result = -1;
+//   backtracking(grid, numOfElimination, [], 0, 0, 0);
 
-  return result;
+//   return result;
 
-  function backtracking (grid, numOfElimination, combination, i, j, count) {
-    if (i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1) {
-      return;
-    }
+//   function backtracking (grid, numOfElimination, combination, i, j, count) {
+//     if (i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1) {
+//       return;
+//     }
 
-    if (grid[i][j] === 1 && count >= numOfElimination) {
-      return;
-    }
+//     if (grid[i][j] === 1 && count >= numOfElimination) {
+//       return;
+//     }
 
-    if (grid[i][j] !== 0 && grid[i][j] !== 1) {
-      return;
-    }
+//     if (grid[i][j] !== 0 && grid[i][j] !== 1) {
+//       return;
+//     }
 
-    if (result !== -1 && combination.length > result) {
-      return;
-    }
+//     if (result !== -1 && combination.length > result) {
+//       return;
+//     }
 
-    if (i === grid.length - 1 && j === grid[0].length - 1) {
-      result = result === -1 ? combination.length : Math.min(result, combination.length);
-    }
+//     if (i === grid.length - 1 && j === grid[0].length - 1) {
+//       result = result === -1 ? combination.length : Math.min(result, combination.length);
+//     }
 
-    if (grid[i][j] === 0) {
-      combination.push([i, j]);
-    } else if (count < numOfElimination) {
-      combination.push([i, j]);
-      count += 1;
-    }
+//     if (grid[i][j] === 0) {
+//       combination.push([i, j]);
+//     } else if (count < numOfElimination) {
+//       combination.push([i, j]);
+//       count += 1;
+//     }
 
-    let temp = grid[i][j];
-    grid[i][j] = '#';
+//     let temp = grid[i][j];
+//     grid[i][j] = '#';
 
-    backtracking(grid, numOfElimination, combination, i + 1, j, count);
-    backtracking(grid, numOfElimination, combination, i - 1, j, count);
-    backtracking(grid, numOfElimination, combination, i, j + 1, count);
-    backtracking(grid, numOfElimination, combination, i, j - 1, count);
+//     backtracking(grid, numOfElimination, combination, i + 1, j, count);
+//     backtracking(grid, numOfElimination, combination, i - 1, j, count);
+//     backtracking(grid, numOfElimination, combination, i, j + 1, count);
+//     backtracking(grid, numOfElimination, combination, i, j - 1, count);
 
-    grid[i][j] = temp;
-    combination.pop();
-  }
-};
+//     grid[i][j] = temp;
+//     combination.pop();
+//   }
+// };
 
-let grid = [[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]];
-let k = 1;
-console.log(shortestPath(grid, k));
+// let grid = [[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]];
+// let k = 1;
+// console.log(shortestPath1(grid, k));
 
 
 // Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
@@ -205,3 +179,79 @@ console.log(shortestPath(grid, k));
 // let word = "SEE";
 
 // console.log(exist (board, word));
+
+
+// function shortestPath (grid, numOfElimination) {
+//   let visited = {};
+//   let state = [0, 0, 0, numOfElimination]; // step, i, j, k
+//   let queue = [state];
+//   let directions = [[1, 0], [0, 1], [0, -1], [-1, 0]];
+
+//   while (queue.length) {
+//     let currentState = queue.shift();
+
+//     if (!currentState) return;
+
+//     if (currentState[1] === grid.length - 1 && currentState[2] === grid[0].length - 1) {
+//       return currentState[0];
+//     }
+
+//     for (const direction of directions) {
+//       let newRow = currentState[1] + direction[0];
+//       let newCol = currentState[2] + direction[1];
+
+//       if (newRow < 0 || newRow > grid.length - 1 || newCol < 0 || newCol > grid[0].length - 1) {
+//         continue;
+//       }
+
+
+//       if (currentState[3] - grid[newRow][newCol] >= 0) {
+//         let remainingEliminations = currentState[3] - grid[newRow][newCol];
+//         if (!visited[`${newRow}_${newCol}_${remainingEliminations}`]) {
+//           visited[`${newRow}_${newCol}_${remainingEliminations}`] = 1;
+//           queue.push([currentState[0] + 1, newRow, newCol, remainingEliminations]);
+//         }
+//       }
+//     }
+//   }
+
+//   return -1;
+// };
+
+// let grid = [[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]];
+// let k = 1;
+// console.log(shortestPath(grid, k));
+
+/**
+ * @param {string} s
+ * @param {string[]} wordDict
+ * @return {boolean}
+ */
+var wordBreak = function(string, wordDict) {
+  let hash = {};
+  for (const word of wordDict) {
+    hash[word] = 1;
+  }
+
+  let queue = [0];
+
+  while (queue.length) {
+    let currentIndex = queue.shift();
+
+    if (currentIndex === string.length) {
+      return true;
+    }
+
+    for (let i = currentIndex + 1; i < string.length + 1; i++) {
+      if (hash[string.slice(currentIndex, i)]) {
+        queue.push(i);
+      }
+    }
+  }
+    
+};
+
+console.log(wordBreak("leetcode", ["leet","code"])); // true
+console.log(wordBreak("applepenapple", ["apple","pen"])); // true
+console.log(wordBreak("catsandog", ["cats","dog","sand","and","cat"])) //f false
+
