@@ -413,3 +413,89 @@ function find_substring(string, pattern) {
 // console.log(find_substring('aabdec', 'abac'));
 // console.log(find_substring('abdbca', 'abc'));
 // console.log(find_substring('adcad', 'abc'));
+
+// Given two strings s and t of lengths m and n respectively, return the minimum window 
+// substring
+//  of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+// The testcases will be generated such that the answer is unique.
+
+ 
+
+// Example 1:
+
+// Input: s = "ADOBECODEBANC", t = "ABC"
+// Output: "BANC"
+// Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+// Example 2:
+
+// Input: s = "a", t = "a"
+// Output: "a"
+// Explanation: The entire string s is the minimum window.
+// Example 3:
+
+// Input: s = "a", t = "aa"
+// Output: ""
+// Explanation: Both 'a's from t must be included in the window.
+// Since the largest window of s only has one 'a', return empty string.
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {string}
+ */
+function minWindow (string, pattern) {
+  let left = 0;
+  let right = 0;
+  let windowItems = {};
+  let result = '';
+  let patternMap = {};
+
+  for (let i = 0; i < pattern.length; i++) {
+    if (!patternMap[pattern[i]]) {
+      patternMap[pattern[i]] = 0;
+    }
+
+    patternMap[pattern[i]] += 1;
+  }
+
+  for (right = 0; right < string.length; right++) {
+    if (!windowItems[string[right]]) {
+      windowItems[string[right]] = 0;
+    }
+
+    windowItems[string[right]] += 1;
+
+    while (checkValid(windowItems, patternMap) && left <= right) {
+      if (!result) {
+        result = string.slice(left, right + 1);
+      } else {
+        result = result.length > right - left + 1
+        ? string.slice(left, right + 1)
+        : result;
+      }
+      windowItems[string[left]] -= 1;
+      if (windowItems[string[left]] === 0) {
+        delete windowItems[string[left]];
+      }
+
+      left += 1;
+    }
+  }
+
+  return result;
+
+  function checkValid (windowItems, patternMap) {
+    let keys = Object.keys(patternMap)
+    for (let i = 0; i < keys.length; i++) {
+      if (!windowItems[keys[i]] ) return false
+      if (windowItems[keys[i]] < patternMap[keys[i]]) return false;
+    }
+
+    return true;
+  }
+    
+};
+
+console.log(minWindow('ADOBECODEBANC', 'ABC'));
+console.log(minWindow('ab', 'b'));
+console.log(minWindow('a', 'aa'));
