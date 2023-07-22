@@ -255,3 +255,94 @@ console.log(wordBreak("leetcode", ["leet","code"])); // true
 console.log(wordBreak("applepenapple", ["apple","pen"])); // true
 console.log(wordBreak("catsandog", ["cats","dog","sand","and","cat"])) //f false
 
+// Input: digits = "23"
+// Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+var letterCombinations = function(digits) {
+  let map = {
+    2: 'abc',
+    3: 'def',
+    4: 'ghi',
+    5: 'jkl',
+    6: 'mno',
+    7: 'pqrs',
+    8: 'tuv',
+    9: 'wxyz'
+  }
+
+  let result = [];
+
+  backtracking(0, []);
+
+  return result;
+
+  function backtracking(index, combination) {
+    if (index === digits.length) {
+      let toPush = combination.slice().join('');
+      toPush && result.push(toPush);
+      return
+    }
+
+    let number = digits[index];
+    for (let i = 0; i < map[number].length; i++) {
+      combination.push(map[number][i]);
+
+      backtracking(index + 1, combination);
+
+      combination.pop();
+    }
+  }
+}
+
+console.log(letterCombinations('23'));
+
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function(matrix) {
+  let direction = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+  let result = [];
+
+  if (matrix.length === 1) return matrix[0];
+
+  let i = 0;
+  let j = 0;
+  let directionIndex = 0;
+  for (let k = 0; k < matrix.length * matrix[0].length; k++) {
+    result.push(matrix[i][j]);
+    matrix[i][j] = '#';
+    let newI = i + direction[directionIndex][0];
+    let newJ = j + direction[directionIndex][1];
+
+
+
+    if (newI < 0 || newI > matrix.length - 1 || newJ < 0 || newJ > matrix[0].length - 1) {
+      directionIndex = (directionIndex + 1) % 4;
+      i = i + direction[directionIndex][0];
+      j = j + direction[directionIndex][1];
+
+      if (typeof matrix[i][j] === undefined) break;
+      if (matrix[i][j] === '#') break;
+    } else if (matrix[newI][newJ] === '#') {
+      directionIndex = (directionIndex + 1) % 4;
+
+      i = i + direction[directionIndex][0];
+      j = j + direction[directionIndex][1];
+
+      if (typeof matrix[i][j] === undefined) break;
+      if (matrix[i][j] === '#') break;
+    } else {
+      i = i + direction[directionIndex][0];
+      j = j + direction[directionIndex][1];
+
+      if (typeof matrix[i][j] === undefined) break;
+    }
+  }
+
+  return result;
+    
+};
+// Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+// Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+
+console.log(spiralOrder([[3], [2]]))
