@@ -327,3 +327,265 @@ var widthOfBinaryTree = function(root) {
 
   return result;
 };
+
+var hasPath = function(maze, start, destination) {
+  let visited = {};
+  const directions = [[0, 1],[0, -1],[-1, 0],[1, 0]];
+  let queue = [start];
+
+  while (queue.length) {
+    let currentState = queue.shift();
+
+    if (currentState[0] === destination[0] && currentState[1] === destination[1]) {
+      return true;
+    }
+
+    for (const direction of directions) {
+      let newI = currentState[0] + direction[0];
+      let newJ = currentState[1] + direction[1];
+      
+      while (newI >= 0 && newI <= maze.length - 1 && newJ >= 0 && newJ <= maze[0].length - 1 && maze[newI][newJ] === 0) {
+        newI += direction[0];
+        newJ += direction[1];
+      }
+
+      newI -= direction[0];
+      newJ -= direction[1];
+
+
+      if (!visited[`${newI}_${newJ}`]) {
+        queue.push([newI, newJ]);
+        visited[`${newI}_${newJ}`] = 1;
+      }
+    }
+  }
+
+  return false;
+};
+
+// let maze = [[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]];
+// let start = [0,4];
+// let destination = [3,2];
+
+// console.log(hasPath(maze, start, destination));
+
+var decodeString = function(string) {
+  let stack = [];
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] !== ']') {
+      stack.push(string[i]);
+    } else {
+      let currentString = '';
+
+      let top = stack.pop();
+      while (top !== '[') {
+        currentString = top + currentString;
+        top = stack.pop();
+      }
+
+      let number = '';
+      top = stack.pop();
+      while (!Number.isNaN(Number(top))) {
+        number = top + number;
+        top = stack.pop();
+      }
+
+      stack.push(top);
+      stack.push(currentString.repeat(Number(number)));
+    }
+  }
+
+  let result = '';
+  for (const char of stack) {
+    if (char) result += char;
+  }
+  return result;
+};
+
+// console.log(decodeString("3[a2[c]]"));
+// console.log(decodeString("3[a]2[bc]"));
+
+var longestPalindrome = function(string) {
+  let dp = Array(string.length).fill(0).map(() => Array(string.length).fill(false));
+
+  for (let i = 0; i < string.length; i++) {
+    dp[i][i] = true;
+  }
+
+  let ans = [0, 0]
+  for (let i = 0; i < string.length - 1; i++) {
+    if (string[i] === string[i + 1]) {
+      dp[i][i + 1] = true;
+      ans = [i, i + 1];
+    }
+  }
+
+  for (let diff = 2; diff < string.length + 1; diff++) {
+    for (let i = 0; i < string.length - diff + 1; i++) {
+      let j = i + diff - 1;
+      if (string[i] === string[j] && dp[i + 1][j - 1]) {
+        dp[i][j] = true;
+        ans = [i, j];
+      }
+    }
+  }
+
+  return string.slice(ans[0], ans[1] + 1)
+};
+
+var numBusesToDestination = function(routes, source, target) {
+  if (source === target) return 0;
+  let graph = {};
+  for (let i = 0; i < routes.length; i++) {
+    graph[i] = [];
+  }
+
+  for (let i = 0; i < routes.length; i++) {
+    if (routes[i].includes(target)) {
+      graph[i].push('target');
+    }
+    for (let j = i + 1; j < routes.length; j++) {
+      if (isIntersect(routes[i], routes[j])) {
+        graph[i].push(j);
+        graph[j].push(i);
+      }
+    }
+  }
+
+  let queue = [];
+  for (let i = 0; i < routes.length; i++) {
+    if (routes[i].includes(source)) {
+      queue.push([i, 1]);
+    }
+  }
+
+  let visited = {};
+  while (queue.length) {
+    let currentState = queue.shift();
+
+    let stop = currentState[0];
+    let depth = currentState[1]; 
+
+    if (graph[stop].includes('target')) {
+      return depth;
+    }
+
+    for (let i = 0; i < graph[stop].length; i++) {
+      if (!visited[graph[stop][i]]) {
+        queue.push([graph[stop][i], depth + 1]);
+        visited[graph[stop][i]] = 1;
+      }
+    }
+  }
+
+  return -1;
+};
+
+function isIntersect (a, b) {
+  let intersect = a.filter(item => b.includes(item));
+
+  return !!intersect.length;
+}
+
+// console.log(numBusesToDestination([[1,2,7],[3,6,7]], 1, 6));
+// console.log(numBusesToDestination([[7,12],[4,5,15],[6],[15,19],[9,12,13]], 15, 12));
+
+var findOrder = function(numCourses, prerequisites) {
+  let graph = {};
+  let inDegree = {};
+  for (let i = 0; i < numCourses; i++) {
+    graph[i] = [];
+    inDegree[i] = 0;
+  }
+
+  for (const prerequisite of prerequisites) {
+    let parent = prerequisite[1];
+    let child = prerequisite[0];
+
+    graph[parent].push(child);
+    inDegree[child] += 1;
+  }
+  
+  let queue = [];
+  for (key in inDegree) {
+    if (inDegree[key] === 0) queue.push(key);
+  }
+
+  let result = [];
+  while (queue.length) {
+    let currentState = queue.shift();
+
+    result.push(currentState);
+    for (const child of graph[currentState]) {
+      inDegree[child] -= 1;
+      if (inDegree[child] === 0) {
+        queue.push(child);
+      }
+    }
+  }
+
+  return result.length === numCourses ? result.map(Number) : [];
+};
+
+// console.log(findOrder(4, [[1,0],[2,0],[3,1],[3,2]]));
+
+var findAllRecipes = function(recipes, ingredients, supplies) {
+  let graph = {};
+  let inDegree = {};
+
+  for (let i = 0; i < recipes.length; i++) {
+    inDegree[recipes[i]] = ingredients[i].length;
+
+    for (const parent of ingredients[i]) {
+      if (!graph[parent]) graph[parent] = [];
+      graph[parent].push(recipes[i]);
+    }
+  }
+
+  console.log(graph);
+  let result = [];
+  let queue = supplies.slice();
+
+  while (queue.length) {
+    let currentState = queue.shift();
+
+    if (recipes.includes(currentState)) {
+      result.push(currentState);
+    }
+
+    if (graph[currentState]?.length) {
+      for (const recipe of graph[currentState]) {
+        inDegree[recipe] -= 1;
+        if (inDegree[recipe] === 0) {
+          queue.push(recipe);
+        }
+      }
+    }
+  }
+
+  return result;
+};
+
+let recipes = ["bread","sandwich","burger"],
+ingredients = [["yeast","flour"],["bread","meat"],["sandwich","meat","bread"]], 
+supplies = ["yeast","flour","meat"];
+// console.log(findAllRecipes(recipes, ingredients, supplies));
+
+// i j k l
+var countQuadruplets = function (nums) {
+  let ans = 0;
+  let count = Array(nums.length).fill(0);
+
+  for (let l = 0; l < nums.length; l++) {
+    let prev_small = 0;
+    for (let j = 0; j < l; j++) {
+      if (nums[l] > nums[j]) {
+        prev_small++;
+        ans += count[j];
+      } else if (nums[l] < nums[j]) {
+        count[j] += prev_small;
+      }
+    }
+  }
+  return ans;
+};
