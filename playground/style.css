@@ -1,0 +1,36 @@
+body {
+  background-color: bisque;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-container {
+  background-color: aliceblue;
+  width: 20rem;
+  height: 20rem;
+}
+
+.selection-bar {
+  background-color: brown;
+  width: 96%;
+  height: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2%;
+  padding-right: 2%;
+  align-items: center;
+}
+
+.button {
+  background-color: black;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+li:hover {
+  background-color: aquamarine;
+}

@@ -1,0 +1,591 @@
+function champagneTower (water, ci, cj) {
+  let grid = [];
+  let size = 102;
+
+  for (let i = 0; i < size; i++) {
+    grid[i] = [];
+    for (let j = 0; j < size; j++) {
+      grid[i][j] = 1;
+    }
+  }
+
+  grid[0][0] = water;
+  for (let i = 1; i < grid.length; i++) {
+    for (let j = 0; j < 102; j++) {
+      let topLeft = grid?.[i - 1]?.[j - 1] || 1;
+      let topRight = grid?.[i - 1]?.[j] || 1;
+
+      topLeft = Math.max(topLeft, 1);
+      topRight = Math.max(topRight, 1);
+
+      grid[i][j] = (topLeft - 1) / 2 + (topRight - 1) / 2;
+    }
+  }
+
+
+
+  return Math.min(1, grid[ci][cj]);
+}
+
+// console.log(champagneTower(100000009, 33, 17))
+// console.log(champagneTower(1, 1, 1))
+
+function shortestPath (grid, numOfElimination) {
+  let visited = {};
+  let state = [0, 0, 0, numOfElimination]; // i, j, step, numOfElimination
+  let queue = [state];
+  let directions = [[0, 1],[0, -1],[1, 0],[-1, 0]]
+
+  while(queue.length) {
+    let currentState = queue.shift();
+
+    if (currentState[0] === grid.length - 1 && currentState[1] === grid[0].length - 1 && currentState[3] >= 0) {
+      return  currentState[2];
+    }
+
+    for (const direction of directions) {
+      let newI = currentState[0] + direction[0];
+      let newJ = currentState[1] + direction[1];
+
+
+      if (newI < 0 || newI > grid.length - 1 || newJ < 0 || newJ > grid[0].length - 1) {
+        continue;
+      } else {
+        let newQuota = currentState[3] - grid[newI][newJ];
+        let newStep = currentState[2] + 1;
+        if (newQuota >= 0 && !visited[`${newI}_${newJ}_${newQuota}`]) {
+          queue.push([newI, newJ, newStep, newQuota]);
+          visited[`${newI}_${newJ}_${newQuota}`] = 1;
+        }
+      }
+    }
+  }
+
+  return -1;
+}
+
+// console.log(shortestPath([[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]], 1));
+// console.log(shortestPath([[0,0,0]], 1));
+
+function twoCitySchedCost (costs) {
+  costs.sort((a, b) => (a[0] - a[1]) - (b[0] - b[1]));
+
+  let sum = 0;
+  for (let i = 0; i < costs.length; i++) {
+    if (i < costs.length / 2) {
+      sum += costs[i][0];
+    } else {
+      sum += costs[i][1];
+    }
+  }
+
+  return sum;
+};
+
+// console.log(twoCitySchedCost([[10,20],[30,200],[400,50],[30,20]]));
+
+var minRemoveToMakeValid = function(string) {
+  let stack = [];
+  let toRemove = [];
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] === '(') {
+      stack.push(i);
+    } else if (string[i] === ')') {
+      if (stack.length) {
+        stack.pop();
+      } else {
+        toRemove.push(i);
+      }
+    }
+  }
+
+  let hash = {};
+  for (const index of stack) {
+    hash[index] = 1;
+  }
+
+  for (const index of toRemove) {
+    hash[index] = 1;
+  }
+
+  let result = "";
+  for (let i = 0; i < string.length; i++) {
+    if (hash[i]) continue;
+    result += string[i];
+  }
+
+  return result;
+};
+
+// console.log(minRemoveToMakeValid("a)b(c)d"));
+// console.log(minRemoveToMakeValid("lee(t(c)o)de)"));
+
+// Basic Calculator III
+var calculate = function(string) {
+  let currentNumber = 0;
+  let operation = '+';
+  let stack = [];
+
+  for (let i = 0; i < string.length; i++) {
+    if (!Number.isNaN(Number(string[i]))) {
+      currentNumber = currentNumber * 10 + Number(string[i]);
+    } else if (string[i] === '(') {
+      stack.push(operation);
+      currentNumber = 0;
+      operation = '+';
+    } else if (['+', '-', '*', '/', ')'].includes(string[i])) {
+      helper(currentNumber, operation);
+      if (string[i] === ')') {
+        currentNumber = 0;
+        let newNumber = stack.pop();
+        while (!Number.isNaN(Number(newNumber))) {
+          currentNumber += newNumber;
+          newNumber = stack.pop();
+        }
+
+        operation = newNumber;
+        helper(currentNumber, operation)
+      }
+
+      currentNumber = 0;
+      operation = string[i];
+    }
+  }
+
+  helper(currentNumber, operation);
+
+  let sum = 0;
+  for (const number of stack) {
+    sum += number;
+  }
+
+  return sum;
+
+
+  function helper (number, op) {
+    if (op === '+') {
+      stack.push(number);
+    } else if (op === '-') {
+      stack.push(-number);
+    } else if (op === '*') {
+      stack.push(stack.pop() * number);
+    } else if (op === '/') {
+      stack.push(stack.pop() / number);
+    }
+  }
+};
+
+// console.log(calculate('1+1*2/2+(1+3*5)'));
+
+var trap = function(height) {
+  let maxLeft = [];
+  let maxRight = [];
+
+  let current = 0;
+  for (let i = 0; i < height.length; i++) {
+    if (i === 0) {
+      maxLeft[i] = 0;
+      current = height[i];
+    } else {
+      maxLeft[i] = current;
+      current = Math.max(current, height[i]);
+    }
+  }
+
+  current = 0;
+  for (let i = height.length - 1; i >= 0; i--) {
+    if (i === height.length - 1) {
+      maxRight[i] = 0;
+      current = height[i];
+    } else {
+      maxRight[i] = current;
+      current = Math.max(current, height[i]);
+    }
+  }
+
+  let sum = 0;
+  for (let i = 0; i < height.length; i++) {
+    sum += Math.max(Math.min(maxLeft[i], maxRight[i]) - height[i], 0)
+  }
+
+  return sum;
+};
+
+// console.log(trap([4,2,0,3,2,5]));
+
+var getDirections = function(root, startValue, destValue) {
+  let lca = findLCA(root, startValue, destValue);
+  let depth = findDepth(lca, startValue, 0);
+  let direction = findDirection(lca, destValue, '');
+
+  return 'U'.repeat(depth) + direction;
+
+};
+
+function findLCA (root, startValue, destValue) {
+  if (!root) return null;
+
+  if (root.val === startValue || root.val === destValue) return root;
+
+  let left = findLCA(root.left, startValue, destValue);
+  let right = findLCA(root.right, startValue, destValue);
+
+  if (left && right) return root;
+
+  return left || right;
+}
+
+function findDepth (root, value, depth = 0) {
+  if (!root) return 0;
+
+  if (root.left?.val === value) return depth + 1;
+  if (root.right?.val === value) return depth + 1;
+
+  return findDepth(root.left, value, depth + 1) || findDepth(root.right, value, depth + 1);
+}
+
+function findDirection (root, value, string = '') {
+  if (!root) return '';
+
+  if (root.left?.val === value) return string + 'L';
+  if (root.right?.val === value) return string + 'R';
+
+  return findDirection(root.left, value, string + 'L') || findDirection(root.right, value, string + 'R');
+}
+
+var minMeetingRooms = function(intervals) {
+  let startArray = [];
+  let endArray = [];
+
+  for (let i = 0; i < intervals.length; i++) {
+    startArray[i] = intervals[i][0];
+    endArray[i] = intervals[i][1];
+  }
+
+  startArray.sort((a, b) => a - b);
+  endArray.sort((a, b) => a - b);
+
+
+  let result = -Infinity;
+  let count = 0;
+  let endIndex = 0
+  for (let i = 0; i < startArray.length; i++) {
+    if (startArray[i] < endArray[endIndex]) {
+      count += 1;
+    } else {
+      count -= 1;
+      endIndex += 1;
+      i -= 1
+    }
+    result = Math.max(result, count);
+  }
+  
+  return result
+};
+
+// console.log(minMeetingRooms([[0,30],[5,10],[15,20]]));
+// console.log(minMeetingRooms([[1,5],[8,9],[8,9]]));
+
+var scoreOfParentheses = function(string) {
+  let stack = [];
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] === '(') {
+      stack.push(0);
+    } else {
+      let v = stack.pop() || 0;
+      let w = stack.pop() || 0;
+
+      stack.push(w + Math.max(v * 2, 1));
+    }
+  }
+  return stack.pop();
+};
+
+// console.log(scoreOfParentheses("((((()))))"));
+
+var widthOfBinaryTree = function(root) {
+  let previousLevel = 0;
+  let previousPoint = 1;
+  let state = [root, 1, 0];
+  let queue = [state];
+
+  let result = 0;
+
+  while (queue.length) {
+    let currentNode = queue.shift();
+
+    if (currentNode[2] > previousLevel) {
+      previousLevel = currentNode[2];
+      previousPoint = currentNode[1];
+    }
+
+    result = Math.max(result, currentNode[1] - previousPoint + 1);
+
+    currentNode[0]?.left && queue.push([currentNode[0].left, currentNode[1] * 2, currentNode[2] + 1]);
+    currentNode[0]?.right && queue.push([currentNode[0].right, currentNode[1] * 2 + 1, currentNode[2] + 1]);
+  }
+
+  return result;
+};
+
+var hasPath = function(maze, start, destination) {
+  let visited = {};
+  const directions = [[0, 1],[0, -1],[-1, 0],[1, 0]];
+  let queue = [start];
+
+  while (queue.length) {
+    let currentState = queue.shift();
+
+    if (currentState[0] === destination[0] && currentState[1] === destination[1]) {
+      return true;
+    }
+
+    for (const direction of directions) {
+      let newI = currentState[0] + direction[0];
+      let newJ = currentState[1] + direction[1];
+      
+      while (newI >= 0 && newI <= maze.length - 1 && newJ >= 0 && newJ <= maze[0].length - 1 && maze[newI][newJ] === 0) {
+        newI += direction[0];
+        newJ += direction[1];
+      }
+
+      newI -= direction[0];
+      newJ -= direction[1];
+
+
+      if (!visited[`${newI}_${newJ}`]) {
+        queue.push([newI, newJ]);
+        visited[`${newI}_${newJ}`] = 1;
+      }
+    }
+  }
+
+  return false;
+};
+
+// let maze = [[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]];
+// let start = [0,4];
+// let destination = [3,2];
+
+// console.log(hasPath(maze, start, destination));
+
+var decodeString = function(string) {
+  let stack = [];
+  for (let i = 0; i < string.length; i++) {
+    if (string[i] !== ']') {
+      stack.push(string[i]);
+    } else {
+      let currentString = '';
+
+      let top = stack.pop();
+      while (top !== '[') {
+        currentString = top + currentString;
+        top = stack.pop();
+      }
+
+      let number = '';
+      top = stack.pop();
+      while (!Number.isNaN(Number(top))) {
+        number = top + number;
+        top = stack.pop();
+      }
+
+      stack.push(top);
+      stack.push(currentString.repeat(Number(number)));
+    }
+  }
+
+  let result = '';
+  for (const char of stack) {
+    if (char) result += char;
+  }
+  return result;
+};
+
+// console.log(decodeString("3[a2[c]]"));
+// console.log(decodeString("3[a]2[bc]"));
+
+var longestPalindrome = function(string) {
+  let dp = Array(string.length).fill(0).map(() => Array(string.length).fill(false));
+
+  for (let i = 0; i < string.length; i++) {
+    dp[i][i] = true;
+  }
+
+  let ans = [0, 0]
+  for (let i = 0; i < string.length - 1; i++) {
+    if (string[i] === string[i + 1]) {
+      dp[i][i + 1] = true;
+      ans = [i, i + 1];
+    }
+  }
+
+  for (let diff = 2; diff < string.length + 1; diff++) {
+    for (let i = 0; i < string.length - diff + 1; i++) {
+      let j = i + diff - 1;
+      if (string[i] === string[j] && dp[i + 1][j - 1]) {
+        dp[i][j] = true;
+        ans = [i, j];
+      }
+    }
+  }
+
+  return string.slice(ans[0], ans[1] + 1)
+};
+
+var numBusesToDestination = function(routes, source, target) {
+  if (source === target) return 0;
+  let graph = {};
+  for (let i = 0; i < routes.length; i++) {
+    graph[i] = [];
+  }
+
+  for (let i = 0; i < routes.length; i++) {
+    if (routes[i].includes(target)) {
+      graph[i].push('target');
+    }
+    for (let j = i + 1; j < routes.length; j++) {
+      if (isIntersect(routes[i], routes[j])) {
+        graph[i].push(j);
+        graph[j].push(i);
+      }
+    }
+  }
+
+  let queue = [];
+  for (let i = 0; i < routes.length; i++) {
+    if (routes[i].includes(source)) {
+      queue.push([i, 1]);
+    }
+  }
+
+  let visited = {};
+  while (queue.length) {
+    let currentState = queue.shift();
+
+    let stop = currentState[0];
+    let depth = currentState[1]; 
+
+    if (graph[stop].includes('target')) {
+      return depth;
+    }
+
+    for (let i = 0; i < graph[stop].length; i++) {
+      if (!visited[graph[stop][i]]) {
+        queue.push([graph[stop][i], depth + 1]);
+        visited[graph[stop][i]] = 1;
+      }
+    }
+  }
+
+  return -1;
+};
+
+function isIntersect (a, b) {
+  let intersect = a.filter(item => b.includes(item));
+
+  return !!intersect.length;
+}
+
+// console.log(numBusesToDestination([[1,2,7],[3,6,7]], 1, 6));
+// console.log(numBusesToDestination([[7,12],[4,5,15],[6],[15,19],[9,12,13]], 15, 12));
+
+var findOrder = function(numCourses, prerequisites) {
+  let graph = {};
+  let inDegree = {};
+  for (let i = 0; i < numCourses; i++) {
+    graph[i] = [];
+    inDegree[i] = 0;
+  }
+
+  for (const prerequisite of prerequisites) {
+    let parent = prerequisite[1];
+    let child = prerequisite[0];
+
+    graph[parent].push(child);
+    inDegree[child] += 1;
+  }
+  
+  let queue = [];
+  for (key in inDegree) {
+    if (inDegree[key] === 0) queue.push(key);
+  }
+
+  let result = [];
+  while (queue.length) {
+    let currentState = queue.shift();
+
+    result.push(currentState);
+    for (const child of graph[currentState]) {
+      inDegree[child] -= 1;
+      if (inDegree[child] === 0) {
+        queue.push(child);
+      }
+    }
+  }
+
+  return result.length === numCourses ? result.map(Number) : [];
+};
+
+// console.log(findOrder(4, [[1,0],[2,0],[3,1],[3,2]]));
+
+var findAllRecipes = function(recipes, ingredients, supplies) {
+  let graph = {};
+  let inDegree = {};
+
+  for (let i = 0; i < recipes.length; i++) {
+    inDegree[recipes[i]] = ingredients[i].length;
+
+    for (const parent of ingredients[i]) {
+      if (!graph[parent]) graph[parent] = [];
+      graph[parent].push(recipes[i]);
+    }
+  }
+
+  console.log(graph);
+  let result = [];
+  let queue = supplies.slice();
+
+  while (queue.length) {
+    let currentState = queue.shift();
+
+    if (recipes.includes(currentState)) {
+      result.push(currentState);
+    }
+
+    if (graph[currentState]?.length) {
+      for (const recipe of graph[currentState]) {
+        inDegree[recipe] -= 1;
+        if (inDegree[recipe] === 0) {
+          queue.push(recipe);
+        }
+      }
+    }
+  }
+
+  return result;
+};
+
+let recipes = ["bread","sandwich","burger"],
+ingredients = [["yeast","flour"],["bread","meat"],["sandwich","meat","bread"]], 
+supplies = ["yeast","flour","meat"];
+// console.log(findAllRecipes(recipes, ingredients, supplies));
+
+// i j k l
+var countQuadruplets = function (nums) {
+  let ans = 0;
+  let count = Array(nums.length).fill(0);
+
+  for (let l = 0; l < nums.length; l++) {
+    let prev_small = 0;
+    for (let j = 0; j < l; j++) {
+      if (nums[l] > nums[j]) {
+        prev_small++;
+        ans += count[j];
+      } else if (nums[l] < nums[j]) {
+        count[j] += prev_small;
+      }
+    }
+  }
+  return ans;
+};
