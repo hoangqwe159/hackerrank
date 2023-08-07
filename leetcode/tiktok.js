@@ -589,3 +589,34 @@ var countQuadruplets = function (nums) {
   }
   return ans;
 };
+
+var canJump = function(nums) {
+  let hash = {};
+
+  return backtracking(0);
+
+  function backtracking(index) {
+    if (typeof hash[index] !== 'undefined') {
+      return hash[index];
+    }
+
+    if (index === nums.length - 1) {
+      hash[index] = true;
+      return true;
+    }
+
+    if (nums[index] === 0) {
+      hash[index] = false;
+      return false;
+    }
+
+    for (let i = 1; i <= nums[index]; i++) {
+      if (backtracking(index + i)) {
+        hash[index + i] = true;
+        return true;
+      }
+    }
+    hash[index] = false;
+    return false
+  }
+};
