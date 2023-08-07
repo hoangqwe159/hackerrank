@@ -1,3 +1,17 @@
 {
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "quokka.darkTheme.error.decorationAttachmentRenderOptions": {
+
+    "border": null,
+    "borderColor": null,
+    "fontStyle": null,
+    "fontWeight": null,
+    "textDecoration": null,
+    "color": "#fe536a",
+    "backgroundColor": null,
+    "margin": "1.2em",
+    "width": null,
+    "height": null
+  },
+  "quokka.compactMessageOutput": false
 }
