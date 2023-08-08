@@ -589,3 +589,72 @@ var countQuadruplets = function (nums) {
   }
   return ans;
 };
+
+var permute = function(nums) {
+  let result = [];
+  backtracking(nums, []);
+
+  return result;
+
+  function backtracking (nums, combination) {
+    if (nums.length === 0) {
+      result.push(combination.slice());
+      return;
+    }
+
+    for (let i = 0; i < nums.length; i++) {
+      let [ popElement ] = nums.splice(i, 1);
+
+      combination.push(popElement);
+      backtracking(nums, combination);
+
+      combination.pop();
+      nums.splice(i, 0, popElement);
+    }
+  }
+};
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ */
+var isValidBST = function(root) {
+  let isValids = isValid(root);
+
+  return !!isValids;
+
+  function isValid(root) {
+    if (!root) return true;
+
+    const isLeftValid = root.left ? root.left.val < root.val : true;
+    const isRightValid = root.right ? root.val < root.right.val : true;
+
+    if (isLeftValid && isRightValid) {
+      return isValid(root.left) && isValid(root.right)
+    }
+
+    return false;
+  }
+};
+
+// console.log(permute([1,2,3]));
+// Example 1:
+
+// Input: s = "aaabb", k = 3
+// Output: 3
+// Explanation: The longest substring is "aaa", as 'a' is repeated 3 times.
+// Example 2:
+
+// Input: s = "ababbc", k = 2
+// Output: 5
+// Explanation: The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
+
+var longestSubstring = function(s, k) {
+
+}
