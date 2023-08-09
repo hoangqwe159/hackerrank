@@ -645,7 +645,9 @@ var isValidBST = function(root) {
 
 // console.log(permute([1,2,3]));
 // Example 1:
+// Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.
 
+// if no such substring exists, return 0.
 // Input: s = "aaabb", k = 3
 // Output: 3
 // Explanation: The longest substring is "aaa", as 'a' is repeated 3 times.
@@ -655,9 +657,51 @@ var isValidBST = function(root) {
 // Output: 5
 // Explanation: The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
 
-var longestSubstring = function(s, k) {
+var longestSubstring = function(string, k) {
+  let uniqueChar = new Set(string).size;
+  let max = 0;
 
+  for (let i = 1; i <= uniqueChar; i++) {
+    let start = 0;
+    let windowItems = {};
+    let currentUnique = 0;
+    let currentK = 0;
+    for (let end = 0; end < string.length; end++) {
+      let char = string[end];
+      if (!windowItems[char]) {
+        windowItems[char] = 0;
+      }
+
+      windowItems[char] += 1;
+
+      if (windowItems[char] === 1) currentUnique += 1;
+      if (windowItems[char] === k) currentK += 1;
+
+      while (currentUnique > i) {
+        let toRemoveChar = string[start];
+
+        windowItems[toRemoveChar] -= 1;
+
+        if (windowItems[toRemoveChar] === k - 1) currentK -= 1;
+
+        if (windowItems[toRemoveChar] === 0) {
+          delete windowItems[toRemoveChar];
+          currentUnique -= 1;
+        }
+
+        start += 1;
+      }
+
+      if (currentK === currentUnique) {
+        max = Math.max(max, end - start + 1);
+      }
+    }
+  }
+  return max;
 }
+
+// console.log(longestSubstring("bbaaacbd", 3)); //3
+
 var canJump = function(nums) {
   let hash = {};
 
@@ -688,3 +732,101 @@ var canJump = function(nums) {
     return false
   }
 };
+
+function travelingSalesmanProblem (graph, start) {
+  let numsOfCities = graph.length;
+  let cities = [];
+  for (let i = 0; i < numsOfCities; i++) {
+    if (i !== start) cities.push(i);
+  }
+
+  let result = [];
+  backtracking(cities, []);
+  let min = Infinity;
+  let routeIndex = 0;
+  for (let i = 0; i < result.length; i++) {
+    let route = result[i];
+    let total = 0;
+    for (let j = 0; j < route.length - 1; j++) {
+      total += graph[route[j]][route[j + 1]];
+    }
+
+    if (total < min) {
+      min = total;
+      routeIndex = i;
+    }
+  }
+
+  return {
+    route: result[routeIndex],
+    minCost: min
+  }
+
+
+  function backtracking (cities, combination) {
+    if (cities.length === 0) {
+      result.push([start, ...combination.slice(), start]);
+      return;
+    }
+
+    for (let i = 0; i < cities.length; i++) {
+      let [ popElement ] = cities.splice(i, 1);
+
+      combination.push(popElement);
+      backtracking(cities, combination);
+  
+      combination.pop();
+      cities.splice(i, 0, popElement);
+    }
+  }
+
+}
+
+// const graph = [[0, 10, 15, 20], [10, 0, 35, 25], [15, 35, 0, 30], [20, 25, 30, 0]];
+// const start = 0;
+
+// console.log(travelingSalesmanProblem(graph, start))
+
+// Input: nums = [1,3,2,4,5]
+// Output: 2
+// Explanation: 
+// - When i = 0, j = 1, k = 2, and l = 3, nums[i] < nums[k] < nums[j] < nums[l].
+// - When i = 0, j = 1, k = 2, and l = 4, nums[i] < nums[k] < nums[j] < nums[l]. 
+// There are no other quadruplets, so we return 2.
+var countQuadruplets = function (nums) {
+
+  // left of J and smaller than K
+  let left = Array(nums.length).fill(0).map(item => Array(nums.length).fill(0));
+  // right of K and greater than J
+  let right = Array(nums.length).fill(0).map(item => Array(nums.length).fill(0));;
+
+  for (let j = 1; j < nums.length - 2; j++) {
+    for (let k = j + 1; k < nums.length - 1; k++) {
+      if (nums[j] < nums[k]) continue;
+      for (let index = 0; index < j; index++) {
+        if (nums[index] < nums[k]) {
+          left[j][k] += 1;
+        }
+      }
+
+      for (let index = k + 1; index < nums.length; index++) {
+        if (nums[index] > nums[j]) {
+          right[j][k] += 1;
+        }
+      }
+    }
+  }
+
+  let result = 0;
+  for (let j = 1; j < nums.length - 2; j++) {
+    for (let k = j + 1; k < nums.length - 1; k++) {
+      if (nums[j] > nums[k]) {
+        result += left[j][k] * right[j][k];
+      }
+    }
+  }
+
+  return result;
+};
+
+console.log(countQuadruplets([3,9,5,4,8,2,1,10,7,6]));
