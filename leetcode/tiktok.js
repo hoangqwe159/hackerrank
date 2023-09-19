@@ -571,25 +571,6 @@ ingredients = [["yeast","flour"],["bread","meat"],["sandwich","meat","bread"]],
 supplies = ["yeast","flour","meat"];
 // console.log(findAllRecipes(recipes, ingredients, supplies));
 
-// i j k l
-var countQuadruplets = function (nums) {
-  let ans = 0;
-  let count = Array(nums.length).fill(0);
-
-  for (let l = 0; l < nums.length; l++) {
-    let prev_small = 0;
-    for (let j = 0; j < l; j++) {
-      if (nums[l] > nums[j]) {
-        prev_small++;
-        ans += count[j];
-      } else if (nums[l] < nums[j]) {
-        count[j] += prev_small;
-      }
-    }
-  }
-  return ans;
-};
-
 var permute = function(nums) {
   let result = [];
   backtracking(nums, []);
@@ -625,11 +606,11 @@ var permute = function(nums) {
 /**
  */
 var isValidBST = function(root) {
-  let isValids = isValid(root);
+  let isValids = isValid(root, Infinity, -Infinity);
 
   return !!isValids;
 
-  function isValid(root) {
+  function isValid(root, min, max) {
     if (!root) return true;
 
     const isLeftValid = root.left ? root.left.val < root.val : true;
@@ -798,7 +779,8 @@ var countQuadruplets = function (nums) {
   // left of J and smaller than K
   let left = Array(nums.length).fill(0).map(item => Array(nums.length).fill(0));
   // right of K and greater than J
-  let right = Array(nums.length).fill(0).map(item => Array(nums.length).fill(0));;
+
+  
 
   for (let j = 1; j < nums.length - 2; j++) {
     for (let k = j + 1; k < nums.length - 1; k++) {
@@ -829,4 +811,176 @@ var countQuadruplets = function (nums) {
   return result;
 };
 
-console.log(countQuadruplets([3,9,5,4,8,2,1,10,7,6]));
+// console.log(countQuadruplets([3,9,5,4,8,2,1,10,7,6]));
+
+// Input: jobDifficulty = [6,5,4,3,2,1], d = 2
+// Output: 7
+// Explanation: First day you can finish the first 5 jobs, total difficulty = 6.
+// Second day you can finish the last job, total difficulty = 1.
+// The difficulty of the schedule = 6 + 1 = 7 
+// Example 2:
+
+// Input: jobDifficulty = [9,9,9], d = 4
+// Output: -1
+// Explanation: If you finish a job per day you will still have a free day. you cannot find a schedule for the given jobs.
+// Example 3:
+
+// Input: jobDifficulty = [1,1,1], d = 3
+// Output: 3
+// Explanation: The schedule is one job per day. total difficulty will be 3.
+
+function minDifficulty (nums, d) {
+  let dp = Array(d + 1).fill(-1).map(item => Array(nums.length).fill(-1));
+
+  return dfs(0, d);
+
+  function dfs (index, quota) {
+    if (quota === 1) {
+      let max = 0;
+      for (let i = index; i < nums.length; i++) {
+        max = Math.max(max, nums[i]);
+      }
+
+      return max;
+    }
+
+    if (dp[quota][index] !== -1) return dp[quota][index];
+
+    let max = 0;
+    let result = Infinity;
+    for (let i = index; i < nums.length - quota + 1; i++) {
+      max = Math.max(max, nums[i]);
+      result = Math.min(result, max + dfs(i + 1, quota - 1));
+    }
+
+    dp[quota][index] = result;
+    return dp[quota][index];
+  }
+}
+
+// console.log(minDifficulty([6,5,4,3,2,1],2));
+
+function sortList (head) {
+  if (!head || !head.next) return head;
+
+  let mid = midNode(head);
+  let right = mid.next;
+  mid.next = null;
+  let left = head;
+
+  return mergeList(sortList(left), sortList(right));
+}
+
+function midNode (head) {
+  if (!head || !head.next) return head;
+
+  let slow = head;
+  let fast = head.next;
+
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  return slow;
+}
+
+function mergeList (list1, list2) {
+  if (!list1 || !list2) return list1 || list2;
+
+  let temp = new ListNode(0);
+  let current = temp;
+
+  while (list1 && list2) {
+    if (list1.val < list2.val) {
+      current.next = list1;
+      list1 = list1.next;
+      current = current.next;
+    } else {
+      current.next = list2;
+      list2 = list2.next;
+      current = current.next;
+    }
+  }
+
+  current.next = list1 || list2;
+
+  return temp.next;
+}
+
+// https://leetcode.com/problems/path-sum-iii
+var pathSum = function(root, targetSum) {
+  let result = 0;
+  let hash = {};
+
+  backtracking(root, 0);
+
+  return result;
+
+  function backtracking (node, currentSum) {
+    if (!node) return;
+
+    currentSum += node.val;
+
+    if (currentSum === targetSum) result += 1;
+
+    result += hash[currentSum - targetSum] || 0;
+
+    if (!hash[currentSum]) {
+      hash[currentSum] = 0;
+    }
+
+    hash[currentSum] += 1;
+
+    backtracking(node.left, currentSum);
+    backtracking(node.right, currentSum);
+
+    hash[currentSum] -= 1;
+  }
+};
+
+// Example 1:
+
+// Input: equations = [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
+// Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]
+// Explanation: 
+// Given: a / b = 2.0, b / c = 3.0
+// queries are: a / c = ?, b / a = ?, a / e = ?, a / a = ?, x / x = ? 
+// return: [6.0, 0.5, -1.0, 1.0, -1.0 ]
+// note: x is undefined => -1.0
+// Example 2:
+
+// Input: equations = [["a","b"],["b","c"],["bc","cd"]], values = [1.5,2.5,5.0], queries = [["a","c"],["c","b"],["bc","cd"],["cd","bc"]]
+// Output: [3.75000,0.40000,5.00000,0.20000]
+// Example 3:
+
+// Input: equations = [["a","b"]], values = [0.5], queries = [["a","b"],["b","a"],["a","c"],["x","y"]]
+// Output: [0.50000,2.00000,-1.00000,-1.00000]
+
+// A string s is called happy if it satisfies the following conditions:
+
+// s only contains the letters 'a', 'b', and 'c'.
+// s does not contain any of "aaa", "bbb", or "ccc" as a substring.
+// s contains at most a occurrences of the letter 'a'.
+// s contains at most b occurrences of the letter 'b'.
+// s contains at most c occurrences of the letter 'c'.
+// Given three integers a, b, and c, return the longest possible happy string. If there are multiple longest happy strings, return any of them. If there is no such string, return the empty string "".
+
+// A substring is a contiguous sequence of characters within a string.
+
+ 
+
+// Example 1:
+
+// Input: a = 1, b = 1, c = 7
+// Output: "ccaccbcc"
+// Explanation: "ccbccacc" would also be a correct answer.
+// Example 2:
+
+// Input: a = 7, b = 1, c = 0
+// Output: "aabaa"
+// Explanation: It is the only correct answer in this case.
+
+var longestDiverseString = function (a, b, c) {
+    
+};
