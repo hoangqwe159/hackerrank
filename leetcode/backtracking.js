@@ -81,52 +81,52 @@ function combination (n, k) {
  * @param {number} k
  * @return {number}
  */
-// function shortestPath1 (grid, numOfElimination) {
-//   let result = -1;
-//   backtracking(grid, numOfElimination, [], 0, 0, 0);
+function shortestPath1 (grid, numOfElimination) {
+  let result = -1;
+  backtracking(grid, numOfElimination, [], 0, 0, 0);
 
-//   return result;
+  return result;
 
-//   function backtracking (grid, numOfElimination, combination, i, j, count) {
-//     if (i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1) {
-//       return;
-//     }
+  function backtracking (grid, numOfElimination, combination, i, j, count) {
+    if (i < 0 || i > grid.length - 1 || j < 0 || j > grid[0].length - 1) {
+      return;
+    }
 
-//     if (grid[i][j] === 1 && count >= numOfElimination) {
-//       return;
-//     }
+    if (grid[i][j] === 1 && count >= numOfElimination) {
+      return;
+    }
 
-//     if (grid[i][j] !== 0 && grid[i][j] !== 1) {
-//       return;
-//     }
+    if (grid[i][j] !== 0 && grid[i][j] !== 1) {
+      return;
+    }
 
-//     if (result !== -1 && combination.length > result) {
-//       return;
-//     }
+    if (result !== -1 && combination.length > result) {
+      return;
+    }
 
-//     if (i === grid.length - 1 && j === grid[0].length - 1) {
-//       result = result === -1 ? combination.length : Math.min(result, combination.length);
-//     }
+    if (i === grid.length - 1 && j === grid[0].length - 1) {
+      result = result === -1 ? combination.length : Math.min(result, combination.length);
+    }
 
-//     if (grid[i][j] === 0) {
-//       combination.push([i, j]);
-//     } else if (count < numOfElimination) {
-//       combination.push([i, j]);
-//       count += 1;
-//     }
+    if (grid[i][j] === 0) {
+      combination.push([i, j]);
+    } else if (count < numOfElimination) {
+      combination.push([i, j]);
+      count += 1;
+    }
 
-//     let temp = grid[i][j];
-//     grid[i][j] = '#';
+    let temp = grid[i][j];
+    grid[i][j] = '#';
 
-//     backtracking(grid, numOfElimination, combination, i + 1, j, count);
-//     backtracking(grid, numOfElimination, combination, i - 1, j, count);
-//     backtracking(grid, numOfElimination, combination, i, j + 1, count);
-//     backtracking(grid, numOfElimination, combination, i, j - 1, count);
+    backtracking(grid, numOfElimination, combination, i + 1, j, count);
+    backtracking(grid, numOfElimination, combination, i - 1, j, count);
+    backtracking(grid, numOfElimination, combination, i, j + 1, count);
+    backtracking(grid, numOfElimination, combination, i, j - 1, count);
 
-//     grid[i][j] = temp;
-//     combination.pop();
-//   }
-// };
+    grid[i][j] = temp;
+    combination.pop();
+  }
+};
 
 // let grid = [[0,0,0],[1,1,0],[0,0,0],[0,1,1],[0,0,0]];
 // let k = 1;
@@ -136,44 +136,44 @@ function combination (n, k) {
 // Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
 // Output: true
 
-// function exist (board, word) {
-//   for (let i = 0; i < board.length; i++) {
-//     for (let j = 0; j < board[0].length; j++) {
-//       if (backtracking(board, word, i, j, 0)) {
-//         return true;
-//       }
-//     }
-//   }
+function exist (board, word) {
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[0].length; j++) {
+      if (backtracking(board, word, i, j, 0)) {
+        return true;
+      }
+    }
+  }
 
-//   return false;
+  return false;
 
-//   function backtracking (board, word, i, j, count) {
-//     // Base case
-//     if (i < 0 || i > board.length - 1 || j < 0 || j > board[0].length - 1) {
-//       return false;
-//     }
+  function backtracking (board, word, i, j, count) {
+    // Base case
+    if (i < 0 || i > board.length - 1 || j < 0 || j > board[0].length - 1) {
+      return false;
+    }
 
-//     if (board[i][j] !== word[count]) {
-//       return false;
-//     }
-//     if (count === word.length - 1) {
-//       return true;
-//     }
+    if (board[i][j] !== word[count]) {
+      return false;
+    }
+    if (count === word.length - 1) {
+      return true;
+    }
 
 
-//     let temp = board[i][j];
-//     board[i][j] = '#';
+    let temp = board[i][j];
+    board[i][j] = '#';
 
-//     let result = backtracking(board, word, i + 1, j, count + 1) ||
-//       backtracking(board, word, i - 1, j, count + 1) ||
-//       backtracking(board, word, i, j + 1, count + 1) ||
-//       backtracking(board, word, i, j - 1, count + 1);
+    let result = backtracking(board, word, i + 1, j, count + 1) ||
+      backtracking(board, word, i - 1, j, count + 1) ||
+      backtracking(board, word, i, j + 1, count + 1) ||
+      backtracking(board, word, i, j - 1, count + 1);
 
-//     board[i][j] = temp;
+    board[i][j] = temp;
 
-//     return result;
-//   }
-// };
+    return result;
+  }
+};
 
 // let board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]];
 // let word = "SEE";
@@ -346,3 +346,86 @@ var spiralOrder = function(matrix) {
 // Output: [1,2,3,4,8,12,11,10,9,5,6,7]
 
 console.log(spiralOrder([[3], [2]]))
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var orangesRotting = function(grid) {
+  if (grid.flat().every(tomato => tomato !== 1)) return 0;
+  const directions = [[0,1],[0,-1],[-1,0],[1,0]]
+
+  let queue = [];
+  let visted = {};
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === 2) {
+        queue.push([i, j, 0]);
+      }
+    }
+  }
+
+  while (queue.length) {
+    let levelSize = queue.length;
+
+    for (let i = 0; i < levelSize; i++) {
+      let currentState = queue.shift();
+
+      for (const direction of directions) {
+        let newI = currentState[0] + direction[0];
+        let newJ = currentState[1] + direction[1];
+        let newStep = currentState[2] + 1;
+
+        if (newI < 0 || newI > grid.length - 1 || newJ < 0 || newJ > grid[0].length - 1) {
+          continue;
+        }
+
+        if (grid[newI][newJ] !== 1) {
+          continue;
+        }
+
+        if (!visted[`${newI}_${newJ}`]) {
+          grid[newI][newJ] = 2;
+          queue.push([newI, newJ, newStep]);
+          visted[`${newI}_${newJ}`] = 1;
+          if (grid.flat().every(tomato => tomato !== 1)) {
+            return newStep;
+          }
+        }
+      }
+    }
+  }
+
+  return -1;
+};
+
+// console.log(combinationSum([2,3,6,7], 7));
+
+
+function combinationSum(arr, target) {
+  let result = [];
+  let combination = []
+
+  dfs(0, combination, 0)
+
+  return result
+
+  function dfs(index, combination, sum) {
+    if (sum === target) {
+      result.push(combination.slice())
+      return
+    }
+
+
+    for (let i = 0; i < arr.length; i++) {
+      if (sum + arr[i] > target) {
+        continue
+      }
+      combination.push(arr[i])
+      dfs(index + 1, combination, sum + arr[i])
+      combination.pop()
+    }
+  }
+}
+
+console.log(combinationSum([2,3,5], 8));

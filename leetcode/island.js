@@ -72,52 +72,68 @@
 // Output: 16
 // Explanation: The perimeter is the 16 yellow stripes in the image above.
 
-let result = 0;
-const islandPerimeter = function(grid) {
-  result = 0;
+// let result = 0;
+// const islandPerimeter = function(grid) {
+//   result = 0;
+//   for (let i = 0; i < grid.length; i++) {
+//     for (let j = 0; j < grid[i].length; j++) {
+//       if (grid[i][j] === 1) {
+//         visitIsland(grid, i, j);
+//       }
+//     }
+//   }
+
+//   return result;
+// };
+
+// const visitIsland = function (grid, i, j) {
+//   if (i < 0||j<0||i>=grid.length||j>=grid[0].length) {
+//     return;
+//   }
+
+//   if (grid[i][j] === 0) {
+//     return;
+//   }
+
+//   if (grid[i][j] === 1) {
+    
+//     result += countSurrounded(grid, i, j);
+    
+//     grid[i][j] = 2;
+
+//     visitIsland(grid, i-1, j);
+//     visitIsland(grid, i+1, j);
+//     visitIsland(grid, i, j-1);
+//     visitIsland(grid, i, j+1);
+//   }
+// }
+
+// const countSurrounded = function (grid, i, j) {
+//   let count = 4;
+//   if (grid[i+1] && grid[i+1][j] > 0) count -= 1;
+//   if (grid[i-1] && grid[i-1][j] > 0) count -= 1;
+//   if (grid[i][j+1] > 0) count -= 1;
+//   if (grid[i][j-1] > 0) count -= 1;
+
+//   console.log(count);
+//   return count;
+// }
+// let  grid = [[0,0,1,0,0],[0,1,0,1,0],[0,1,1,1,0]];
+
+// console.log(islandPerimeter(grid));
+
+// Input: grid = [[1,1,1,1,1,1,1,0],[1,0,0,0,0,1,1,0],[1,0,1,0,1,1,1,0],[1,0,0,0,0,1,0,1],[1,1,1,1,1,1,1,0]]
+// Output: 2
+// Explanation: 
+// Islands in gray are closed because they are completely surrounded by water (group of 1s).
+const countIsland = function(grid) {
+  let result = 0;
+
   for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[i].length; j++) {
-      if (grid[i][j] === 1) {
-        visitIsland(grid, i, j);
-      }
+    for (let j = 0; j < grid[0].length; j++) {
+      visitIsland(grid, i, j)
     }
   }
-
-  return result;
-};
-
-const visitIsland = function (grid, i, j) {
-  if (i < 0||j<0||i>=grid.length||j>=grid[0].length) {
-    return;
-  }
-
-  if (grid[i][j] === 0) {
-    return;
-  }
-
-  if (grid[i][j] === 1) {
-    
-    result += countSurrounded(grid, i, j);
-    
-    grid[i][j] = 2;
-
-    visitIsland(grid, i-1, j);
-    visitIsland(grid, i+1, j);
-    visitIsland(grid, i, j-1);
-    visitIsland(grid, i, j+1);
-  }
 }
 
-const countSurrounded = function (grid, i, j) {
-  let count = 4;
-  if (grid[i+1] && grid[i+1][j] > 0) count -= 1;
-  if (grid[i-1] && grid[i-1][j] > 0) count -= 1;
-  if (grid[i][j+1] > 0) count -= 1;
-  if (grid[i][j-1] > 0) count -= 1;
-
-  console.log(count);
-  return count;
-}
-let  grid = [[0,0,1,0,0],[0,1,0,1,0],[0,1,1,1,0]];
-
-console.log(islandPerimeter(grid));
+  
