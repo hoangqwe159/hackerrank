@@ -5,12 +5,11 @@
     Started with purpose – I read use cases and real-world success stories to see why teams adopted it and what pain points it solved.
 - Dove into official docs and examples – Instead of skimming, I rebuilt our use case in a small sandbox project with mock APIs.
 - Practiced intentionally – Simulated edge cases like cache invalidation, stale data, and refetch intervals to test its strengths.
-
-Presented a proof of concept – Demoed how TanStack Query could cut API calls by ~40% and simplify component logic.
+- Presented a proof of concept – Demoed how TanStack Query could cut API calls by ~40% and simplify component logic.
 - Led a pair-programming session – Walked a teammate through setting up query hooks and caching policies.
 - Wrote a reusable abstraction – Created a usePaginatedQuery() hook to make implementation consistent across the app.
 - Documented best practices – Summarized learnings in Confluence and added tips to our internal wiki for the whole team.
-    Adoption of TanStack Query led to a noticeable boost in performance and dev productivity.
+- Adoption of TanStack Query led to a noticeable boost in performance and dev productivity.
 - It also reduced bugs around loading and error states by centralizing state logic.
 - More importantly, I helped upskill the team and ensured we could move faster with confidence.
 
@@ -48,6 +47,14 @@ Presented a proof of concept – Demoed how TanStack Query could cut API calls b
 - I was assigned the task to rewrite all UI components from NativeBase (React Native) to MUI (Capacitor).
 - This was a big change, with new concepts like theme token, Tailwind, and styled-components.
 - Some components were advanced and hard to rewrite, like FlatList, which uses virtualization under the hood in React Native.
+- Requirement Understanding
+- Planning & Task Breakdown
+	•	I decomposed the migration into modules
+	•	Each task was documented with expected input/output, test cases, and fallback plans.
+- Assigning Tasks
+    •	I distributed tasks based on team members’ strengths — assigning complex architecture decisions to senior devs and UI porting to mid-level engineers.
+    •	For junior devs, I paired them on UI rewrites using the new component library to build familiarity.
+    •	I also acted as the go-to person for blockers and integration issues.
 - In my company, code review is not compulsory — people only open PRs when they don’t feel confident.
 - But during this task, I asked everyone who made UI changes to open a PR, even for small things like styling a button, so I could make sure best practices were followed from the start.
 - The task was very long — all pages and components had to be rewritten. Set clear goals and ensure that everyone understands them. Suggest to collaborate with UIX.
@@ -128,6 +135,7 @@ Presented a proof of concept – Demoed how TanStack Query could cut API calls b
 
  **Deal with vague**
  **Collaboration**
+ **Complex project**
 - I was assigned the task of building a feature to support PDF collaboration.
 - Lacking prior experience in this area, I requested my boss to give me an afternoon to research and come back with more clarity and possible directions.
 - Through research, I discovered two main collaboration models:
@@ -202,11 +210,14 @@ Presented a proof of concept – Demoed how TanStack Query could cut API calls b
  **Receive feedback**
  **Missed deadline**
 - Early in my role as a developer, I was working on a new feature for a client-facing app.
-- It was my first time handling both the frontend UI and part of the backend integration.
-- I underestimated the time needed for the backend part and ran into some unexpected issues with an external API.
+- Table of contents
+-  At first, I thought the challenge was mostly visual—drawing linked text boxes and syncing their content—but I underestimated the technical depth, especially when it came to text layout performance and live update behavior.
+- As I got deeper, I ran into unexpected blockers:
+	• Move between page is slow
+    - respect the styling
 - My task was to complete the feature in one sprint, hand it off to QA, and be ready for demo day.
 - But I ended up missing the deadline by 2–3 days, which delayed QA testing and pushed the release back.
-- After the delay, my tech lead pulled me aside for a constructive 1-on-1.
+- After the delay, my PM pulled me aside for a constructive 1-on-1.
 - He was clear but kind — he pointed out that I should’ve:
     - Raised the risks earlier
     - Asked for help instead of trying to solve everything alone
@@ -217,7 +228,7 @@ Presented a proof of concept – Demoed how TanStack Query could cut API calls b
     - Giving early warnings if I was falling behind
     - Doing better time estimates by breaking tasks into smaller chunks
     - Asking for feedback and support earlier, especially when facing blockers
-- In the next sprint, I was able to deliver ahead of schedule, and the same lead praised my improvement in planning and communication.
+- In the next sprint, I was able to deliver ahead of schedule, and the team lead praised my improvement in planning and communication.
 
 ---
 
@@ -426,3 +437,46 @@ Presented a proof of concept – Demoed how TanStack Query could cut API calls b
 - Successfully implemented editor component as planned
 - Component became one of platform's most powerful and extensible features
 - Built trust with team through evidence-based decision making
+
+---
+
+ **Migration**
+- Why We Transitioned
+	•	Metro bundler was slow, lacked proper web support, and made debugging difficult.
+	•	NativeBase had performance issues and limited flexibility for responsive design.
+	•	Poor ecosystem for web and desktop development within React Native.
+	•	Hard to onboard new engineers due to non-standard dev flow.
+	•	Needed a stack that supports web-first, responsive, offline-ready, cross-platform apps.
+- Requirement Understanding
+	•	Aligned with product/design/backend on:
+	•	Maintaining all existing app features across platforms.
+	•	Improving dev experience and build speed.
+	•	Reusing codebase where possible, rewriting only when necessary.
+	•	Key requirements:
+	•	Offline support, desktop/web parity, and mobile compatibility using Capacitor.
+- Planning & Task Breakdown
+	•	I decomposed the migration into modules
+	•	Each task was documented with expected input/output, test cases, and fallback plans.
+- Assigning Tasks
+    •	I distributed tasks based on team members’ strengths — assigning complex architecture decisions to senior devs and UI porting to mid-level engineers.
+    •	For junior devs, I paired them on UI rewrites using the new component library to build familiarity.
+    •	I also acted as the go-to person for blockers and integration issues.
+- Setup & Standards
+	•	Switched to Vite for fast HMR and builds.
+	•	Introduced monorepo structure and shared design system with Tailwind.
+	•	Setup:
+	•	ESLint + Prettier + Husky + pre commit hooks for code quality and consistent formatting
+	•	Storybook for components
+- Development & Support
+	•	We held weekly check-ins and async daily updates.
+	•	I reviewed all PRs related to core architecture 
+	•	Introduced Storybook for isolated UI testing and component documentation.
+- Quality Assurance
+	•	Used Vitest + Playwright for unit and e2e testing.
+	•	Snapshot tests for visual regressions.
+	•	QA team involved early with preview deployments (Vercel + GitHub Actions).
+- Deployment & Monitoring
+- Retrospective & Improvements
+	•	Post-migration, we saw a 60% improvement in dev build speed, a 40% decrease in bug reports, and onboarded two engineers in under a week.
+	•	In the retrospective, we decided to invest more in automated visual regression testing and gradually expand our design system coverage.
+	•	This transition significantly improved both developer and end-user experience, aligning our frontend tech with modern, maintainable, and performant practices.
