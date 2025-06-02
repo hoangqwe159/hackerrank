@@ -505,3 +505,44 @@
 	•	Post-migration, we saw a 60% improvement in dev build speed, a 40% decrease in bug reports, and onboarded two engineers in under a week.
 	•	In the retrospective, we decided to invest more in automated visual regression testing and gradually expand our design system coverage.
 	•	This transition significantly improved both developer and end-user experience, aligning our frontend tech with modern, maintainable, and performant practices.
+
+# Hard customer
+🎯 Context:
+	•	Our frontend team recently completed a full migration from a custom UI kit to MUI (Material UI).
+	•	The goal was to improve consistency, accessibility, and long-term maintainability.
+	•	One major customer became frustrated with the changes, reporting multiple regressions and requesting constant fixes and releases.
+
+⸻
+
+🧠 My Role as Senior Frontend Engineer:
+	•	Listened Actively:
+	•	Joined customer calls directly to hear concerns.
+	•	Acknowledged their frustration without being defensive.
+	•	Clarified that we valued their feedback and wanted to stabilize the experience quickly.
+	•	Analyzed Feedback Systematically:
+	•	Categorized all reported issues:
+	•	Actual regressions caused by the migration.
+	•	Intentional UX changes that needed better communication.
+	•	Usability issues due to differences in MUI defaults.
+	•	Prioritized issues based on user impact and fix complexity.
+	•	Created a Feedback Pipeline:
+	•	Suggested weekly batch releases instead of one-off hotfixes.
+	•	Set up a feedback board to make their requests more visible and trackable.
+	•	Helped the team avoid burnout and context switching.
+	•	Implemented Quality Guardrails:
+	•	Introduced visual regression testing with tools like Chromatic or Percy.
+	•	Wrote unit tests for custom MUI overrides to ensure consistent behavior.
+	•	Reviewed the theme customization to better match their branding expectations.
+	•	Improved Transparency and Trust:
+	•	Shared a public changelog and upcoming roadmap.
+	•	Presented clear reasons for certain UI changes.
+	•	Involved the customer in validating early versions of upcoming features.
+
+⸻
+
+✅ Outcome:
+	•	The customer calmed down and became more collaborative.
+	•	Team velocity recovered, and we avoided shipping panic fixes.
+	•	The overall frontend codebase became more stable and testable post-migration.
+
+⸻
