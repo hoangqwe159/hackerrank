@@ -115,3 +115,15 @@
 	•	Hold sprint retros to gather feedback.
 	•	Reflect on team productivity, code quality, and pain points.
 	•	Update documentation and onboard new best practices as needed.
+
+## Question
+🛠️ To show continued interest in the role
+4.	“From your perspective, what challenges is the frontend team currently focusing on?”
+5.	“What would success look like in the first 3–6 months for someone in this role?”
+6.	“Is there a specific tech stack or architecture that I should familiarize myself with to be most effective here?”
+
+⸻
+
+🌱 To demonstrate growth mindset and team fit
+7.	“Are there any key traits or working styles that stand out in successful frontend engineers at Atlassian?”
+8.	“What do you think distinguishes the frontend culture at Atlassian from other companies?”

@@ -1,4 +1,29 @@
- **Learn new tech**
+# Table of Contents
+1. [Learn New Tech](#learn-new-tech)
+2. [Mentor](#mentor)
+3. [Prioritize](#prioritize)
+4. [Lead](#lead)
+5. [Keep Team Motivated](#keep-team-motivated)
+6. [How to Handle Underperformance](#how-to-handle-underperformance)
+7. [Training](#training)
+8. [Deal with Vague Requirements](#deal-with-vague)
+9. [Collaboration](#collaboration)
+10. [Complex Project](#complex-project)
+11. [Receive Feedback](#receive-feedback)
+12. [Missed Deadline](#missed-deadline)
+13. [Failure](#failure)
+14. [Complex Task](#complex-task)
+15. [Disagree and Commit](#disagree-and-commit)
+16. [Conflict](#conflict)
+17. [Give Feedback](#give-feedback)
+18. [Customer](#customer)
+19. [Bug Handling](#bug)
+20. [Success](#success)
+21. [Process Improvement](#process-improvement)
+22. [Tough Decision](#tough-decision)
+23. [Migration](#migration)
+
+## Learn new tech
 - Our app was struggling with redundant API calls and messy loading states across pages.
 - I proposed we explore TanStack Query to improve data fetching and caching.
 - Although I hadn’t used it before, I took ownership of the learning process.
@@ -15,7 +40,7 @@
 
 ---
 
- **Mentor**
+## Mentor
 - first joined, earn trust before offering guidance
 - how how dev tools work, stay late to finish critical tickets, took ownership of features from end to end
 - sharing my learning style: my side projects, micro learning from social media
@@ -32,7 +57,7 @@
 
 ---
 
- **Priotize**
+## Priotize
 - In my previous job as Front End Engineer in a startup, I was once in a situation where I had to deliver several important features at very short notice, since different teams were making feature requests at the time.
 - As I recognized that it was not possible for me to achieve all of them with good quality and also in a timely manner. I had to find a way to deconflict their priorities.
 - What I did was to arrange a quick meeting with all relevant product and engineering stakeholders to co-prioritize and assign the appropriate resources to support this project.
@@ -42,8 +67,8 @@
 - After that, to ensure my own timelines were met, I broke down my features into smaller tasks and planned them into daily and weekly milestones, reviewing my progress regularly with the team.
 - With this planning effort, I was able to achieve all the required features by the expected timeline.
 
- **Lead**
- **Keep team motivated**
+## Lead
+## Keep team motivated
 - I was assigned the task to rewrite all UI components from NativeBase (React Native) to MUI (Capacitor).
 - This was a big change, with new concepts like theme token, Tailwind, and styled-components.
 - Some components were advanced and hard to rewrite, like FlatList, which uses virtualization under the hood in React Native.
@@ -74,7 +99,7 @@
 
 ---
 
- **How to handle underperformance**
+## How to handle underperformance
 - I was working on a project where one of my teammates was regularly missing deadlines for bug fixes.
 - At first, I gave it some time, thinking it was just a one-off issue.
 - But over a few sprints, the delays started to affect the team’s progress and morale, especially during release weeks.
@@ -97,7 +122,7 @@
 
 ---
 
- **Training**
+## Training
 - I was working on a CMS app and was responsible not only for delivering the platform but also for elevating the skills of a new mid-level teammate who had never worked on cross-platform projects before.
 - I set up a kickoff meeting to introduce our technical roadmap and initiated a series of internal tech talks covering topics like:
     - What is PWA and how it works
@@ -133,9 +158,9 @@
 
 ---
 
- **Deal with vague**
- **Collaboration**
- **Complex project**
+## Deal with vague
+## Collaboration
+## Complex project
 - I was assigned the task of building a feature to support PDF collaboration.
 - Lacking prior experience in this area, I requested my boss to give me an afternoon to research and come back with more clarity and possible directions.
 - Through research, I discovered two main collaboration models:
@@ -187,7 +212,7 @@
 
 ---
 
- **How to handle underperformance**
+## How to handle underperformance
 - I was working on a project where one of my teammates was regularly missing deadlines for bug fixes.
 - At first, I gave it some time, thinking it was just a one-off issue.
 - But over a few sprints, the delays started to affect the team’s progress and morale, especially during release weeks.
@@ -207,8 +232,8 @@
 
 ---
 
- **Receive feedback**
- **Missed deadline**
+## Receive feedback
+## Missed deadline
 - Early in my role as a developer, I was working on a new feature for a client-facing app.
 - Table of contents
 -  At first, I thought the challenge was mostly visual—drawing linked text boxes and syncing their content—but I underestimated the technical depth, especially when it came to text layout performance and live update behavior.
@@ -232,8 +257,8 @@
 
 ---
 
- **Failure**
- **Complex task**
+## Failure
+## Complex task
 - Early days at Desygner, one of our biggest clients wanted to migrate their documents from InDesign to our SVG editor.
 - They wanted the exact same editing experience as InDesign, including a tricky feature: Text Overflow.
 - Text Overflow = link text boxes across pages, and let text flow and update live when editing.
@@ -283,7 +308,7 @@
 
 ---
 
- **Disagree and commit**
+## Disagree and commit
 - I worked on the SVG editor where users can select a text element and change the font family using a dropdown list.
 - The problem: each font in the dropdown didn’t show a preview using its actual font style, which made the user experience poor—users couldn’t see what the font looked like until they selected it.
 - My task was to improve the user experience by showing live font previews in the dropdown so users could see what each font looks like before selecting it.
@@ -322,8 +347,35 @@
 
 ---
 
- **Give feedback**
- **Customer**
+## Conflict
+- Joined company as a new senior engineer
+- First major assignment was developing HTML editor component for CMS platform
+- Manager had pre-selected Froala Editor without prior consultation
+- Project had tight one-month deadline for MVP delivery
+- CEO needed component for customer demo
+- Requirements included cross-platform support (Web, iOS, Android) and specific features like Excel/Word import
+- Evaluate if Froala Editor was the best technical choice for long-term success
+- Assess potential risks and limitations of the pre-selected solution
+- Determine if alternative solutions might better serve project requirements
+- Navigate challenging situation of questioning an existing decision respectfully
+- Conducted comprehensive technical evaluation of Froala Editor
+- Researched alternative solutions, focusing on ProseMirror
+- Created proof of concept implementations in React sandbox
+- Performed detailed analysis including bundle size, load time, and feature gap comparison
+- Documented concerns about Froala: licensing costs, limited community support, security vulnerabilities
+- Prepared technical report comparing options
+- Organized meeting with manager and tech lead to present findings
+- Demonstrated how ProseMirror could match Froala's features through plugins
+- Presented evidence-based argument focusing on stability and long-term benefits
+- Team agreed to pivot to ProseMirror based on technical analysis
+- Successfully implemented editor component as planned
+- Component became one of platform's most powerful and extensible features
+- Built trust with team through evidence-based decision making
+
+---
+
+## Give feedback
+## Customer
 - Found a security issue with absurd-sql (runs SQLite on top of IndexedDB, stores unencrypted binary).
 - I brought this up with our tech lead and explained that while absurd-sql works well for performance and offline use, it doesn’t meet the security needs of our client.
 - I understood the tech lead’s point of view — binary data is splitted into chunks and hard for human read — but the client wanted to make sure their data was fully secure.
@@ -337,8 +389,8 @@
 
 ---
 
- **Bug**
- **Success**
+## Bug
+## Success
 - We’re using Capacitor to build a cross-platform app (iOS, Android, Web), and Drizzle to wrap native SQLite access for storing user data.
 - The app supports multiple user logins and saves multiple user profiles.
 - On Web, we have a function that deletes user data before showing the login page. Since it uses IndexedDB, it’s easy to download and delete the data.
@@ -361,7 +413,7 @@
 
 ---
 
- **Process improvement**
+## Process improvement
 - When I first joined the project, I inherited a legacy SVG editor that was over 10 years old—a fork of svg-edit with a codebase full of OOP patterns (Factory, Facade, Backbone MVC). It was deeply coupled and hard to work with.
 - Onboarding new developers was a real struggle. The code was all vanilla JavaScript, UI was tangled with business logic, there were barely any tests, and modern devs just aren’t used to that kind of environment anymore.
 - At the same time, we were expected to keep shipping new features. So I knew we couldn’t just pause everything for a full rewrite—we needed a progressive modernization strategy.
@@ -379,7 +431,7 @@
 
 ---
 
- **Tough decision**
+## Tough decision
 - I was assigned the task of building a feature to support PDF collaboration.
 - After several meetings with the client, I learned their must-haves:
     - Live collaboration (real-time editing with conflict management)
@@ -413,34 +465,7 @@
 
 ---
 
- **Conflict**
-- Joined company as a new senior engineer
-- First major assignment was developing HTML editor component for CMS platform
-- Manager had pre-selected Froala Editor without prior consultation
-- Project had tight one-month deadline for MVP delivery
-- CEO needed component for customer demo
-- Requirements included cross-platform support (Web, iOS, Android) and specific features like Excel/Word import
-- Evaluate if Froala Editor was the best technical choice for long-term success
-- Assess potential risks and limitations of the pre-selected solution
-- Determine if alternative solutions might better serve project requirements
-- Navigate challenging situation of questioning an existing decision respectfully
-- Conducted comprehensive technical evaluation of Froala Editor
-- Researched alternative solutions, focusing on ProseMirror
-- Created proof of concept implementations in React sandbox
-- Performed detailed analysis including bundle size, load time, and feature gap comparison
-- Documented concerns about Froala: licensing costs, limited community support, security vulnerabilities
-- Prepared technical report comparing options
-- Organized meeting with manager and tech lead to present findings
-- Demonstrated how ProseMirror could match Froala's features through plugins
-- Presented evidence-based argument focusing on stability and long-term benefits
-- Team agreed to pivot to ProseMirror based on technical analysis
-- Successfully implemented editor component as planned
-- Component became one of platform's most powerful and extensible features
-- Built trust with team through evidence-based decision making
-
----
-
- **Migration**
+## Migration
 - Why We Transitioned
 	•	Metro bundler was slow, lacked proper web support, and made debugging difficult.
 	•	NativeBase had performance issues and limited flexibility for responsive design.
