@@ -4,7 +4,7 @@
 3. [Prioritize](#prioritize)
 4. [Lead](#lead)
 5. [Keep Team Motivated](#keep-team-motivated)
-6. [How to Handle Underperformance](#how-to-handle-underperformance)
+6. [How to Handle Underperformance (Give feedback)](#how-to-handle-underperformance)
 7. [Training](#training)
 8. [Deal with Vague Requirements](#deal-with-vague)
 9. [Collaboration](#collaboration)
@@ -191,44 +191,24 @@
         - Used by tools like Google Docs and Canva.
 - The client was comfortable with either transaction-based or version-detection models, and left the final decision to us.
 - The next day, I discussed with the Product Owner (PO) and summarized the meeting.
+- I discussed the trades off, example, behaviour, give some data like what company use which model, why they use it ... 
 - We agreed that the version-detection model is more user-friendly, and decided to use Yjs (a CRDT library) to implement it.
 - We encountered a challenge: deciding on the network architecture.
-- Two models were considered:
-    - Client-server model:
-        - All changes are sent to a central server.
-        - Server merges and saves changes to the database, then broadcasts to other clients.
-        - Requires the backend team to implement complex logic to support Yjs merge and history.
-    - Peer-to-peer (P2P) model using WebRTC:
-        - Each participant acts as both client and server.
-        - Peers communicate directly, without a central server.
-        - Much easier to implement, only requires WebSocket signaling.
+- I organized a short technical workshop with the Backend team to evaluate:
+    - A client-server model, offering long-term robustness but requiring complex backend logic to handle CRDT merges
+    - A peer-to-peer model using WebRTC, much easier to implement in the short term with WebSocket signaling
 - While the client-server model is more robust long-term, the CEO preferred a fast delivery for the upcoming US conference demo.
+
 - I decided to split development into phases:
     - Phase 1: Use WebRTC for a quick win and deliver a working demo fast.
     - Phase 2: Plan future work for the backend team to transition to a client-server model for better robustness.
+While I led the frontend integration, I worked closely with:
+    - The QA team to define test cases for conflict resolution and offline recovery
+    - The Designer team to ensure the UI handled collaboration states (e.g. “live editing”, “offline”, “conflict detected”) in a clear and intuitive way
+    - The Backend team to outline future server-side sync and persistence for Phase 2
 - Using Yjs and WebRTC, we successfully demoed the feature within 3 weeks of development.
 - The feature played a vital role in convincing the user to sign our biggest contract with the company.
 - I received great feedback from the client on the collaboration functionality and the overall execution.
-
----
-
-## How to handle underperformance
-- I was working on a project where one of my teammates was regularly missing deadlines for bug fixes.
-- At first, I gave it some time, thinking it was just a one-off issue.
-- But over a few sprints, the delays started to affect the team’s progress and morale, especially during release weeks.
-- I needed to give feedback to my teammate in a respectful and helpful way.
-- My goal was to understand what was going wrong and find a solution together so the team could stay on track.
-- I scheduled a private 1-on-1 chat instead of bringing it up in a group setting.
-- I started by sharing what I valued about his work — especially his mentorship and technical skills.
-- Then, I explained the issue with specific examples — a few tickets that were delayed and how they affected the sprint and team morale.
-- I asked if anything was blocking him — he shared that he had taken on too many side tasks and wasn’t managing time well.
-- Together, we agreed on a few steps:
-    - Set clearer priorities during sprint planning
-    - Add a reminder bot for tickets due soon
-    - Do mid-week check-ins to catch delays early
-- After the conversation, his delivery improved and tickets were completed on time more consistently.
-- The team was able to finish sprints more smoothly, with fewer last-minute issues.
-- Overall, the team communication got better, and he appreciated the support instead of feeling blamed.
 
 ---
 
@@ -499,7 +479,7 @@
 - Quality Assurance
 	•	Used Vitest + Playwright for unit and e2e testing.
 	•	Snapshot tests for visual regressions.
-	•	QA team involved early with preview deployments (Vercel + GitHub Actions).
+	•	QA team involved early with preview deployments 
 - Deployment & Monitoring
 - Retrospective & Improvements
 	•	Post-migration, we saw a 60% improvement in dev build speed, a 40% decrease in bug reports, and onboarded two engineers in under a week.
@@ -507,38 +487,26 @@
 	•	This transition significantly improved both developer and end-user experience, aligning our frontend tech with modern, maintainable, and performant practices.
 
 # Hard customer
-🎯 Context:
-	•	Our frontend team recently completed a full migration from a custom UI kit to MUI (Material UI).
-	•	The goal was to improve consistency, accessibility, and long-term maintainability.
-	•	One major customer became frustrated with the changes, reporting multiple regressions and requesting constant fixes and releases.
+Recently, our frontend team completed a major migration from a custom UI library to MUI. The goal was to align with modern design standards, improve accessibility, and speed up development with a more maintainable component system.
+
+However, after we deployed the first release, one of our long-time customers was very unhappy. They pointed out several visual and functional regressions and were frustrated by changes in workflows they were used to.
+
+As the senior frontend engineer, I took the lead on handling this situation.
+	1.	Empathy First:
+I joined a call with the customer and listened carefully without pushing back. I acknowledged their pain and explained that while the system redesign aims for long-term gains, we take immediate concerns seriously.
+	2.	Root Cause Analysis:
+I worked with the team to map every issue they raised to either a regression, a deliberate UX decision, or a misunderstanding caused by missing documentation or training. For example, some form elements had slightly changed behaviors due to default props in MUI. Others were styling inconsistencies we could quickly address.
+	3.	Structured Feedback Loop:
+I proposed a weekly sync with the customer to batch feedback into releases instead of pushing ad-hoc changes. This gave us room to triage, prioritize, and test properly—without breaking the new foundation we had built.
+	4.	Technical Guardrails:
+I introduced visual regression testing using tools like Chromatic, so we could confidently detect unwanted UI shifts before release. This helped rebuild trust with the customer and stabilized our velocity.
+	5.	Transparency:
+I shared a changelog and roadmap to show what we were doing and why. By involving the customer earlier in future design decisions, their tone changed from reactive to collaborative.
 
 ⸻
 
-🧠 My Role as Senior Frontend Engineer:
-	•	Listened Actively:
-	•	Joined customer calls directly to hear concerns.
-	•	Acknowledged their frustration without being defensive.
-	•	Clarified that we valued their feedback and wanted to stabilize the experience quickly.
-	•	Analyzed Feedback Systematically:
-	•	Categorized all reported issues:
-	•	Actual regressions caused by the migration.
-	•	Intentional UX changes that needed better communication.
-	•	Usability issues due to differences in MUI defaults.
-	•	Prioritized issues based on user impact and fix complexity.
-	•	Created a Feedback Pipeline:
-	•	Suggested weekly batch releases instead of one-off hotfixes.
-	•	Set up a feedback board to make their requests more visible and trackable.
-	•	Helped the team avoid burnout and context switching.
-	•	Implemented Quality Guardrails:
-	•	Introduced visual regression testing with tools like Chromatic or Percy.
-	•	Wrote unit tests for custom MUI overrides to ensure consistent behavior.
-	•	Reviewed the theme customization to better match their branding expectations.
-	•	Improved Transparency and Trust:
-	•	Shared a public changelog and upcoming roadmap.
-	•	Presented clear reasons for certain UI changes.
-	•	Involved the customer in validating early versions of upcoming features.
-
-⸻
+Conclusion:
+Migrating a UI system always causes friction, especially with legacy users. As a senior engineer, it’s not just about writing better code—it’s also about calming chaos, managing expectations, and building trust through structured process and empathy.
 
 ✅ Outcome:
 	•	The customer calmed down and became more collaborative.
@@ -546,3 +514,41 @@
 	•	The overall frontend codebase became more stable and testable post-migration.
 
 ⸻
+
+# “Tell me about a time when requirements changed. How did you handle it?”
+
+⸻
+
+💬 Answer:
+
+S (Situation):
+I was leading the frontend side of a complex feature for a PDF collaboration tool. The original goal was to support real-time multi-user editing, with offline support and manual conflict resolution.
+
+I had researched multiple collaboration models — from floor control to versioning — and after discussion with the client, we aligned on using a version-detection model (like Google Docs) and a robust client-server architecture for syncing.
+
+⸻
+
+T (Task):
+I was ready to begin implementation with the backend team when our CEO introduced a new requirement:
+We needed a working demo in three weeks for a major conference in the U.S.
+The client-server model required significant backend engineering — and we simply didn’t have the time or capacity.
+The new constraint: deliver the same real-time collaboration behavior, but faster.
+
+⸻
+
+A (Action):
+I reassessed our options and proposed a change: for Phase 1, we’d use peer-to-peer communication via WebRTC to sync changes directly between browsers using Yjs (a CRDT library).
+
+To validate the idea, I:
+	•	Built a proof-of-concept using WebRTC + Yjs to ensure it met the client’s expectations.
+	•	Held a short technical workshop with the backend team to ensure we could safely migrate to client-server in Phase 2.
+	•	Documented the architecture clearly, including known limitations and upgrade paths.
+	•	Worked closely with the QA and Design teams to ensure the UI properly reflected sync states like “editing live,” “offline,” or “conflict detected.”
+
+⸻
+
+R (Result):
+We delivered a fully working live collaboration demo in just three weeks, which helped the CEO secure our biggest client contract to date.
+Even better, we laid a clear path for the client-server model afterward without rushing it.
+
+This experience reinforced the importance of adapting without overcompromising. I stayed focused on user needs, clarified priorities with leadership, and found a way to ship value fast without sacrificing long-term quality.

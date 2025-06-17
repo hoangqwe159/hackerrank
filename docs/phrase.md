@@ -127,3 +127,83 @@
 🌱 To demonstrate growth mindset and team fit
 7.	“Are there any key traits or working styles that stand out in successful frontend engineers at Atlassian?”
 8.	“What do you think distinguishes the frontend culture at Atlassian from other companies?”
+
+Metrics & Indicators:
+	1.	Business Impact:
+	•	The collaboration feature played a key role in helping the client sign the company’s largest contract to date. That’s a very clear ROI and validates the value of the feature.
+	2.	Timeline:
+	•	We delivered a functional live collaboration prototype within 3 weeks, which was in time for a critical US conference. That speed of delivery was crucial for business momentum.
+	3.	Client Satisfaction:
+	•	The client gave very positive feedback on the collaboration experience, particularly praising the real-time sync, offline support, and conflict resolution—all of which were key requirements.
+	4.	Technical Outcome:
+	•	We successfully implemented the version-detection model using Yjs and WebRTC, which worked reliably in the demo. This was our first use of CRDT in production, and it performed well under real-world scenarios.
+	5.	Strategic Foundation:
+	•	We laid out a clear upgrade path to a more robust client-server model for long-term scalability. This future-proofed the solution beyond just the demo.
+
+
+	🔍 1. Understand the Requirements Thoroughly
+	•	Clarify the user story, design, edge cases, and performance expectations.
+	•	Ask: What does “done” mean? Does it include testing, cross-browser support, accessibility, etc.?
+
+⸻
+
+🧱 2. Break the Task Into Subtasks
+
+For example, a “build login screen” task might break into:
+	•	Layout with responsive design
+	•	Form validation
+	•	API integration for login
+	•	Error handling
+	•	Unit & integration tests
+	•	Mobile/device testing
+	•	Code review & deployment
+
+⸻
+
+⏱ 3. Estimate Each Subtask Individually
+
+Use time blocks (e.g., 1h, 2h, 4h, 1d). Prefer ranges if there’s uncertainty:
+
+e.g., Form validation: 1–2 hours
+
+If you’re unsure, apply:
+	•	T-shirt sizing (S/M/L) first
+	•	Then translate to time once scope is clearer
+
+⸻
+
+🔁 4. Factor in Hidden Costs
+
+Add time buffers for:
+	•	Bug fixing & debugging
+	•	Back-and-forth with designers/product managers
+	•	QA/testing
+	•	Environment setup or API issues
+
+General buffer rule: add 20–30% padding
+
+⸻
+
+🧠 5. Use Historical Data
+
+If similar features have been implemented before:
+	•	Look at past Jira tickets
+	•	Ask teammates what their timing was
+
+⸻
+
+📊 6. Apply an Estimation Technique (optional)
+	•	Planning Poker (team-based)
+	•	Three-point estimation (PERT):
+Expected Time = (Optimistic + 4 × Most Likely + Pessimistic) ÷ 6
+	•	RADIO for larger systems: Requirements, Architecture, Data, Integration, Operations
+
+⸻
+
+✅ 7. Document Assumptions
+
+Clarify dependencies or blockers:
+
+“This estimate assumes the API is ready and stable.”
+
+⸻
