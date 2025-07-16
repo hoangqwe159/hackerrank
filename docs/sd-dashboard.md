@@ -1,4 +1,29 @@
 ## System design JIRA dashboard
+1. [System Design JIRA Dashboard](#system-design-jira-dashboard)
+2. [Requirements](#requirements)
+3. [Non-functional Requirements](#non-functional-requirements)
+4. [Architecture](#architecture)
+   - [SSR vs CSR](#ssr-vs-csr)
+   - [MVC Diagram](#diagram-mvc)
+   - [Components](#components)
+   - [Sample Flows](#list-some-sample-flows)
+   - [Registry Pattern & Third Party](#registry-pattern--handle-third-party)
+5. [Data Model](#data-model)
+   - [State Management](#state-management)
+   - [Data Persistence](#data-to-be-persisted)
+   - [Client Data Model](#client-data-model)
+   - [Data Normalization](#data-normalization)
+6. [Interface (API)](#interface-api)
+   - [HTTP vs WebSocket vs GraphQL](#http-vs-websocket-vs-graphql)
+   - [Pagination](#cursor-or-offset)
+   - [API Versioning](#versioning)
+7. [Optimization](#optimisation)
+   - [Network Optimization](#network)
+   - [JavaScript Optimization](#javascript-optimizations)
+8. [Security Considerations](#security-considerations)
+9. [Accessibility Considerations](#accessibility-considerations)
+10. [CI/CD](#cicd)
+11. [Drag and Drop Implementation](#drag-and-drop-library)
 
 ### Requirements
 - CRUD gadget
@@ -16,13 +41,13 @@
 ### Non-functional requirements
 
 - Demographics (internationalization) and Accessibility: Semantic HTML + ARIA attribute + screen reader + keyboard shortcut + chart
-- Performance: compressing, lazy load, code splitting, batch request, memoization, prefetch
+- Performance: compressing, lazy load, code splitting, batch request, memoization, prefetch, virtualisation
 - Security: XSS, Cross-site request forgery
 - UIX, responsive
 - Scalability:  should be optimized for performance, ensuring it remains efficient and responsive even as the data size or the number of users grows
 - CICD, tooling, testing strategy
 - Observability + Analytics: Ensure logging mechanisms to track system health and performance, keeping in mind the cost implications of log storage. Consider storing logs selectively or aggregating them.
-- Edge cases: drag and drop too quick, conflict
+- Edge cases: drag and drop too quick, conflict, network drops
 
 ### Architecture
 - SSR vs CSR
@@ -203,13 +228,14 @@ CRUD dashboards/:id/gadget/:gadgetId/name
 ## Accessibility Considerations
 - Chart: use SVG picture, put enough description text, give data in a table for screen readers, avoid using dynamic color,  include additional visual indicators like textures, patterns, or borders to convey information
 - Semantic HTML: Use semantic HTML tags to provide meaningful structure and help screen readers interpret the content.
-- Aria Attributes: Apply ARIA (Accessible Rich Internet Applications) attributes to enhance accessibility, especially in dynamic content and complex user interfaces.
+- Aria Attributes: Apply ARIA (Accessible Rich Intern et Applications) attributes to enhance accessibility, especially in dynamic content and complex user interfaces.
 - Keyboard Navigation: Ensure all interactive elements are operable with keyboard-only controls.
 - Maintain high contrast ratios for text and interactive elements to support users with visual impairments.
 - Font size with REM, font family, spacing
 - Alt Text for Images: Provide descriptive alt text for images, so screen readers can convey the information they contain.
 - Responsive Design: Ensure the application is usable on a range of devices and screen sizes.
 - Error Handling: Design clear error messages and provide suggestions for resolution to assist users when they encounter input errors.
+- Drag and drop accessibility
 - Testing: Perform accessibility testing with real users, including those who rely on assistive technologies.
 - Internationalization
     - Set the **`lang`** attribute on the **`html`** tag

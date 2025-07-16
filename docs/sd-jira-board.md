@@ -14,14 +14,14 @@
 
 ### Non-functional requirements
 
-- Demographics (internationalization) and Accessibility: Semantic HTML + ARIA attribute + screen reader + shortcut
-- Performance: TTI, FCP, LCP, fetching
+- Demographics (internationalization) and Accessibility: Semantic HTML + ARIA attribute + screen reader + keyboard shortcut + chart
+- Performance: compressing, lazy load, code splitting, batch request, memoization, prefetch, virtualisation
 - Security: XSS, Cross-site request forgery
 - UIX, responsive
 - Scalability:  should be optimized for performance, ensuring it remains efficient and responsive even as the data size or the number of users grows
 - CICD, tooling, testing strategy
-- Observability + Analytics: Ensure logging mechanisms to track system health and performance, keeping in mind the cost of log storage. Consider storing logs selectively or aggregating them.
-- Edge cases: drag and drop too quick, conflict
+- Observability + Analytics: Ensure logging mechanisms to track system health and performance, keeping in mind the cost implications of log storage. Consider storing logs selectively or aggregating them.
+- Edge cases: drag and drop too quick, conflict, network drops
 
 ### Architecture
 - SSR vs CSR

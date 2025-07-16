@@ -138,3 +138,15 @@ Component driven method +
 microservice architecture
 
 ci cd, b
+
+Design a service like pastebin
+dealing with difficult customer, unanticiapted obstacle
+Can you talk to me on your biggest contribution in a project ?
+I was asked LFU cache problem. (leetcode hard).
+Tell me about a time you disagreed with a team member in your group and how did you overcome this issue?
+What is your greatest weakness
+Asked to find the closest numbers between two lists
+design a media player for a mobile device
+
+describe a time multiple responsibilities were given to you and how did you manage them
+Loop1: LP questions plus leetocode style question Loop2: LP questions plus LLD question(OOP design question) - (25minutes Lps + 15 minutes OOP design question) -Very advantageous if you use proper OOP, design patterns, solid principles and Abstraction to write the best Logical and Maintananable code) Loop3: LP questions plus System design question(HLD round) -(Lps 25 minutes + 30 minutes System design on the bluescape platform) Loop4: LP questions plus leetocode style question (Lps 30 minutes + DSA theory 5minutes + coding part 20 minutes) Loop5: Baraiser round (LPs only for 55 minutes plus 5 minutes for me to ask questions at the end)
