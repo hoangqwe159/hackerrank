@@ -1,42 +1,55 @@
 # Table of Contents
-1. [Learn New Tech](#learn-new-tech)
-2. [Mentor](#mentor)
-3. [Prioritize](#prioritize)
-4. [Lead](#lead)
-5. [Keep Team Motivated](#keep-team-motivated)
-6. [How to Handle Underperformance (Give feedback)](#how-to-handle-underperformance)
-7. [Training](#training)
-8. [Deal with Vague Requirements](#deal-with-vague)
-9. [Collaboration](#collaboration)
-10. [Complex Project](#complex-project)
-11. [Receive Feedback](#receive-feedback)
-12. [Missed Deadline](#missed-deadline)
-13. [Failure](#failure)
-14. [Complex Task](#complex-task)
-15. [Disagree and Commit](#disagree-and-commit)
-16. [Conflict](#conflict)
-17. [Give Feedback](#give-feedback)
-18. [Customer](#customer)
-19. [Bug Handling](#bug)
-20. [Success](#success)
-21. [Process Improvement](#process-improvement)
-22. [Tough Decision](#tough-decision)
-23. [Migration](#migration)
+[Learn New Tech (Tanstack query)](#learn-new-tech)
+[Mentor](#mentor)
+[Prioritize (ToC)](#prioritize)
+[Timely delivery without sacrificing quality (ToC)](#timely-delivery-without-sacrificing-quality)
+[Lead (Migrate from react native)](#lead)
+[Keep Team Motivated (Migrate from react native)](#keep-team-motivated)
+[How to Handle Underperformance (Give feedback, teammate missed deadlines)](#how-to-handle-underperformance)
+[Training (CMS app)](#training)
+[Deal with Vague Requirements (PDF)](#deal-with-vague)
+[Collaboration (PDF)](#collaboration)
+[Complex Project (PDF)](#complex-project)
+[Receive Feedback](#receive-feedback)
+[Missed Deadline (ToC)](#missed-deadline)
+[Earn trust after mistake (ToC)](#earn-trust-after-mistake)
+[Failure (Text overflow)](#failure)
+[Complex Task (Text overflow)](#complex-task)
+[Simplify and Innovation (Text overflow)](#simplify-and-innovation)
+[Disagree and Commit (Font thumbnail)](#disagree-and-commit)
+[Conflict (Froala Editor)](#conflict)
+[Give Feedback (Absurd sql)](#give-feedback)
+[Customer (Absurd sql)](#customer)
+[Bug Handling (Absurd sql)](#bug)
+[Success (Absurd sql)](#success)
+[Process Improvement (Migrate to NX)](#process-improvement)
+[Tough Decision (PDF)](#tough-decision)
+[Migration (Migrate from react native)](#migration)
+[Hard customer (Migrate from react native)](#hard-customer)
+[Requirements changed (PDF)](#requirements-changed)
+[Stay up to date](#stay-up-to-date)
+[Adapt new tech](#adapt-new-tech)
 
 ## Learn new tech
 - Our app was struggling with redundant API calls and messy loading states across pages.
-- I proposed we explore TanStack Query to improve data fetching and caching.
+- I proposed we explore TanStack Query to improve data fetching and caching. Organized team workshop to collectively identify and define the problem, ensuring everyone had input
 - Although I hadn’t used it before, I took ownership of the learning process.
     Started with purpose – I read use cases and real-world success stories to see why teams adopted it and what pain points it solved.
-- Dove into official docs and examples – Instead of skimming, I rebuilt our use case in a small sandbox project with mock APIs.
-- Practiced intentionally – Simulated edge cases like cache invalidation, stale data, and refetch intervals to test its strengths.
-- Presented a proof of concept – Demoed how TanStack Query could cut API calls by ~40% and simplify component logic.
-- Led a pair-programming session – Walked a teammate through setting up query hooks and caching policies.
-- Wrote a reusable abstraction – Created a usePaginatedQuery() hook to make implementation consistent across the app.
+- Formed research group, divided investigation among team members, created shared workspace for findings
+- Simulated edge cases like cache invalidation, stale data, and refetch intervals to test its strengths.
+- After a week of individual research, we held a "Solution Showcase" session where each person presented their findings
+- Rather than just showing features, we built small prototypes addressing our specific use cases
+- The team demonstrated the findings: performance impact, learning curve, bundle size, and alignment with existing patterns
+- Multiple pair-programming sessions, rotational leadership for different features – Walked a teammate through setting up query hooks and caching policies.
+- Instead of implementing alone, I paired with different team members to create our first query hooks
+- We established coding standards together through live coding sessions
+- Created a shared library of custom hooks (usePaginatedQuery, useInfiniteQuery) with input from multiple developers
 - Documented best practices – Summarized learnings in Confluence and added tips to our internal wiki for the whole team.
+
+- The collaborative research process improved team dynamics and created a culture of shared technical decision-making
+- Our documentation and evaluation framework was adopted by two other engineering teams
 - Adoption of TanStack Query led to a noticeable boost in performance and dev productivity.
 - It also reduced bugs around loading and error states by centralizing state logic.
-- More importantly, I helped upskill the team and ensured we could move faster with confidence.
 
 ---
 
@@ -57,15 +70,30 @@
 
 ---
 
-## Priotize
-- In my previous job as Front End Engineer in a startup, I was once in a situation where I had to deliver several important features at very short notice, since different teams were making feature requests at the time.
-- As I recognized that it was not possible for me to achieve all of them with good quality and also in a timely manner. I had to find a way to deconflict their priorities.
-- What I did was to arrange a quick meeting with all relevant product and engineering stakeholders to co-prioritize and assign the appropriate resources to support this project.
-- I listed the features requested from every team and worked with all the relevant stakeholders to identify each feature's contribution to business objectives, while also roughly estimating the engineering effort for each one.
-- This helped us to deprioritize features that had very high engineering effort but little contribution to the objectives.
-- For projects that were not realistically possible to achieve within the timelines, we were able to negotiate for more engineering resources to delegate these feature work to.
-- After that, to ensure my own timelines were met, I broke down my features into smaller tasks and planned them into daily and weekly milestones, reviewing my progress regularly with the team.
-- With this planning effort, I was able to achieve all the required features by the expected timeline.
+## Prioritize
+## Timely delivery without sacrificing quality
+- At Desygner, I was working on a client-facing feature — the Table of Contents, which involved complex text layout across multiple pages.
+- It had to be finished in one sprint for a client demo, so the deadline was fixed and very visible.
+- At the same time, the feature had to be fast, stable, and reliable — no cutting corners.
+
+- My goal was to deliver the feature on time, without compromising the performance, styling accuracy, or cross-page syncing logic.
+- I also needed to ensure that we were all aligned on what exactly needed to be delivered.
+
+- To manage both timeline and quality, I took several steps:
+- I set up a quick meeting with key product and engineering stakeholders to:
+- Verify the core requirements
+- Co-prioritize the must-have vs nice-to-have items
+- Assign the right resources based on expertise and availability
+- I broke the work down into smaller tasks with clear estimates to better track progress and spot delays early.
+- I prioritized the main user flow, saving optional styling polish or rare edge cases for after QA signoff.
+- Set up Storybook components and unit tests early, so I could validate changes quickly and catch bugs fast.
+- Used browser dev tools to monitor performance on large documents and ensure a smooth typing and navigation experience.
+- Whenever I ran into a blocker or time risk, I gave the team a proactive update — not waiting until things slipped.
+
+- I delivered the feature 2–3 days ahead of the deadline, giving QA extra buffer for thorough testing.
+- The client demo went smoothly, and the feature worked well across all required devices.
+- The team appreciated the structured planning and early risk communication.
+- I earned trust from my tech lead and PM, and was later given more ownership over time-sensitive and cross-team projects.
 
 ## Lead
 ## Keep team motivated
@@ -74,12 +102,12 @@
 - Some components were advanced and hard to rewrite, like FlatList, which uses virtualization under the hood in React Native.
 - Requirement Understanding
 - Planning & Task Breakdown
-	•	I decomposed the migration into modules
-	•	Each task was documented with expected input/output, test cases, and fallback plans.
+	- I decomposed the migration into modules
+	- Each task was documented with expected input/output, test cases, and fallback plans.
 - Assigning Tasks
-    •	I distributed tasks based on team members’ strengths — assigning complex architecture decisions to senior devs and UI porting to mid-level engineers.
-    •	For junior devs, I paired them on UI rewrites using the new component library to build familiarity.
-    •	I also acted as the go-to person for blockers and integration issues.
+    - I distributed tasks based on team members’ strengths — assigning complex architecture decisions to senior devs and UI porting to mid-level engineers.
+    - For junior devs, I paired them on UI rewrites using the new component library to build familiarity.
+    - I also acted as the go-to person for blockers and integration issues.
 - In my company, code review is not compulsory — people only open PRs when they don’t feel confident.
 - But during this task, I asked everyone who made UI changes to open a PR, even for small things like styling a button, so I could make sure best practices were followed from the start.
 - The task was very long — all pages and components had to be rewritten. Set clear goals and ensure that everyone understands them. Suggest to collaborate with UIX.
@@ -214,6 +242,7 @@ While I led the frontend integration, I worked closely with:
 
 ## Receive feedback
 ## Missed deadline
+## Earn trust after mistake
 - Early in my role as a developer, I was working on a new feature for a client-facing app.
 - Table of contents
 -  At first, I thought the challenge was mostly visual—drawing linked text boxes and syncing their content—but I underestimated the technical depth, especially when it came to text layout performance and live update behavior.
@@ -233,12 +262,16 @@ While I led the frontend integration, I worked closely with:
     - Giving early warnings if I was falling behind
     - Doing better time estimates by breaking tasks into smaller chunks
     - Asking for feedback and support earlier, especially when facing blockers
-- In the next sprint, I was able to deliver ahead of schedule, and the team lead praised my improvement in planning and communication.
-
+- In the next sprint, I delivered my tasks ahead of schedule and with fewer bugs.
+- I also kept the team updated regularly, so they didn’t have to chase me for progress.
+- My team lead and PM both noticed the change and praised my growth during sprint retro.
+- Over time, they started trusting me with more complex features, and even asked for my input in planning sessions.
+- I learned that trust isn’t just about one success—it’s about showing consistent improvement, being honest, and following through
 ---
 
 ## Failure
 ## Complex task
+## Simplify and innovation
 - Early days at Desygner, one of our biggest clients wanted to migrate their documents from InDesign to our SVG editor.
 - They wanted the exact same editing experience as InDesign, including a tricky feature: Text Overflow.
 - Text Overflow = link text boxes across pages, and let text flow and update live when editing.
@@ -248,9 +281,16 @@ While I led the frontend integration, I worked closely with:
 3.	Overflow Logic – Update text across pages smoothly as you type.
 
 - Team Setup
-- Our system used Backbone.js, but a new dev joined who was good at React, not Backbone.
-- I asked him to build the Page Preview in React in a separate repo, with unit tests and Storybook.
-- It worked well, but the component was large — fixed that with lazy loading.
+- A new developer joined who was great with React, but not familiar with our Backbone.js codebase.
+- I asked the new dev to build the Page Preview UI in React, in a separate repo.
+- I made sure we used Storybook and unit tests, so the component was easy to test and reuse.
+- I noticed the Page Preview was large, so I added lazy loading — now it only loads when needed.
+- This way:
+	- The new dev could be productive quickly without learning Backbone.
+	- We isolated complexity, so the code was easier to maintain.
+    - The Page Preview component was completed 3 days ahead of schedule, thanks to the modular design and focused scope.
+	- The project became a stepping stone for future improvements in developer experience, showing how separating complex features into isolated, testable modules can boost team productivity.
+    - This approach sparked internal discussions on investing in React migration and modern tooling across the platform.
 
 - The Performance Problem
 - Text rendering was super slow — ~800ms to render one A4 text element.
@@ -328,30 +368,37 @@ While I led the frontend integration, I worked closely with:
 ---
 
 ## Conflict
-- Joined company as a new senior engineer
-- First major assignment was developing HTML editor component for CMS platform
-- Manager had pre-selected Froala Editor without prior consultation
-- Project had tight one-month deadline for MVP delivery
-- CEO needed component for customer demo
-- Requirements included cross-platform support (Web, iOS, Android) and specific features like Excel/Word import
-- Evaluate if Froala Editor was the best technical choice for long-term success
-- Assess potential risks and limitations of the pre-selected solution
-- Determine if alternative solutions might better serve project requirements
-- Navigate challenging situation of questioning an existing decision respectfully
-- Conducted comprehensive technical evaluation of Froala Editor
-- Researched alternative solutions, focusing on ProseMirror
-- Created proof of concept implementations in React sandbox
-- Performed detailed analysis including bundle size, load time, and feature gap comparison
-- Documented concerns about Froala: licensing costs, limited community support, security vulnerabilities
-- Prepared technical report comparing options
-- Organized meeting with manager and tech lead to present findings
-- Demonstrated how ProseMirror could match Froala's features through plugins
-- Presented evidence-based argument focusing on stability and long-term benefits
-- Team agreed to pivot to ProseMirror based on technical analysis
-- Successfully implemented editor component as planned
-- Component became one of platform's most powerful and extensible features
-- Built trust with team through evidence-based decision making
+- When I joined the company as a new senior engineer, my first major task was to build a rich text editor for our CMS platform.
+- The manager had already chosen Froala Editor for the project, but I wasn’t asked for input.
+- We had a tight one-month deadline to finish an MVP so the CEO could demo it to customers.
+- The editor needed to support Web, iOS, and Android, and include advanced features like importing from Excel and Word, changes tracking and comment
 
+- My job was to build the editor quickly, but I also wanted to make sure we picked the right tool for the long run.
+- So before jumping in, I wanted to understand why Froala was selected, 
+- and if any other tools might offer better flexibility and scalability.
+
+- I asked my manager about why Froala Editor was chosen. He shared that it had an impressive product page, with features like Word import and change tracking, which sounded perfect at first glance.
+- I agreed those features were important, but I explained that some open-source tools like ProseMirror can also support those features—even though they don’t advertise them upfront.
+- I respectfully asked: “Would you give me a few days to review and compare options before we commit fully?” — and the team agreed.
+
+- I asked my manager about why Froala Editor was chosen. He shared that it had an impressive product page, with features like Word import and change tracking, which sounded perfect at first glance.
+- I agreed those features were important, but I explained that some open-source tools like ProseMirror can also support those features—even though they don’t advertise them upfront.
+- I respectfully asked: “Would you give me a few days to review and compare options before we commit fully?” — and the team agreed.
+- I built a React sandbox to test both Froala and ProseMirror.
+- I used browser dev tools and ran performance benchmarks on common actions:
+- Typing text
+- Inserting images and tables
+- Navigating long documents
+- I measured things like input lag, bundle size, memory usage, and plugin support.
+- I also noted some risks with Froala, like licensing cost, limited community support, and a few open security issues.
+- I put all findings into a clear technical report and set up a meeting with my manager and tech lead.
+- I walked them through the data, and showed how ProseMirror matched or exceeded Froala’s features, with the benefit of being open-source and more extensible.
+
+- The team reviewed the analysis and decided to pivot to ProseMirror.
+- We still finished the MVP on time, and the customer demo went smoothly.
+- The editor later became one of the most powerful and flexible parts of the platform.
+- My team appreciated how I handled the situation: I was respectful, data-driven, and focused on the long-term product quality.
+- It helped me build trust quickly, and I was later asked to advise on other key tech decisions.
 ---
 
 ## Give feedback
@@ -359,12 +406,15 @@ While I led the frontend integration, I worked closely with:
 - Found a security issue with absurd-sql (runs SQLite on top of IndexedDB, stores unencrypted binary).
 - I brought this up with our tech lead and explained that while absurd-sql works well for performance and offline use, it doesn’t meet the security needs of our client.
 - I understood the tech lead’s point of view — binary data is splitted into chunks and hard for human read — but the client wanted to make sure their data was fully secure.
-- 30-minute meeting with the client, they wanted the data to be protected using AES-256 encryption, a strong encryption standard
-    - Ask the maintainer of absurd-sql if they could add encryption support.
+- Joined a 30-minute meeting with the client to understand their expectations. They confirmed that AES-256 encryption was a mandatory requirement.
+- Proposed three clear technical options:
+    - Ask the maintainer of absurd-sql if they could add native encryption support.
     - Fork (copy) the library ourselves and add AES-256 encryption.
     - Look into using a different library that already supports encrypted storage.
+- Opened detailed issues in the absurd-sql GitHub repo to raise community awareness and start a dialogue with maintainers.
+- While awaiting responses, I initiated a prototype of the forked approach, ensuring we had a viable fallback plan.
 - The team acknowledged the security gap and appreciated the proactive communication
-- Began exploring the fork option while openning issues in the open source
+- The client was reassured by our approach and gained their confidence in our ability to meet their compliance standards.
 - The process strengthened our relationship with the client and demonstrated our commitment to meeting their expectations.
 
 ---
@@ -447,44 +497,44 @@ While I led the frontend integration, I worked closely with:
 
 ## Migration
 - Why We Transitioned
-	•	Metro bundler was slow, lacked proper web support, and made debugging difficult.
-	•	NativeBase had performance issues and limited flexibility for responsive design.
-	•	Poor ecosystem for web and desktop development within React Native.
-	•	Hard to onboard new engineers due to non-standard dev flow.
-	•	Needed a stack that supports web-first, responsive, offline-ready, cross-platform apps.
+	- Metro bundler was slow, lacked proper web support, and made debugging difficult.
+	- NativeBase had performance issues and limited flexibility for responsive design.
+	- Poor ecosystem for web and desktop development within React Native.
+	- Hard to onboard new engineers due to non-standard dev flow.
+	- Needed a stack that supports web-first, responsive, offline-ready, cross-platform apps.
 - Requirement Understanding
-	•	Aligned with product/design/backend on:
-	•	Maintaining all existing app features across platforms.
-	•	Improving dev experience and build speed.
-	•	Reusing codebase where possible, rewriting only when necessary.
-	•	Key requirements:
-	•	Offline support, desktop/web parity, and mobile compatibility using Capacitor.
+	- Aligned with product/design/backend on:
+	- Maintaining all existing app features across platforms.
+	- Improving dev experience and build speed.
+	- Reusing codebase where possible, rewriting only when necessary.
+	- Key requirements:
+	- Offline support, desktop/web parity, and mobile compatibility using Capacitor.
 - Planning & Task Breakdown
-	•	I decomposed the migration into modules
-	•	Each task was documented with expected input/output, test cases, and fallback plans.
+	- I decomposed the migration into modules
+	- Each task was documented with expected input/output, test cases, and fallback plans.
 - Assigning Tasks
-    •	I distributed tasks based on team members’ strengths — assigning complex architecture decisions to senior devs and UI porting to mid-level engineers.
-    •	For junior devs, I paired them on UI rewrites using the new component library to build familiarity.
-    •	I also acted as the go-to person for blockers and integration issues.
+    - I distributed tasks based on team members’ strengths — assigning complex architecture decisions to senior devs and UI porting to mid-level engineers.
+    - For junior devs, I paired them on UI rewrites using the new component library to build familiarity.
+    - I also acted as the go-to person for blockers and integration issues.
 - Setup & Standards
-	•	Switched to Vite for fast HMR and builds.
-	•	Introduced monorepo structure and shared design system with Tailwind.
-	•	Setup:
-	•	ESLint + Prettier + Husky + pre commit hooks for code quality and consistent formatting
-	•	Storybook for components
+	- Switched to Vite for fast HMR and builds.
+	- Introduced monorepo structure and shared design system with Tailwind.
+	- Setup:
+	- ESLint + Prettier + Husky + pre commit hooks for code quality and consistent formatting
+	- Storybook for components
 - Development & Support
-	•	We held weekly check-ins and async daily updates.
-	•	I reviewed all PRs related to core architecture 
-	•	Introduced Storybook for isolated UI testing and component documentation.
+	- We held weekly check-ins and async daily updates.
+	- I reviewed all PRs related to core architecture 
+	- Introduced Storybook for isolated UI testing and component documentation.
 - Quality Assurance
-	•	Used Vitest + Playwright for unit and e2e testing.
-	•	Snapshot tests for visual regressions.
-	•	QA team involved early with preview deployments 
+	- Used Vitest + Playwright for unit and e2e testing.
+	- Snapshot tests for visual regressions.
+	- QA team involved early with preview deployments 
 - Deployment & Monitoring
 - Retrospective & Improvements
-	•	Post-migration, we saw a 60% improvement in dev build speed, a 40% decrease in bug reports, and onboarded two engineers in under a week.
-	•	In the retrospective, we decided to invest more in automated visual regression testing and gradually expand our design system coverage.
-	•	This transition significantly improved both developer and end-user experience, aligning our frontend tech with modern, maintainable, and performant practices.
+	- Post-migration, we saw a 60% improvement in dev build speed, a 40% decrease in bug reports, and onboarded two engineers in under a week.
+	- In the retrospective, we decided to invest more in automated visual regression testing and gradually expand our design system coverage.
+	- This transition significantly improved both developer and end-user experience, aligning our frontend tech with modern, maintainable, and performant practices.
 
 # Hard customer
 Recently, our frontend team completed a major migration from a custom UI library to MUI. The goal was to align with modern design standards, improve accessibility, and speed up development with a more maintainable component system.
@@ -509,18 +559,37 @@ Conclusion:
 Migrating a UI system always causes friction, especially with legacy users. As a senior engineer, it’s not just about writing better code—it’s also about calming chaos, managing expectations, and building trust through structured process and empathy.
 
 ✅ Outcome:
-	•	The customer calmed down and became more collaborative.
-	•	Team velocity recovered, and we avoided shipping panic fixes.
-	•	The overall frontend codebase became more stable and testable post-migration.
+	- The customer calmed down and became more collaborative.
+	- Team velocity recovered, and we avoided shipping panic fixes.
+	- The overall frontend codebase became more stable and testable post-migration.
 
 ⸻
 
-# “Tell me about a time when requirements changed. How did you handle it?”
+# Insist on standard
+	•	A junior developer on my team was working on porting UI components from NativeBase to MUI as part of our design system migration.
+	•	I was responsible for doing a code review on their pull request.
+	•	While the components were visually correct, I noticed they used a lot of hardcoded values — colors, spacing, font sizes — instead of using our theme tokens.
 
-⸻
+	•	My goal as a senior developer was to ensure our components followed consistent theming, so they would remain scalable, accessible, and maintainable.
+	•	I also saw this as a chance to coach the junior dev and help improve our team’s overall code quality standards.
 
-💬 Answer:
+	•	In the code review, I provided specific feedback on where tokens should be used instead of hardcoded values — explaining the “why” behind theming consistency (e.g., dark mode support, design system alignment).
+	•	I also paired 1:1 with the junior dev to walk through a few components and showed how to replace raw values with tokens from our MUI theme configuration.
+	•	I realized this wasn’t a one-off issue, so I took the initiative to create a team-wide “UI Theming Best Practices” guide, with:
+	•	Examples of good vs bad usage
+	•	How to use theme.spacing() and theme.palette
+	•	Auto-suggestions using our VSCode snippets and lint rules
+	•	I also proposed a linting rule update to flag hardcoded values in styled components across the codebase.
+	•	Finally, I shared the guide in our engineering Slack channel and presented it in our next frontend guild meeting, so other teams could also adopt it.
 
+	•	The junior dev appreciated the feedback and said it helped them understand the bigger picture of design systems.
+	•	The updated components became fully token-based, and we avoided future styling regressions during dark mode testing.
+	•	Other teams adopted the same theming guide, and the lint rule helped catch dozens of violations in upcoming reviews.
+	•	My manager gave positive feedback for improving team standards and scaling the solution across the org.
+	•	This experience helped raise the overall code quality bar and fostered a culture of thoughtful, scalable UI development.
+
+
+# Requirements changed
 S (Situation):
 I was leading the frontend side of a complex feature for a PDF collaboration tool. The original goal was to support real-time multi-user editing, with offline support and manual conflict resolution.
 
@@ -540,10 +609,10 @@ A (Action):
 I reassessed our options and proposed a change: for Phase 1, we’d use peer-to-peer communication via WebRTC to sync changes directly between browsers using Yjs (a CRDT library).
 
 To validate the idea, I:
-	•	Built a proof-of-concept using WebRTC + Yjs to ensure it met the client’s expectations.
-	•	Held a short technical workshop with the backend team to ensure we could safely migrate to client-server in Phase 2.
-	•	Documented the architecture clearly, including known limitations and upgrade paths.
-	•	Worked closely with the QA and Design teams to ensure the UI properly reflected sync states like “editing live,” “offline,” or “conflict detected.”
+	- Built a proof-of-concept using WebRTC + Yjs to ensure it met the client’s expectations.
+	- Held a short technical workshop with the backend team to ensure we could safely migrate to client-server in Phase 2.
+	- Documented the architecture clearly, including known limitations and upgrade paths.
+	- Worked closely with the QA and Design teams to ensure the UI properly reflected sync states like “editing live,” “offline,” or “conflict detected.”
 
 ⸻
 
@@ -553,17 +622,130 @@ Even better, we laid a clear path for the client-server model afterward without 
 
 This experience reinforced the importance of adapting without overcompromising. I stayed focused on user needs, clarified priorities with leadership, and found a way to ship value fast without sacrificing long-term quality.
 
-# How do you stay up to date on the latest front end technologies and techniques?
+# Stay up to date
 I have been working at a big tech company for the past two years now and the company uses a mix of external and internal technologies for our front end stack. Because we have a huge code base and established practice of doing things, we tend to not upgrade libraries that often and change our technology choices. It was only after a year into the job that I realized that I have been too comfortable in my role since I have fully ramped up on the code base and haven't learnt anything new for the past year. It was then that I decided that I have to be proactive in my learning in order to keep my skills sharp and relevant.
 
 The Front End ecosystem moves really fast and there's a joke that there's a new JavaScript library emerging every day. Thankfully the ecosystem is more stable compared to 2015/2016 when a new wave of front end tooling first emerged. To keep myself updated without suffering from JavaScript fatigue, I spend a weekend every month going through front end newsletters like "This Week in React" and "JavaScript Weekly" and reading engineering blogs. If I see something interesting or is relevant to my job, I will dive deeper into them by trying out small examples and building small prototypes in my company's code base. For example, I recently discovered React Query, which is a data fetching library for React that uses a declarative paradigm for fetching data and am trying to incorporate it into my work. I also recently discovered tRPC, a library that enforces type safety between client and server boundaries, which is an issue that has caused some bugs for us.
 
 To make this learning process more fun and collaborative, I started a front end social club within my company by creating a new Slack channel and inviting a few like-minded coworkers to join. Anyone can share front end news they find interesting there and discuss front end technologies. It has been pretty well-received, with over 30 people currently in the channel and activity nearly everyday. A side effect of this initiative is that people also start asking questions about front end issues they are facing at work, and we created another Slack channel for people to get help on front end issues. Feedback has been really positive so far!
 
-# Can you provide an example of a time when you had to adapt to a new technical environment or framework?
+#  Adapt new tech
 When I joined my first company, I was fresh out of college and had no experience with the front end stack that the company was using, which used React, Apollo, Styled Components, TypeScript for their front end stack and a Django + GraphQL back end. Back in college, I was mainly using Vue.js for front end development as it was the JavaScript framework of choice taught in the web development class and haven't used GraphQL before.
 
 It was definitely a huge learning curve for me at the start and I was really afraid of underperforming due to my unfamiliarity with the tech stack. Thankfully I had a mentor who gave me a lot of guidance on the tech stack and came up with a number of onboarding tasks which were progressively harder. I first spent a few days reading the documentation websites of the technologies and trying out the examples on their websites. I made it a point to understand the problems that these libraries were solving and how they were better than prior art because I think knowing that is important for fully appreciating the library and using the right tool for the right job. I also looked up some resources that compared Vue.js to React, as they were quite similar yet had some differences. That helped me to learn React faster (fully grasping React hooks still took me some time though). When I had time at nights or on weekends, I'd explore building small projects using these new technologies and also rebuild my personal blog using Gatsby because it used both React and GraphQL.
 
 Within two months, I felt like I had learnt so much and was comfortable with most of the code base. I could build full stack features without much guidance from my mentor. To help future new employees who might face the same onboarding challenge, I jotted down my learnings in our internal wiki along with links to the best resources for learning the topic. My manager appreciated the initiative and commended me for that. Today, it is part of our official engineering onboarding resource and I update it every once in a while. A few new joiners have also thanked me for sharing my knowledge in the wiki and making their onboarding process smoother.
 
+
+1. Customer Obsession
+	- Tell me about a time you went above and beyond for a customer. v
+	- Describe a time when you had to balance customer needs with technical limitations. v
+
+2. Ownership
+	- Tell me about a time you owned a project end-to-end. v
+	- Have you ever taken responsibility for a problem that wasn’t technically yours? v
+
+3. Invent and Simplify
+	- Tell me about a time you simplified a complex system. v
+	- Describe an innovation you introduced in your team. v
+
+4. Are Right, A Lot
+	- Describe a decision you made based on your judgment and data that turned out well. v
+	- Tell me about a time you made a mistake and how you corrected it. v
+
+5. Learn and Be Curious
+	- How do you stay updated with new technologies? v
+	- Tell me about a time you learned a new tool or framework on the job. v
+
+6. Hire and Develop the Best
+	- Have you ever mentored someone? How did it go? v
+	- Describe a time you helped a peer grow professionally. v
+
+7. Insist on the Highest Standards
+	- Tell me about a time you weren’t satisfied with the quality of a project.
+	- Describe a time when you pushed back on something that didn’t meet your standards.
+
+8. Think Big
+	- Describe a time when you proposed a bold or large-scale idea. v
+	- Have you ever challenged the status quo at work? v
+
+9. Bias for Action
+	- Tell me about a time you made a quick decision under pressure.
+	- Describe an instance when you took initiative without being asked. v
+
+10. Frugality
+	- Have you ever had to do more with less?
+	- Tell me about a time you built a solution with limited resources. v
+
+11. Earn Trust
+	- How do you build trust with team members? v
+	- Tell me about a time you had to rebuild trust after a mistake. v
+
+12. Dive Deep
+	- Describe a time when you found the root cause of a difficult bug. v
+	- Tell me about a situation where you had to dig into data to solve a problem. v
+
+13. Have Backbone; Disagree and Commit
+	- Tell me about a time you disagreed with your manager or team and how you handled it. v
+
+14. Deliver Results
+	- Give an example of a time when you worked under a tight deadline. v
+	- How do you ensure timely delivery without sacrificing quality? v
+
+⸻
+
+Based on your interview feedback, you're technically strong but need to demonstrate more senior-level collaboration and broader impact. Here are specific improvements based on your experiences:
+Collaboration Improvements
+Current State: You tend to work independently and solve problems solo
+Senior Expectation: Drive collaborative solutions and enable others
+Specific Actions:
+
+Include stakeholders in problem-solving: When you discovered the TanStack Query solution, instead of just presenting the final POC, involve team members in the research phase. Create working groups to evaluate solutions together.
+Facilitate cross-team alignment: In your PDF collaboration project, emphasize how you coordinated between Backend, QA, and Design teams, not just the technical decisions.
+Create shared ownership: When migrating from React Native, show how you distributed knowledge and made the team collectively responsible for success.
+
+Impact Beyond Your Code
+Current State: Focus on technical execution and personal contributions
+Senior Expectation: Drive organizational improvements and influence beyond your immediate team
+Reframe Your Stories:
+
+Mentoring Impact: Don't just mention Harry got a job at Westpac - emphasize how your mentoring approach became a template for onboarding other developers
+Process Innovation: Your NX monorepo migration should highlight how it improved hiring, reduced onboarding time across teams, and influenced other projects
+Knowledge Sharing: Your Confluence documentation and internal wiki contributions show scalable impact - emphasize adoption rates and feedback from other teams
+
+Leadership Without Authority
+Current State: You solve problems when assigned
+Senior Expectation: Identify and drive solutions proactively across teams
+Demonstration Examples:
+
+Proactive Problem Identification: When you noticed the font preview performance issue, show how you influenced product roadmap decisions 3 months later
+Cross-team Influence: Your security concerns with absurd-sql should emphasize how you influenced both client relationships and internal security practices
+Strategic Technical Decisions: The WebRTC vs client-server decision shows strategic thinking - emphasize how you balanced business needs with technical debt
+
+Communication & Stakeholder Management
+Current State: Good technical communication
+Senior Expectation: Translate technical complexity for diverse audiences and drive consensus
+Specific Examples:
+
+Client Management: Your late-night call with the US client shows great dedication, but emphasize how you managed expectations and built trust
+Executive Communication: When presenting architecture options to the CEO, show how you provided clear trade-offs and business implications
+Team Communication: Your handling of the MUI migration customer complaints demonstrates senior-level crisis management
+
+Systemic Thinking
+Current State: Focus on immediate technical solutions
+Senior Expectation: Consider long-term architectural and organizational implications
+Reframe Your Approach:
+
+Technical Strategy: Your component library and design system work shows architectural thinking - emphasize how it influenced company-wide standards
+Process Improvement: The retrospective improvements you mention should show how you drive continuous improvement culture
+Risk Management: Your phased approach to PDF collaboration shows strategic risk mitigation
+
+Action Items for Future Interviews
+
+Lead with Impact: Start stories with business/team outcomes, then explain technical details
+Show Initiative: Emphasize times you identified problems before they were assigned to you
+Demonstrate Influence: Show how your technical decisions influenced other teams or became company standards
+Highlight Mentoring Scale: Show how your mentoring approach was adopted by others or improved team practices
+Connect Technical to Business: Always tie technical decisions to business value and stakeholder outcomes
+
+The key is shifting from "I solved this problem" to "I drove this outcome that benefited the organization and enabled others to succeed." Your technical skills are clearly strong - now you need to show the leadership impact that distinguishes senior engineers.
