@@ -1,6 +1,7 @@
 # Table of Contents
 [Learn New Tech (Tanstack query)](#learn-new-tech)
 [Mentor](#mentor)
+[Beyond responsibility](#beyond-responsibility)
 [Prioritize (ToC)](#prioritize)
 [Timely delivery without sacrificing quality (ToC)](#timely-delivery-without-sacrificing-quality)
 [Lead (Migrate from react native)](#lead)
@@ -27,8 +28,10 @@
 [Migration (Migrate from react native)](#migration)
 [Hard customer (Migrate from react native)](#hard-customer)
 [Requirements changed (PDF)](#requirements-changed)
+[Tight deadlines (PDF)](#tight-deadlines)
 [Stay up to date](#stay-up-to-date)
 [Adapt new tech](#adapt-new-tech)
+[Learn thing deeper](#learn-thing-deeper)
 
 ## Learn new tech
 - Our app was struggling with redundant API calls and messy loading states across pages.
@@ -54,8 +57,11 @@
 ---
 
 ## Mentor
-- first joined, earn trust before offering guidance
-- how how dev tools work, stay late to finish critical tickets, took ownership of features from end to end
+## Beyond responsibility
+- first joined, Recognized junior dev needed guidance to be productive, but mentoring wasn't my assigned responsibility, earn trust before offering guidance
+- Goal: Help Harry succeed while maintaining my own delivery commitments
+- Wanted to build sustainable knowledge-sharing culture for future team members
+- small talk, how dev tools work, stay late to finish critical tickets, took ownership of features from end to end
 - sharing my learning style: my side projects, micro learning from social media
 - Harry actively reads tech blog and share stuff to me
 - find chance to make learning more interesting:
@@ -590,10 +596,11 @@ Migrating a UI system always causes friction, especially with legacy users. As a
 
 
 # Requirements changed
+# Tight deadlines
 S (Situation):
 I was leading the frontend side of a complex feature for a PDF collaboration tool. The original goal was to support real-time multi-user editing, with offline support and manual conflict resolution.
 
-I had researched multiple collaboration models — from floor control to versioning — and after discussion with the client, we aligned on using a version-detection model (like Google Docs) and a robust client-server architecture for syncing.
+I had researched multiple collaboration models — from floor control to versioning — and after discussion with the client, we aligned on using a version-detection model (like Google Docs) and a robust client-server architecture for syncing. This approach offered a centralized source of truth, persistent document states, and ensured robustness for joining and crashing clients.
 
 ⸻
 
@@ -601,17 +608,22 @@ T (Task):
 I was ready to begin implementation with the backend team when our CEO introduced a new requirement:
 We needed a working demo in three weeks for a major conference in the U.S.
 The client-server model required significant backend engineering — and we simply didn’t have the time or capacity.
-The new constraint: deliver the same real-time collaboration behavior, but faster.
+The new constraint: deliver the same real-time collaboration behavior, but deliver it fast.
 
 ⸻
 
 A (Action):
 I reassessed our options and proposed a change: for Phase 1, we’d use peer-to-peer communication via WebRTC to sync changes directly between browsers using Yjs (a CRDT library).
 
+This decision meant sacrificing the centralized source of truth, persistent database storage, and a cleaner onboarding path for new participants. But it allowed us to:
+	•	Avoid backend bottlenecks by having browsers sync state directly.
+	•	Lower infrastructure cost during the demo phase.
+	•	Accelerate delivery without blocking on server-side engineering.
+
 To validate the idea, I:
 	- Built a proof-of-concept using WebRTC + Yjs to ensure it met the client’s expectations.
 	- Held a short technical workshop with the backend team to ensure we could safely migrate to client-server in Phase 2.
-	- Documented the architecture clearly, including known limitations and upgrade paths.
+	- Documented the architecture and trade-offs transparently, especially around known weaknesses: synchronization issues, lack of a consistent source of truth, and inability to persist changes centrally.
 	- Worked closely with the QA and Design teams to ensure the UI properly reflected sync states like “editing live,” “offline,” or “conflict detected.”
 
 ⸻
@@ -635,6 +647,44 @@ When I joined my first company, I was fresh out of college and had no experience
 It was definitely a huge learning curve for me at the start and I was really afraid of underperforming due to my unfamiliarity with the tech stack. Thankfully I had a mentor who gave me a lot of guidance on the tech stack and came up with a number of onboarding tasks which were progressively harder. I first spent a few days reading the documentation websites of the technologies and trying out the examples on their websites. I made it a point to understand the problems that these libraries were solving and how they were better than prior art because I think knowing that is important for fully appreciating the library and using the right tool for the right job. I also looked up some resources that compared Vue.js to React, as they were quite similar yet had some differences. That helped me to learn React faster (fully grasping React hooks still took me some time though). When I had time at nights or on weekends, I'd explore building small projects using these new technologies and also rebuild my personal blog using Gatsby because it used both React and GraphQL.
 
 Within two months, I felt like I had learnt so much and was comfortable with most of the code base. I could build full stack features without much guidance from my mentor. To help future new employees who might face the same onboarding challenge, I jotted down my learnings in our internal wiki along with links to the best resources for learning the topic. My manager appreciated the initiative and commended me for that. Today, it is part of our official engineering onboarding resource and I update it every once in a while. A few new joiners have also thanked me for sharing my knowledge in the wiki and making their onboarding process smoother.
+
+# Learn thing deeper
+S – Situation
+	•	I was leading frontend development for a real-time collaboration feature in a PDF editing tool.
+	•	The feature required multi-user editing, offline support, and manual conflict resolution.
+	•	I realized that building this correctly would require a solid understanding of conflict resolution in distributed systems—something I didn’t yet fully grasp, especially around CRDTs.
+
+⸻
+
+T – Task
+	•	I needed to upskill quickly and also bring the team along, so we could:
+	•	Choose the right architecture (e.g. CRDTs, OT, versioning)
+	•	Ship a working demo fast
+	•	Set a strong foundation for long-term maintainability
+
+⸻
+
+A – Action
+	•	I committed to deepening my knowledge and sharing it with the team:
+	•	Spent evenings reading CRDT research papers, Yjs internals, and examples from similar tools like Figma and Google Docs.
+	•	Built small prototypes using Yjs to simulate document syncing across tabs and offline re-sync scenarios.
+	•	Once I was confident in the basics, I:
+	•	Wrote clear internal documentation: what CRDTs are, how Yjs works, pros/cons vs alternatives like OT.
+	•	Held a workshop with the team to break it all down simply and collaboratively.
+	•	Asked the team:
+➤ “Given what we now understand about Yjs, what cool things can we build with it?”
+➤ This led to valuable discussion, like implementing cursor presence, undo history, and awareness indicators.
+	•	Worked closely with backend engineers to ensure the eventual migration to client-server sync would be smooth.
+
+⸻
+
+R – Result
+	•	I transformed a complex concept into something the whole team could understand and act on.
+	•	We shipped a fully working P2P live collaboration demo in just 3 weeks, which helped secure a major client contract.
+	•	The documentation and workshop empowered other devs to contribute confidently and extend the feature further.
+	•	This experience reminded me that subject expertise isn’t just about knowing more—it’s about bringing others with you.
+
+⸻
 
 
 
