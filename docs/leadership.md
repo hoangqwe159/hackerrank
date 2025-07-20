@@ -637,6 +637,8 @@ It was definitely a huge learning curve for me at the start and I was really afr
 Within two months, I felt like I had learnt so much and was comfortable with most of the code base. I could build full stack features without much guidance from my mentor. To help future new employees who might face the same onboarding challenge, I jotted down my learnings in our internal wiki along with links to the best resources for learning the topic. My manager appreciated the initiative and commended me for that. Today, it is part of our official engineering onboarding resource and I update it every once in a while. A few new joiners have also thanked me for sharing my knowledge in the wiki and making their onboarding process smoother.
 
 
+
+
 1. Customer Obsession
 	- Tell me about a time you went above and beyond for a customer. v
 	- Describe a time when you had to balance customer needs with technical limitations. v
@@ -692,6 +694,12 @@ Within two months, I felt like I had learnt so much and was comfortable with mos
 	- Give an example of a time when you worked under a tight deadline. v
 	- How do you ensure timely delivery without sacrificing quality? v
 
+You were working on a project with a 15-day deadline, but after some time, you realized that the tasks would actually take 2-3 months to complete. How would you handle this situation?
+Tell me a time where you did something without telling your manager. What was that? Why didn't you tell?
+Tell me a time where you have taken out of your responsibility.
+Tell me a time where you worked on tight deadlines.
+
+Segment Tree
 ⸻
 
 Based on your interview feedback, you're technically strong but need to demonstrate more senior-level collaboration and broader impact. Here are specific improvements based on your experiences:
@@ -749,3 +757,72 @@ Highlight Mentoring Scale: Show how your mentoring approach was adopted by other
 Connect Technical to Business: Always tie technical decisions to business value and stakeholder outcomes
 
 The key is shifting from "I solved this problem" to "I drove this outcome that benefited the organization and enabled others to succeed." Your technical skills are clearly strong - now you need to show the leadership impact that distinguishes senior engineers.
+
+Amazon Interview Experience:-
+
+Round 1(Coding Data Structures):-
+
+LP Questions:-
+
+Tell me about time when u took something significant out of area of responsibility and why did yout take that task and what is the ooutcome.
+Can you describe a time when u realise u needed a deeper level of subject level expertise and what did u do for that.
+Coding problems:-
+
+1.You have balloons arranged in a line, each with a number written on it.
+When you shoot a balloon, your score is calculated as (shooting_order × balloon_value).
+For example, if you shoot a balloon with value 5 as your 3rd shot, you get 3 × 5 = 15 points.
+Given an array of balloon values, find the maximum possible total score you can achieve by shooting all balloons.
+
+2.Design a system to allocate and free server IDs from a fixed pool of servers with IDs from 1 to N.
+
+allocate() → Return the smallest available ID that hasn't been allocated yet. If no ID is available, return -1.
+
+free(id) → Mark a previously allocated ID as available again.
+
+Round 2(Coding Problem Solving):-
+
+LP Questions:-
+
+Tell me about a time when you were trying to understand a complex problem on your team and you had to dig into the details to figure it out.
+Who did you talk with or where did you have to look to find the most valuable information? How did you use that information to help solve the problem?
+
+Give me an example of a time when you were able to deliver an important project under a tight deadline. What sacrifices did you have to make to meet the deadline?
+How did they impact the final deliverable? What was the final outcome?
+
+
+Time when you went above and beyond your job responsibilities.
+Tell me about a time you had multiple solutions and you had to select an optimal one.
+
+Coding Questions:-
+
+num1 = [1, 2, 7]
+num2 = [3, 14, 26]
+
+you have to create a new array that will contain in sorted fashion.
+
+Talked about both scenarios if input arrays are sorted or unsorted.
+
+2.Input: orders = [[10,5,0],[15,2,1],[25,1,1],[30,4,0]]
+Output: 6
+
+type=
+0 -> buy
+1 -> sell
+
+[price, qty, type]
+
+how many orders you will not able to process.
+
+[[7,1000000000,1],[15,3,0],[5,999999995,0],[5,1,1]]
+
+Even solving all the question efficently in optimised way before time got a call from recutiur saying that its NO in both rounds.
+
+This round went well. I managed to draw the HLD completed the following:
+
+Functional Requirements
+Non Functional Requirements
+DB Schema
+Services
+I was also questioned on choice of DB, Design and multiple failure scenarios which I was able to answer.\
+
+It was related to finding triplets in 2nd array given some index condtion in first array.
