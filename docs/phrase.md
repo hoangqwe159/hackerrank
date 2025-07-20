@@ -1,3 +1,19 @@
+# Table of Contents
+
+1. [Project Execution & Driving Outcomes](#project-execution--driving-outcomes)
+2. [Learning from Experience](#learning-from-experience)
+3. [Team Collaboration](#team-collaboration)
+4. [Using Data or Logic to Influence](#using-data-or-logic-to-influence)
+5. [Leadership Without Title](#leadership-without-title)
+6. [Customer Obsession](#customer-obsession)
+7. [Feedback (Giving & Receiving)](#feedback-giving--receiving)
+8. [Making Trade-offs & Course Correction](#making-trade-offs--course-correction)
+9. [Impact-Driven Phrases](#impact-driven-phrases-simple-effective)
+10. [Leading](#leading)
+11. [Interview Questions](#question)
+12. [Metrics & Indicators](#metrics--indicators)
+13. [Task Estimation Guide](#task-estimation-guide)
+
 ## Project Execution & Driving Outcomes
 - I made sure the goals were clear before writing a single line of code.
 - I planned the work in small steps so we could stay on track and adjust quickly.
@@ -128,7 +144,7 @@
 7.	“Are there any key traits or working styles that stand out in successful frontend engineers at Atlassian?”
 8.	“What do you think distinguishes the frontend culture at Atlassian from other companies?”
 
-Metrics & Indicators:
+## Metrics & Indicators:
 	1.	Business Impact:
 	•	The collaboration feature played a key role in helping the client sign the company’s largest contract to date. That’s a very clear ROI and validates the value of the feature.
 	2.	Timeline:
@@ -146,7 +162,7 @@ Metrics & Indicators:
 	•	Ask: What does “done” mean? Does it include testing, cross-browser support, accessibility, etc.?
 
 ⸻
-
+## Task Estimation Guide
 🧱 2. Break the Task Into Subtasks
 
 For example, a “build login screen” task might break into:

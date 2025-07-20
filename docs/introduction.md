@@ -17,7 +17,13 @@ I’ve been working in start-up since day one, and it's been an incredible learn
 
 ---
 
-I’ve been using Atlassian products like Jira and Confluence for a long time, and I know how much they shape the way teams work and collaborate—I've relied on them daily. The idea of being part of the team that builds these tools, tools I genuinely respect and depend on, is incredibly motivating. On top of that, I really admire Atlassian’s culture—especially the focus on openness, collaboration, and continuous improvement. That kind of environment aligns perfectly with how I want to grow in my career. I’m excited about the chance to learn from a talented team, contribute to products that help millions of users, and keep pushing myself technically and professionally
+I want to join Amazon because of the product, the people, and the culture.
+
+First, the products are on a massive scale and used by millions around the world. I’m excited about the idea of working on real-world challenges that make a big impact. I want to build things that are fast, reliable, and help customers every day.
+
+Second, it’s the people. I have a friend who works at AWS in Sydney—he’s someone I really admire. Back in university, he helped me not only with study but also gave me advice on how to grow my career. Seeing how much he’s learned and grown at Amazon made me realize: I want to work with people like that—smart, driven, and always improving.
+
+Finally, the culture. I respect how Amazon focuses on ownership, customer obsession, and long-term thinking. I’ve read about the Leadership Principles, and I see how they guide decision-making and teamwork. That kind of environment aligns perfectly with how I want to grow in my career. I’m excited about the chance to learn from a talented team, contribute to products that help millions of users, and keep pushing myself technically and professionally
 
 ---
 
