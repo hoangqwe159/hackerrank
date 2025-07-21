@@ -138,6 +138,13 @@
 5.	“What would success look like in the first 3–6 months for someone in this role?”
 6.	“Is there a specific tech stack or architecture that I should familiarize myself with to be most effective here?”
 
+How does the team define and measure success for the products you build?
+
+How do engineers typically collaborate across teams or orgs at Amazon?
+
+How does mentorship work here, both for giving and receiving?
+
+What does career growth look like for an SDE II in your team?
 ⸻
 
 🌱 To demonstrate growth mindset and team fit
