@@ -62,8 +62,126 @@
 // Grid cells are connected horizontally/vertically (not diagonally). The grid is completely surrounded by water, and there is exactly one island (i.e., one or more connected land cells).
 
 // The island doesn't have "lakes", meaning the water inside isn't connected to the water around the island. One cell is a square with side length 1. The grid is rectangular, width and height don't exceed 100. Determine the perimeter of the island.
+var numIslands = function(grid) {
+    let result = 0
 
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if (grid[i][j] === "1") {
+                result += 1
+                visit(i, j)
+            }
+        }
+    }
+
+    return result
+
+    function visit(i, j) {
+        if (i < 0 || j < 0 || i >= grid.length || j >= grid[i].length) {
+            return
+        }
+
+        if (grid[i][j] === "0") {
+            return
+        }
+
+        grid[i][j] = "0"
+
+        visit(i + 1, j)
+        visit(i - 1, j)
+        visit(i, j + 1)
+        visit(i, j - 1)
+    }
+
+};
  
+let area = 0;
+const visitIsland = function (grid, i, j) {
+  if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length) {
+    return;
+  }
+
+  if (grid[i][j] === 0) {
+    return;
+  }
+
+  if (grid[i][j] === 1) {
+    grid[i][j] = 0;
+    area += 1;
+
+    visitIsland(grid, i + 1, j);
+    visitIsland(grid, i - 1, j);
+    visitIsland(grid, i, j + 1);
+    visitIsland(grid, i, j - 1);
+  }
+};
+
+const maxAreaOfIsland = function (grid) {
+  let result = 0;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === 1) {
+        area = 0;
+        visitIsland(grid, i, j);
+
+        if (area > result) result = area;
+      }
+    }
+  }
+
+  return result;
+};
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+let result = 0;
+const islandPerimeter = function(grid) {
+  result = 0;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+      if (grid[i][j] === 1) {
+        visitIsland(grid, i, j);
+      }
+    }
+  }
+
+  return result;
+};
+
+const visitIsland = function (grid, i, j) {
+  if (i < 0||j<0||i>=grid.length||j>=grid[0].length) {
+    return;
+  }
+
+  if (grid[i][j] === 0) {
+    return;
+  }
+
+  if (grid[i][j] === 1) {
+    
+    result += countSurrounded(grid, i, j);
+    
+    grid[i][j] = 2;
+
+    visitIsland(grid, i-1, j);
+    visitIsland(grid, i+1, j);
+    visitIsland(grid, i, j-1);
+    visitIsland(grid, i, j+1);
+  }
+}
+
+const countSurrounded = function (grid, i, j) {
+  let count = 4;
+  if (grid[i+1] && grid[i+1][j] > 0) count -= 1;
+  if (grid[i-1] && grid[i-1][j] > 0) count -= 1;
+  if (grid[i][j+1] > 0) count -= 1;
+  if (grid[i][j-1] > 0) count -= 1;
+
+  console.log(count);
+  return count;
+}
 
 // Example 1:
 
